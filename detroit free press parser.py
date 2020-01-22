@@ -27,19 +27,22 @@ class FreepScraper:
 	def getArticleBody(self):
 		return self.articleBody
 
+	def printArticleBody(self):
+		for body in self.articleBody:
+			print(body + "\n")
+
 	def scrape(self):
-		page = requests.get(self.articleURL)
-		soup_page = soup(page.content, 'html.parser')
+		self.page = requests.get(self.articleURL)
+		soup_page = soup(self.page.content, 'html.parser')
 
 		self.articleTitle = soup_page.find_all(class_="util-bar-share-summary-title")[0].get_text()
 
-		self.articleBody = soup_page.find_all(class_="p-text")
+		body = soup_page.find_all(class_="p-text")
 
-		for body in self.articleBody:
-			print(body.get_text())
-			print("\n")
+		for paragraph in body:
+			self.articleBody.append(paragraph.get_text())
 
-	def getScraped(self):
+	def getScrapedRaw(self):
 		return soup(self.page.content, 'html.parser')
 
 
@@ -47,15 +50,8 @@ test = FreepScraper("https://www.freep.com/story/news/local/michigan/" +
 	"detroit/2019/12/05/detroit-bulk-storage-revere-copper-detroit-river-uranium/2618868001/")
 
 test.scrape()
-# print(test.getScraped())
-
-# page = requests.get("https://www.freep.com/story/news/local/michigan/" + 
-# 	"detroit/2019/12/05/detroit-bulk-storage-revere-copper-detroit-river-uranium/2618868001/")
-
-# soup_page = soup(page.content, 'html.parser')
-
-# print(soup_page.prettify()) 
-
+print(test.getArticleTitle() + "\n\n")
+test.printArticleBody()
 
 
 
