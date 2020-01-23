@@ -11,21 +11,28 @@ class FreepCrawler():
 
 		for key in keywords:
 			self.keywords.append(key)
-			self.baseURLs.append("https://www.freep.com/search/" + key + ".com")
+			self.baseURLs.append("https://www.freep.com/search/" + key + "/")
 
 	def printURLs(self):
 		for url in self.baseURLs:
 			print(url)
 
 	def getURLs(self):
-		for url in self.baseURLs:
-			page = requests.get(url)
-			soup_page = soup(page.content, 'html.parser')
-			hrefs = soup_page.find_all('a', href=True)
-			
-			for href in hrefs:
-				print(href['href'])
-				print("\n")
+		try:
+			for url in self.baseURLs:
+				page = requests.get(url)
+				soup_page = soup(page.content, 'html.parser')
+				hrefs = soup_page.find_all('a', href=True)
+				
+				print(soup_page)
+
+		except requests.exceptions.ConnectionError:
+			print("connection refused: too man requests")
+
+			# for href in hrefs:
+			# 	# if "/story/news/local/michigan" in href['href']:
+			# 	print(href['href'])
+			# 	print("\n")
 
 		return self.urls
 
@@ -42,7 +49,7 @@ class FreepScraper:
 	def setURL(self, url):
 		self.articleURL = url
 
-	def setArticleBody(sel):
+	def setArticleBody(self, body):
 		self.articleBody = body
 
 	def getArticleTitle(self):
