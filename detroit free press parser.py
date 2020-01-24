@@ -114,10 +114,12 @@ class FreepScraper:
 	# 		self.articleBody.append(paragraph.get_text())
 
 
-crawler = FreepCrawler("pollution")
+crawler = FreepCrawler("pollution", "contamination")
 crawler.crawlURLs()
 crawler.scrapeURLs()
 
+print("Article Titles")
+print("---------------------------------------------------")
 for article in crawler.getScrapedArticles():
 	print(article.getArticleTitle())
 
