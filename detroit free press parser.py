@@ -35,9 +35,9 @@ class FreepCrawler():
 						self.urls.append("https://www.freep/" + link['href'])
 
 		except requests.exceptions.ConnectionError:
-			print("connection refused: too man requests")
+			print("[-] Connection refused: too man requests")
 
-	# for each url in the urls list, scrape its content and store in scrapedArticles list
+	# for each url in the urls list, scrape its content and store in scrapedArticles list as FreepScraper objects
 	def scrapeURLs(self):
 		for url in self.urls:
 			article = FreepScraper(url)
@@ -45,6 +45,12 @@ class FreepCrawler():
 
 	def getURLs(self):
 		return self.urls
+
+	def getScrapedArticle(self, index):
+		if index >= 0 and index < len(self.scrapedArticles):
+			return self.scrapedArticles[index]
+		else:
+			print("[-] Index out of range. Acceptable range: 0-" + str(len(self.scrapedArticles)-1))
 
 class FreepScraper:
 
@@ -97,8 +103,11 @@ class FreepScraper:
 scraper_test = FreepScraper("https://www.freep.com/story/news/local/michigan/" + 
 	"detroit/2019/12/05/detroit-bulk-storage-revere-copper-detroit-river-uranium/2618868001/")
 
-# spider_test = FreepCrawler("pollution")
-# print(spider_test.crawlURLs())
+spider_test = FreepCrawler("pollution")
+spider_test.crawlURLs()
+# print(spider_test.getScrapedArticle(0).getArticleTitle() + "\n\n")
+# print(spider_test.getScrapedArticle(0).getArticleBody())
+
 
 
 
