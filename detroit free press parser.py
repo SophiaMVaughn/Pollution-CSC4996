@@ -2,6 +2,7 @@
 
 import requests 
 from bs4 import BeautifulSoup as soup
+from time import sleep
 
 class FreepCrawler():
 
@@ -29,10 +30,10 @@ class FreepCrawler():
 				page = requests.get(url)
 				soup_page = soup(page.content, 'html.parser')
 				links = soup_page.find_all('a', href=True)
-				
+
 				for link in links:
 					if "/story/news/local/michigan/" in link['href']:
-						self.urls.append("https://www.freep/" + link['href'])
+						self.urls.append("https://www.freep.com" + link['href'])
 
 		except requests.exceptions.ConnectionError:
 			print("[-] Connection refused: too man requests")
@@ -40,8 +41,10 @@ class FreepCrawler():
 	# for each url in the urls list, scrape its content and store in scrapedArticles list as FreepScraper objects
 	def scrapeURLs(self):
 		for url in self.urls:
+			print("scraping " + str(url))
 			article = FreepScraper(url)
-			self.scrapedArticles.append(article.scrape())
+			self.scrapedArticles.append(article)
+		print("\n\n")
 
 	def getURLs(self):
 		return self.urls
@@ -100,11 +103,16 @@ class FreepScraper:
 			self.articleBody.append(paragraph.get_text())
 
 
-scraper_test = FreepScraper("https://www.freep.com/story/news/local/michigan/" + 
+scraper_test = FreepScraper("https://www.freep.com/story/news/local/michigan/" +
 	"detroit/2019/12/05/detroit-bulk-storage-revere-copper-detroit-river-uranium/2618868001/")
 
-spider_test = FreepCrawler("pollution")
-spider_test.crawlURLs()
+scraper_test.scrape()
+print(scraper_test.getArticleBody())
+
+# spider_test = FreepCrawler("pollution")
+# spider_test.crawlURLs()
+# spider_test.scrapeURLs()
+
 # print(spider_test.getScrapedArticle(0).getArticleTitle() + "\n\n")
 # print(spider_test.getScrapedArticle(0).getArticleBody())
 
