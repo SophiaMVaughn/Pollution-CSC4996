@@ -49,6 +49,9 @@ class FreepCrawler():
 	def getURLs(self):
 		return self.urls
 
+	def getScrapedArticles(self):
+		return self.scrapedArticles
+
 	def getScrapedArticle(self, index):
 		if index >= 0 and index < len(self.scrapedArticles):
 			return self.scrapedArticles[index]
@@ -62,6 +65,14 @@ class FreepScraper:
 		self.articleURL = url 
 		self.articleTitle = ""
 		self.articleBody = []
+
+		page = requests.get(self.articleURL)
+		soup_page = soup(page.content, 'html.parser')
+		self.articleTitle = soup_page.find_all(class_="util-bar-share-summary-title")[0].get_text()
+		body = soup_page.find_all(class_="p-text")
+
+		for paragraph in body:
+			self.articleBody.append(paragraph.get_text())
 
 	# set the article title to articleTitle param
 	def setArticleTitle(self, articleTitle):
@@ -92,29 +103,23 @@ class FreepScraper:
 		for body in self.articleBody:
 			print(body + "\n")
 
-	# scrape and store article title and body. Save article body as array of paragraphs
-	def scrape(self):
-		page = requests.get(self.articleURL)
-		soup_page = soup(page.content, 'html.parser')
-		self.articleTitle = soup_page.find_all(class_="util-bar-share-summary-title")[0].get_text()
-		body = soup_page.find_all(class_="p-text")
+	# # scrape and store article title and body. Save article body as array of paragraphs
+	# def scrape(self):
+	# 	page = requests.get(self.articleURL)
+	# 	soup_page = soup(page.content, 'html.parser')
+	# 	self.articleTitle = soup_page.find_all(class_="util-bar-share-summary-title")[0].get_text()
+	# 	body = soup_page.find_all(class_="p-text")
+	#
+	# 	for paragraph in body:
+	# 		self.articleBody.append(paragraph.get_text())
 
-		for paragraph in body:
-			self.articleBody.append(paragraph.get_text())
 
+crawler = FreepCrawler("pollution")
+crawler.crawlURLs()
+crawler.scrapeURLs()
 
-scraper_test = FreepScraper("https://www.freep.com/story/news/local/michigan/" +
-	"detroit/2019/12/05/detroit-bulk-storage-revere-copper-detroit-river-uranium/2618868001/")
-
-scraper_test.scrape()
-print(scraper_test.getArticleBody())
-
-# spider_test = FreepCrawler("pollution")
-# spider_test.crawlURLs()
-# spider_test.scrapeURLs()
-
-# print(spider_test.getScrapedArticle(0).getArticleTitle() + "\n\n")
-# print(spider_test.getScrapedArticle(0).getArticleBody())
+for article in crawler.getScrapedArticles():
+	print(article.getArticleTitle())
 
 
 
