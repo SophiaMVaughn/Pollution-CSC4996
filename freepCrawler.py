@@ -3,6 +3,7 @@
 import requests 
 from bs4 import BeautifulSoup as soup
 from freepScraper import FreepScraper
+import database
 
 class FreepCrawler():
 
@@ -44,7 +45,14 @@ class FreepCrawler():
 			print("scraping " + str(url))
 			article = FreepScraper(url)
 			self.scrapedArticles.append(article)
+			self.storeInDatabase(article)
 		print("\n\n")
+
+	def storeInDatabase(self, scrapeObj):
+		incident = database.Incidents(
+			url=scrapeObj.getArticleURL(),
+			articleTitle=scrapeObj.getArticleTitle()
+		).save()
 
 	def getURLs(self):
 		return self.urls
