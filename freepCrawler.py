@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup as soup
 import time
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
-from freepScraper import FreepScraper
+from WebCrawlerAndScraperTest import FreepScraper
 
 
 class FreepCrawler():
