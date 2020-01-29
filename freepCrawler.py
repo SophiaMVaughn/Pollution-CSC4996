@@ -13,7 +13,6 @@ class FreepCrawler():
         self.urls = []
         self.baseURLs = []
         self.keywords = []
-        self.scrapedArticles = []
 
         for key in keywords:
             self.keywords.append(key)
@@ -65,26 +64,5 @@ class FreepCrawler():
             print("[-] Connection refused: too man requests")
 
 
-    # for each url in the urls list, scrape its content and store in scrapedArticles list as FreepScraper objects
-    def scrapeURLs(self):
-        for url in self.urls:
-            print("scraping " + str(url))
-            article = FreepScraper(url)
-            self.scrapedArticles.append(article)
-        print("\n\n")
-
-
     def getURLs(self):
         return self.urls
-
-
-    def getScrapedArticles(self):
-        return self.scrapedArticles
-
-
-    def getScrapedArticle(self, index):
-        if index >= 0 and index < len(self.scrapedArticles):
-            return self.scrapedArticles[index]
-        else:
-            print("[-] Index out of range. Acceptable range: 0-" + str(len(self.scrapedArticles) - 1))
-
