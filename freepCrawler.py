@@ -2,8 +2,8 @@ import requests
 from bs4 import BeautifulSoup as soup
 import time
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 from freepScraper import FreepScraper
+import os
 
 
 class FreepCrawler():
@@ -18,27 +18,38 @@ class FreepCrawler():
             self.keywords.append(key)
             self.baseURLs.append("https://www.freep.com/search/" + key + "/")
 
+
     # print all urls that have been crawled
-
-
     def printURLs(self):
         for url in self.urls:
             print(url)
 
-        # for each base url, crawl all article links contained in each.  For instance, base url is the search result for polution,
-        # so crawlURLs() will retrieve article urls from that page and append them to the urls list
-
+    # for each base url, crawl all article links contained in each.  For instance, base url is the search result for polution,
+    # so crawlURLs() will retrieve article urls from that page and append them to the urls list
     def crawlURLs(self):
-        page_count = 4
         try:
             for url in self.baseURLs:
-                page = webdriver.Chrome(ChromeDriverManager().install())
-                page.get(url)
-        # This will visit any web browser you want, go to the url, and scroll the predetermined amount of times and then grab the page source after scrolling which will have all of the article links
-                for i in range(0, 20):
-                    page.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+                chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver"
+
+                driver = webdriver.Chrome(chromeDriverPath)
+                driver.get(url)
+
+                withinLastYear = True
+
+                while withinLastYear:
+                    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+
+                    soup_page = soup(driver.page_source, 'html.parser')
+                    articleDates = soup_page.find_all(class_="date-created meta-info-text")
+
+                    for date in articleDates:
+                        if "2019" in date.get_text():
+                            withinLastYear = False
+
                     time.sleep(4)
-                source = page.page_source
+
+                source = driver.page_source
                 soup_page = soup(source, 'html.parser')
                 links = soup_page.find_all('a', href=True)
 
@@ -49,8 +60,8 @@ class FreepCrawler():
         except requests.exceptions.ConnectionError:
             print("[-] Connection refused: too man requests")
 
-        # for each url in the urls list, scrape its content and store in scrapedArticles list as FreepScraper objects
 
+    # for each url in the urls list, scrape its content and store in scrapedArticles list as FreepScraper objects
     def scrapeURLs(self):
         for url in self.urls:
             print("scraping " + str(url))
