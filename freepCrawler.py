@@ -4,6 +4,7 @@ import time
 from selenium import webdriver
 from freepScraper import FreepScraper
 import os
+from sys import platform
 
 
 class FreepCrawler():
@@ -30,7 +31,10 @@ class FreepCrawler():
         try:
             for url in self.baseURLs:
 
-                chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver"
+                if platform == "darwin":
+                    chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
+                else:
+                    chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_win32"
 
                 driver = webdriver.Chrome(chromeDriverPath)
                 driver.get(url)
