@@ -11,25 +11,43 @@ class FreepScraper:
         self.articleURL = url
         self.articleTitle = ""
         self.articleBody = []
+        self.articleDate = ""
 
+        self.scrape()
+
+    def scrape(self):
         page = requests.get(self.articleURL)
         soup_page = soup(page.content, 'html.parser')
+
+        # scrape article title
         self.articleTitle = soup_page.find_all(class_="util-bar-share-summary-title")[0].get_text()
+
+        # scape article body
         body = soup_page.find_all(class_="p-text")
 
         for paragraph in body:
             self.articleBody.append(paragraph.get_text())
 
+        # scrape publishing date
+        url_split = self.articleURL.split("/")
+        date = url_split[-5] + "/" + url_split[-4] + "/" + url_split[-6]
+        self.setArticleDate(date)
+
     # stores scraped data in database
     def storeInDatabase(self):
         incident = database.Incidents(
-            url=self.getArticleURL(),
-            articleTitle=self.getArticleTitle()
+            articleDate=self.getArticleDate(),
+            articleTitle=self.getArticleTitle(),
+            url=self.getArticleURL()
         ).save()
 
-    # set the article title to articleTitle param
-    def setArticleTitle(self, articleTitle):
-        self.articleTitle = articleTitle
+    # set the article date to date param
+    def setArticleDate(self, date):
+        self.articleDate = date
+
+    # set the article title to title param
+    def setArticleTitle(self, title):
+        self.articleTitle = title
 
     # set the article url to url param
     def setURL(self, url):
@@ -38,6 +56,10 @@ class FreepScraper:
     # set the article body to body param
     def setArticleBody(self, body):
         self.articleBody = body
+
+    # return the article publishing date
+    def getArticleDate(self):
+        return self.articleDate
 
     # return the article title
     def getArticleTitle(self):

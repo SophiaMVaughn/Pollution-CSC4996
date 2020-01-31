@@ -10,8 +10,9 @@ mongoengine.connect(
 )
 
 class Incidents(mongoengine.Document):
-    url = mongoengine.StringField(required=True)
+    articleDate = mongoengine.StringField(required=True)
     articleTitle = mongoengine.StringField(required=True)
+    url = mongoengine.StringField(required=True)
     # eventDate = mongoengine.StringField(required=True)
     # chemicals = mongoengine.ListField(mongoengine.StringField(max_length=50))
 
