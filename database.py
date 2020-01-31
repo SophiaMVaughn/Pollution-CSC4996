@@ -17,7 +17,9 @@ class Incidents(mongoengine.Document):
     # chemicals = mongoengine.ListField(mongoengine.StringField(max_length=50))
 
     meta = {
-        "indexes": ["articleTitle"],
-        "ordering": ["date"]
+        'indexes': [
+            {'fields': ['-url'], 'unique': True},
+        ],
+        'ordering': ['-articleDate']
     }
 
