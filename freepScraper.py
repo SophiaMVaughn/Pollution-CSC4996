@@ -2,6 +2,7 @@
 
 import requests
 from bs4 import BeautifulSoup as soup
+import database
 
 class FreepScraper:
 
@@ -18,6 +19,13 @@ class FreepScraper:
 
         for paragraph in body:
             self.articleBody.append(paragraph.get_text())
+
+    # stores scraped data in database
+    def storeInDatabase(self):
+        incident = database.Incidents(
+            url=self.getArticleURL(),
+            articleTitle=self.getArticleTitle()
+        ).save()
 
     # set the article title to articleTitle param
     def setArticleTitle(self, articleTitle):

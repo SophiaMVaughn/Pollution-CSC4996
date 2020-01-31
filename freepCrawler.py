@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup as soup
 import time
 from selenium import webdriver
-from freepScraper import FreepScraper
 import os
 from sys import platform
 
@@ -29,7 +28,6 @@ class FreepCrawler():
     def crawlURLs(self):
         try:
             for url in self.baseURLs:
-
                 if platform == "darwin":
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
                 else:
@@ -62,6 +60,10 @@ class FreepCrawler():
 
         except requests.exceptions.ConnectionError:
             print("[-] Connection refused: too man requests")
+
+
+    def getURLs(self):
+        return self.urls
 
 
     def getURLs(self):

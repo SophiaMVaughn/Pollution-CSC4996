@@ -11,6 +11,7 @@ crawlCount = 0
 for url in crawler.getURLs():
     print("scraping " + str(url))
     article = FreepScraper(url)
+    article.storeInDatabase()
     scrapedArticles.append(article)
     crawlCount = crawlCount + 1
 
