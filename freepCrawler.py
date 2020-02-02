@@ -45,7 +45,7 @@ class FreepCrawler():
                     articleDates = soup_page.find_all(class_="date-created meta-info-text")
 
                     for date in articleDates:
-                        if "2019" in date.get_text():
+                        if "2018" in date.get_text():
                             withinLastYear = False
 
                     time.sleep(4)

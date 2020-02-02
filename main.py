@@ -1,6 +1,7 @@
 
 from freepCrawler import FreepCrawler
 from freepScraper import FreepScraper
+import parse
 import mongoengine
 
 crawler = FreepCrawler("pollution", "contamination", "pollute", "contaminate", "spill", "leak", "dump", "chemical", "toxic")
@@ -25,5 +26,9 @@ print("---------------------------------------------------")
 
 for article in scrapedArticles:
     print(article.getArticleTitle())
+    print("~~~~~~~~~~~~~~~~~~")
+    print(parse.isArticleEvent(article))
+    print("____________________________________________________________")
+    
 
 
