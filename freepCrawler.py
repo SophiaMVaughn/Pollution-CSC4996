@@ -4,6 +4,7 @@ import time
 from selenium import webdriver
 import os
 from sys import platform
+from selenium.webdriver.chrome.options import Options
 
 
 class FreepCrawler():
@@ -33,7 +34,9 @@ class FreepCrawler():
                 else:
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_win32.exe"
 
-                driver = webdriver.Chrome(chromeDriverPath)
+                options = Options()
+                options.add_argument('--headless')
+                driver = webdriver.Chrome(chromeDriverPath, options=options)
                 driver.get(url)
 
                 withinLastYear = True
@@ -45,7 +48,7 @@ class FreepCrawler():
                     articleDates = soup_page.find_all(class_="date-created meta-info-text")
 
                     for date in articleDates:
-                        if "2019" in date.get_text():
+                        if "2018" in date.get_text():
                             withinLastYear = False
 
                     time.sleep(4)
