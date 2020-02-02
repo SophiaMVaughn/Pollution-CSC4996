@@ -31,7 +31,7 @@ class FreepCrawler():
                 if platform == "darwin":
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
                 else:
-                    chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_win32"
+                    chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_win32.exe"
 
                 driver = webdriver.Chrome(chromeDriverPath)
                 driver.get(url)
