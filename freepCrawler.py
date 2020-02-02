@@ -29,6 +29,7 @@ class FreepCrawler():
     def crawlURLs(self):
         try:
             for url in self.baseURLs:
+                print("\n\n base url: " + url + "\n\n")
                 if platform == "darwin":
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
                 else:
@@ -48,10 +49,11 @@ class FreepCrawler():
                     articleDates = soup_page.find_all(class_="date-created meta-info-text")
 
                     for date in articleDates:
-                        if "2018" in date.get_text():
+                        print(date.get_text())
+                        if "2017" in date.get_text():
+                            print("\n\ngragbberob\n\n")
                             withinLastYear = False
-
-                    time.sleep(4)
+                    print("\n")
 
                 source = driver.page_source
                 soup_page = soup(source, 'html.parser')

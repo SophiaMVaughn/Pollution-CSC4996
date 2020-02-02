@@ -4,7 +4,8 @@ from freepScraper import FreepScraper
 import parse
 import mongoengine
 
-crawler = FreepCrawler("pollution", "contamination", "pollute", "contaminate", "spill", "leak", "dump", "chemical", "toxic")
+# crawler = FreepCrawler("pollution", "contamination", "pollute", "contaminate", "spill", "leak", "dump", "chemical", "toxic")
+crawler = FreepCrawler("pollution", "contamination")
 crawler.crawlURLs()
 
 scrapedArticles = []
