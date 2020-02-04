@@ -2,55 +2,65 @@ import requests
 from bs4 import BeautifulSoup as soup, BeautifulSoup, SoupStrainer
 import time
 from selenium import webdriver
-
 # Gets the all urls from a website
-def getUrls():
-    URL = 'https://www.usnpl.com/search/state?state=MI#section-D'
-    page = requests.get(URL)
-
-    soup = BeautifulSoup(page.content, 'html.parser')
-    links = SoupStrainer('a')
-
-    # Find the class which holds the correct web links
-    websites = soup.find_all(True, {'class': ['w-10']})
-    unFilteredWebsites = []
-    # Filter out all unnecessary tags
-    for tag in websites:
-        tdTags = tag.find_all("a")
-        if tdTags:
-            unFilteredWebsites.append(tdTags)
-    filteredWebsites = []
-    for it in unFilteredWebsites:
-        formattedWebsite = str(it).split('"', 2)[1]
-        # remove facebook, twitter and instagram hrefs
-        if not (formattedWebsite.__contains__("twitter") or formattedWebsite.__contains__(
-                "facebook") or formattedWebsite.__contains__("instagram") or formattedWebsite.__contains__("youtube")):
-            filteredWebsites.append(formattedWebsite)
-    return filteredWebsites
-
+from selenium.webdriver.chrome.options import Options
 
 # Launches a chrometab which goes to all the urls that were specified.
 def goToSearchUrl(link):
-    driver = webdriver.Chrome('C:/Users/mhere/OneDrive/Desktop/chromedriver')
-    driver.get(link)
-    time.sleep(5)
+    chrome_options1 = Options()
+    chrome_options1.add_argument("--headless")
+    chrome_options1.add_argument('user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36')
+    driver = webdriver.Chrome('C:/Users/mhere/OneDrive/Desktop/chromedriver', options=chrome_options1)
+    page1=driver.get(link)
+    pageSource=driver.page_source
+    time.sleep(3)
     driver.quit()
-
+    return pageSource
 
 # Allows us to change the keyword for every website we need to collect data on.
-def readFromFile(keyword):
+def readFromFile(key):
     urls = []
     with open("WebLinks.txt", "r") as file:
         for line in file:
-            line.replace("Pollution", keyword)
-            urls.append(line.replace("Pollution", keyword).rstrip())
+            #Imports the words from the key file to replace the keyword in every search url
+            with open("Keyword.txt", "r") as keyFile:
+                for key in keyFile:
+                    line.replace("Pollution", key)
+                    urls.append(line.replace("Pollution", key).rstrip())
     return urls
 
 
+def readFromFileClasses():
+    classes = []
+    with open("Classes.txt", "r") as file:
+        for line in file:
+            classes.append(line.rstrip())
+    return classes
+
 # Allows the user to input a keyword to see what articles are on each site.
-keyword = input("Enter a keyword to search for : ")
-print(keyword)
-finalUrls = readFromFile(keyword)
-print(finalUrls)
-for url in finalUrls:
-    goToSearchUrl(url)
+key= []
+print(key)
+finalUrls = readFromFile(key)
+finalClasses = readFromFileClasses()
+dict = {}
+for x in range(len(finalClasses)):
+    className=finalClasses[x]
+    url=finalUrls[x]
+    dict1 = {url:className}
+    dict.update(dict1)
+print(dict)
+results=[]
+f = open("Results.txt", "w")
+for url in dict:
+    page=goToSearchUrl(url)
+    classSearchTerm =dict.get(url)
+    soup = BeautifulSoup(page, 'html.parser')
+    weblinks=soup.find_all(True, {'class': [classSearchTerm]})
+    for weblink in weblinks:
+        #weblinks1= weblinks.find_all("a", href=True)
+        results.append(str(weblink.find("a", href=True)).split('"', 2)[1])
+        f.write(str(weblink.find("a", href=True)).split('"', 2)[1])
+
+f.close()
+print(results)
+

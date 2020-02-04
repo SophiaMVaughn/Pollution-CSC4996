@@ -1,0 +1,25 @@
+summary search-result
+summary search-result
+summary search-result
+summary search-result
+summary search-result
+summary search-result
+summary search-result
+summary search-result
+summary search-result
+a href
+a href
+text search-result-item
+text search-result-item
+record
+gsc-webResult gsc-result
+gsc-webResult gsc-result
+oht-article
+td_module_16 td_module_wrap td-animation-stack
+gsa-item gsa-item-regular has-photo
+clearfix card summary has-image   tnt-section-news
+clearfix card summary has-image   tnt-section-news
+clearfix card summary has-image   tnt-section-news
+clearfix card summary has-image   tnt-section-news
+gsa-item gsa-item-regular has-photo
+gsa-item gsa-item-regular has-photo
