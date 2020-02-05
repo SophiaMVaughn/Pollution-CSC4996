@@ -55,12 +55,11 @@ for url in dict:
     page=goToSearchUrl(url)
     classSearchTerm =dict.get(url)
     soup = BeautifulSoup(page, 'html.parser')
-    weblinks=soup.find_all(True, {'class': [classSearchTerm]})
+    weblinks=soup.find_all(True, {'class': [finalClasses]})
     for weblink in weblinks:
-        #weblinks1= weblinks.find_all("a", href=True)
         results.append(str(weblink.find("a", href=True)).split('"', 2)[1])
-        f.write(str(weblink.find("a", href=True)).split('"', 2)[1])
-
+        f.writelines(str(weblink.find("a", href=True)).split('"', 2)[1])
+        f.writelines('\n')
+        print(str(weblink.find("a", href=True)).split('"', 2)[1])
 f.close()
-print(results)
 
