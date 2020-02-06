@@ -4,7 +4,8 @@ from freepScraper import FreepScraper
 import parse
 import mongoengine
 
-crawler = FreepCrawler("pollution", "contamination", "pollute", "contaminate", "spill", "leak", "dump", "chemical", "toxic")
+keyword = "pollution"
+crawler = FreepCrawler(keyword)
 crawler.crawlURLs()
 
 scrapedArticles = []
@@ -20,14 +21,12 @@ for url in crawler.getURLs():
     scrapedArticles.append(article)
     crawlCount = crawlCount + 1
 
-print("\n[+] Crawled " + str(crawlCount) + " articles\n")
-print("Article Titles")
-print("---------------------------------------------------")
+file=open("output.txt","a+")
+file.write("------"+keyword+"---------------------------------------------")
 
 for article in scrapedArticles:
     if parse.isArticleEvent(article):
-        print(article.getArticleTitle())
-        print("~~~~~~~~~~~~~~~~~~")
+        file.write(article.getArticleTitle())
     
 
 
