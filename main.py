@@ -1,7 +1,7 @@
 from crawler import NewsWebsite
 from crawler import Crawler
 
-links = open("resources/testURLs.txt", "r").readlines()
+links = open("Results.txt", "r").readlines()
 
 urls = []
 

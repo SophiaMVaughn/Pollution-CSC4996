@@ -25,7 +25,7 @@ unique_urls = []
 url_list.sort()
 
 for url in url_list:
-    if not bin_search(unique_urls, url):
+    if not bin_search(unique_urls, url) and "http" in url:
         unique_urls.append(url)
 
 unique_urls_file = open('uniqueURLs.txt', 'a')
