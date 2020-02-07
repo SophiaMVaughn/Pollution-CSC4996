@@ -15,7 +15,9 @@ class FreepScraper:
 
         self.scrape()
 
+    # From raw HTML, retrieve article title, publishing date, and body
     def scrape(self):
+        print("[+] Scraping " + str(self.articleURL))
         page = requests.get(self.articleURL)
         soup_page = soup(page.content, 'html.parser')
 

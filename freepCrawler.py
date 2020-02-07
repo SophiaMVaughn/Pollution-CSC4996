@@ -29,6 +29,7 @@ class FreepCrawler():
     def crawlURLs(self):
         try:
             for url in self.baseURLs:
+                print("\n[+] Crawling articles with keyword \"" + str(url.split("/")[4]) + "\"")
                 if platform == "darwin":
                     chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_mac"
                 else:
@@ -48,10 +49,8 @@ class FreepCrawler():
                     articleDates = soup_page.find_all(class_="date-created meta-info-text")
 
                     for date in articleDates:
-                        if "2018" in date.get_text():
+                        if "2019" in date.get_text():
                             withinLastYear = False
-
-                    time.sleep(4)
 
                 source = driver.page_source
                 soup_page = soup(source, 'html.parser')
@@ -60,6 +59,10 @@ class FreepCrawler():
             for link in links:
                 if "/story/news/local/michigan/" in link['href']:
                     self.urls.append("https://www.freep.com" + link['href'])
+                    print("\t[+] retrieved " + "https://www.freep.com" + link['href'])
+                    time.sleep(0.5)
+
+            print("\n[+] Crawling complete.\n")
 
         except requests.exceptions.ConnectionError:
             print("[-] Connection refused: too man requests")
