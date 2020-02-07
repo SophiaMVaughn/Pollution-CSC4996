@@ -10,11 +10,8 @@ pPt = Matcher(nlp.vocab)
 pollPats = []
 pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "PROPN"}])
 pollPats.append([{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}},{"POS":"ADP","OP":"?"},{"POS":"DET","OP":"?"},{"POS":"ADP","OP":"?"},{"POS": "NOUN"}])
-
-#pollPats.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["unknown","pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
+pollPats.append([{"LEMMA": {"IN": ["cause","source"]}},{"LEMMA": {"IN": ["unknown","pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 pollPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["superfund"]}},{"POS":"NOUN","OP":"?"}])
-#pollPats.append([{"LEMMA": {"IN": ["official"]}},{"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued"]},"OP":"?"}]) #lemmatized words (said/discussed/etc.)
-
 pollPats.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["levels","contamination"]}}])
 pollPats.append([{"POS": "NOUN"},{"LEMMA": {"IN": ["pollute", "contaminate", "dump", "pour","discard","spill", "leak", "taint", "bleed", "plume"]}}])
 pollPats.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}},{"POS":"ADJ","OP":"*"},{"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN","OP":"?"}])
@@ -26,16 +23,16 @@ negP = Matcher(nlp.vocab)
 negPats = []
 #TO IDENTIFY NEGATIVES
 #identifying lawsuit/sue
-negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["lawsuit","sue","charge"]}},{"POS":"NOUN","OP":"?"}])
+negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["legislation","lawsuit","sue","charge"]}},{"POS":"NOUN","OP":"?"}])
 # op verb + automobile, car, vehicle, motor
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}}])
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["noise","automobile","car","vehicle"]}}])
 # op noun + automobile, car, vehicle, motor + op verb
 negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["automobile","car","vehicle"]}},{"POS":"VERB","OP":"?"}])
 # op verb + championship, game, tournament, competition
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["championship","game","tournament","competition"]}}])
-# op verb + food, fruit, meal, produce, meat + op adverb
-negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
-# op noun + food, fruit, meal, produce, meat + op adverb
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["sport","basketball","championship","game","tournament","competition"]}}])
+# op verb + fruit, meal, produce, meat + op adverb
+negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["recall","fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
+# op noun + fruit, meal, produce, meat + op adverb
 negPats.append([{"POS":"NOUN","OP":"?"},{"LEMMA": {"IN": ["fruit","meal","meat"]}},{"POS":"ADV","OP":"?"}])
 # op verb + application, password, technology + op verb
 negPats.append([{"POS":"VERB","OP":"?"},{"LEMMA": {"IN": ["application","password","technology"]}},{"POS":"VERB","OP":"?"}])

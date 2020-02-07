@@ -4,8 +4,8 @@ from freepScraper import FreepScraper
 import parse
 import mongoengine
 
-# crawler = FreepCrawler("pollution", "contamination", "pollute", "contaminate", "spill", "leak", "dump", "chemical", "toxic")
-crawler = FreepCrawler("pollution", "contamination")
+keyword = "spill"
+crawler = FreepCrawler(keyword)
 crawler.crawlURLs()
 
 scrapedArticles = []
@@ -15,20 +15,36 @@ db = mongoengine.connect(db="Pollution")
 db.drop_database('Pollution')
 
 for url in crawler.getURLs():
-    print("scraping " + str(url))
     article = FreepScraper(url)
-    article.storeInDatabase()
     scrapedArticles.append(article)
     crawlCount = crawlCount + 1
 
-print("\n[+] Crawled " + str(crawlCount) + " articles\n")
-print("Article Titles")
-print("---------------------------------------------------")
+print("\n[+] Crawled "+str(crawlCount)+" articles.\n")
+print("[+] NLP analysis starting...")
+print("============================\n")
+print("Confirmed events")
+print("----------------")
+
+file=open("output.txt","a+")
+file.write("------"+keyword+"---------------------------------------------\n")
+
+eventCount = 0
+filteredArticles = []
 
 for article in scrapedArticles:
     if parse.isArticleEvent(article):
-        print(article.getArticleTitle())
-        print("~~~~~~~~~~~~~~~~~~")
-    
+        file.write(article.getArticleTitle()+"\n")
+        filteredArticles.append(article)
+        eventCount = eventCount + 1
+        print("[+] " + str(article.getArticleTitle()))
+
+print("\n[+] NLP processing complete - confirmed " + str(eventCount) + " articles as contamination events\n")
+print("[+] Populating database...")
+
+for article in filteredArticles:
+    article.storeInDatabase()
+
+file.close()
+
 
 
