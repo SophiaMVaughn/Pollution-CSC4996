@@ -1,9 +1,3 @@
-results_file = open("Results.txt", "r").readlines()
-
-url_list = []
-
-for line in results_file:
-    url_list.append(line.strip())
 
 def bin_search(list, key) -> bool:
 
@@ -19,6 +13,13 @@ def bin_search(list, key) -> bool:
         elif key > list[mid]:
             min = mid + 1
     return False
+
+results_file = open("Results.txt", "r").readlines()
+
+url_list = []
+
+for line in results_file:
+    url_list.append(line.strip())
 
 unique_urls = []
 url_list.sort()
