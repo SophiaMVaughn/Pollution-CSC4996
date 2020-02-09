@@ -7,14 +7,13 @@ from bs4 import BeautifulSoup as soup
 ################################################
 
 class NewsWebsite:
-    def __init__(self, url, title, body, publishingDate, nextPage, articles, search, infinite):
+    def __init__(self, url, title, body, publishingDate, nextPage, articles, infinite):
         self.url = url
         self.titleTag = title
         self.bodyTag = body
         self.publishingDateTag = publishingDate
         self.nextPageTag = nextPage
         self.articlesTag = articles
-        self.searchSyntax = search
         self.infiniteScrolling = infinite
 
     def getURL(self):
@@ -38,8 +37,15 @@ class NewsWebsite:
     def getInfiniteScrolling(self):
         return self.infiniteScrolling
 
-    def getSearchSyntax(self):
-        return self.searchSyntax
+    def getSearchSyntax(self, keyword):
+        if "lenconnect" in self.url:
+            return "/search?text="+keyword+"&start=1"
+        elif "stignacenews" in self.url:
+            return "/?s="+keyword
+
+    def getWebsiteName(self):
+        websiteName = self.url.split("www.")[1].split(".com")[0]
+        return websiteName
 
 
 ################################################
@@ -47,10 +53,10 @@ class NewsWebsite:
 ################################################
 
 class Crawler:
-    def __init__(self, websiteObjs, *keywords):
+    def __init__(self, websiteObj, *keywords):
 
         # all the list of NewsWebsite objects
-        self.websiteObjs = websiteObjs
+        self.website = websiteObj
 
         # all the article urls crawled by the crawler
         self.urlsCrawled = []
@@ -69,22 +75,20 @@ class Crawler:
 
     def crawl(self):
 
-        print("[+] Crawling...\n")
+        print("\n[+] Crawling...\n")
 
-        for website in self.websiteObjs:
+        for keyword in self.keywords:
+            print("[+] Crawling for keyword \'%s\'...\n" % keyword)
+            searchURL = self.website.getURL() + self.website.getSearchSyntax(keyword)
+            page = requests.get(searchURL)
+            soupPage = soup(page.content, 'html.parser')
 
-            for keyword in self.keywords:
+            # TODO get urls from search page of website
 
-                searchURL = website.getURL() + website.getSearchSyntax() + keyword
-                page = requests.get(searchURL)
-                soupPage = soup(page.content, 'html.parser')
-                links = soupPage.find_all(website.getArticlesTag(), href=True)
+            links = soupPage.find_all(class_=self.website.getArticlesTag())
 
-                # TODO loop through links and extract the links that are article urls
-                #  (maybe add another attribut to NewsWebsite class that specifies what these
-                #  links will look like
+            # TODO find way to retrieve article urls from search page for the first several news websites
+            #  because all we get back is a hash tag, not the url
 
-                for link in links:
-                    print(link['href'])
-
-
+            for link in links:
+                print(link.get_text())
