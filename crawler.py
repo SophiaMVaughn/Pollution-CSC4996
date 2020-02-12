@@ -7,17 +7,17 @@ from bs4 import BeautifulSoup as soup
 ################################################
 
 class NewsWebsite:
-    def __init__(self, url, title, body, publishingDate, nextPage, articles, infinite):
-        self.url = url
-        self.titleTag = title
-        self.bodyTag = body
-        self.publishingDateTag = publishingDate
-        self.nextPageTag = nextPage
-        self.articlesTag = articles
-        self.infiniteScrolling = infinite
+    def __init__(self, articleURL, titleTag, bodyTag, publishingDateTag, nextPageTag, articleLinkStructure, infiniteScrolling):
+        self.articleURL = articleURL
+        self.titleTag = titleTag
+        self.bodyTag = bodyTag
+        self.publishingDateTag = publishingDateTag
+        self.nextPageTag = nextPageTag
+        self.articleLinkStructure = articleLinkStructure
+        self.infiniteScrolling = infiniteScrolling
 
     def getURL(self):
-        return self.url
+        return self.articleURL
 
     def getTitleTag(self):
         return self.titleTag
@@ -31,20 +31,19 @@ class NewsWebsite:
     def getNextPageTag(self):
         return self.nextPageTag
 
-    def getArticlesTag(self):
-        return self.articlesTag
+    def getArticleLinkStructure(self):
+        return self.articleLinkStructure
 
     def getInfiniteScrolling(self):
         return self.infiniteScrolling
 
-    def getSearchSyntax(self, keyword):
-        if "lenconnect" in self.url:
-            return "/search?text="+keyword+"&start=1"
-        elif "stignacenews" in self.url:
-            return "/?s="+keyword
+    def getSearchQuery(self, keyword, pageNum):
+        # TODO: implement
+        if "stignacenews" in self.articleURL:
+            return "https://www.stignacenews.com/page/" + str(pageNum) + "/?s=" + keyword
 
     def getWebsiteName(self):
-        websiteName = self.url.split("www.")[1].split(".com")[0]
+        websiteName = self.articleURL.split("www.")[1].split(".com")[0]
         return websiteName
 
 
@@ -55,14 +54,10 @@ class NewsWebsite:
 class Crawler:
     def __init__(self, websiteObj, *keywords):
 
-        # all the list of NewsWebsite objects
         self.website = websiteObj
 
         # all the article urls crawled by the crawler
         self.urlsCrawled = []
-
-        # all new website urls
-        self.baseURLs = []
 
         # all search keywords
         self.keywords = []
@@ -78,17 +73,17 @@ class Crawler:
         print("\n[+] Crawling...\n")
 
         for keyword in self.keywords:
-            print("[+] Crawling for keyword \'%s\'...\n" % keyword)
-            searchURL = self.website.getURL() + self.website.getSearchSyntax(keyword)
+            print("[+] Crawling " + self.website.getWebsiteName() + ".com for keyword \'%s\'...\n" % keyword)
+            searchURL = self.website.getSearchQuery(keyword, 1)
             page = requests.get(searchURL)
             soupPage = soup(page.content, 'html.parser')
 
-            # TODO get urls from search page of website
-
-            links = soupPage.find_all(class_=self.website.getArticlesTag())
-
-            # TODO find way to retrieve article urls from search page for the first several news websites
-            #  because all we get back is a hash tag, not the url
+            links = soupPage.find_all('a', href=True)
 
             for link in links:
-                print(link.get_text())
+                if self.website.getArticleLinkStructure() in link['href']:
+                    self.urlsCrawled.append(link['href'])
+
+    def getCrawledURLs(self):
+        return self.urlsCrawled
+
