@@ -35,8 +35,14 @@ class Crawler:
             links = soupPage.find_all('a', href=True)
 
             for link in links:
-                if self.website.getArticleLinkStructure() in link['href']:
-                    self.urlsCrawled.append(link['href'])
+
+                link = link['href']
+
+                if self.website.getURL() not in link:
+                    link = self.website.getURL() + link
+
+                if (self.website.getURL() + self.website.getArticleLinkStructure()) in link:
+                    self.urlsCrawled.append(link)
 
     def getCrawledURLs(self):
         return self.urlsCrawled
