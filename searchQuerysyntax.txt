@@ -1,0 +1,12 @@
+  
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/search?text=Pollution&start=pageNum
+/page/pageNum/?s=Pollution
+/search/?action=search&searchindex=solr&query=Pollution&sort=date&page=pagenum
