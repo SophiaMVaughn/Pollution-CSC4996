@@ -48,6 +48,9 @@ class NewsWebsite:
         elif "ourmidland" in self.articleURL:
             return "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=" \
                    + keyword + "&page=" + str(pageNum)
+        elif "michigansthumb" in self.articleURL:
+            return "https://www.michigansthumb.com/search/?action=search&searchindex=solr&query=" \
+                   + keyword + "&page=" + str(pageNum)
 
     def getWebsiteName(self):
         websiteName = self.articleURL.split("www.")[1].split(".com")[0]

@@ -24,10 +24,8 @@ class Crawler:
 
     def crawl(self):
 
-        print("\n[+] Crawling...\n")
-
         for keyword in self.keywords:
-            print("[+] Crawling " + self.website.getWebsiteName() + ".com for keyword \'%s\'...\n" % keyword)
+            print("[+] Crawling " + self.website.getWebsiteName() + ".com for keyword \'%s\'" % keyword)
             searchURL = self.website.getSearchQuery(keyword, 1)
             page = requests.get(searchURL)
             soupPage = soup(page.content, 'html.parser')

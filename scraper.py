@@ -1,5 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as soup
+from dateutil import parser
 
 ################################################
 #                Scraper Class                 #
@@ -32,12 +33,27 @@ class Scraper:
         body = soup_page.find_all(self.website.getBodyTag())
 
         for line in body:
-            self.articleBody.append(line)
+            self.articleBody.append(line.get_text())
 
         # scrape article publishing date
         date = soup_page.find_all(self.website.getPublishingDateTag())[0].get_text().strip()
+        self.articleDate = self.normalizeDate(date)
 
-        print(date)
+    def normalizeDate(self, date):
+        d = parser.parse(date)
+        return d.strftime("%m/%d/%Y")
+
+    def getArticleTitle(self):
+        return self.articleTitle
+
+    def getArticleDate(self):
+        return self.articleDate
+
+    def getArticleBody(self):
+        return self.articleBody
+
+
+
 
 
 

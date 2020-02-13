@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="665edcdf-9897-4a9c-9e0b-edb64b289fb6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/articleUrlsList.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Pollution-CSC4996.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Pollution-CSC4996.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/createUniqueUrlList.py" beforeDir="false" afterPath="$PROJECT_DIR$/createUniqueUrlList.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/uniqueURLs.txt" beforeDir="false" afterPath="$PROJECT_DIR$/uniqueURLs.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/crawler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newsWebsite.py" beforeDir="false" afterPath="$PROJECT_DIR$/newsWebsite.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scraper.py" beforeDir="false" afterPath="$PROJECT_DIR$/scraper.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,7 +36,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.createUniqueUrlList">
+  <component name="RunManager" selected="Python.main">
     <configuration name="WebCrawler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pollution-CSC4996" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -122,8 +123,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.createUniqueUrlList" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.createUniqueUrlList" />
         <item itemvalue="Python.WebCrawler" />
         <item itemvalue="Python.crawler" />
       </list>
@@ -159,46 +160,46 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="184" y="112" width="1071" height="731" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1580337883703" />
-    <state width="1893" height="267" key="GridCell.Tab.0.bottom" timestamp="1581613538091">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="379" key="GridCell.Tab.0.bottom" timestamp="1581631459754">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1581576616788" />
+    <state width="1419" height="379" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1581631459754" />
     <state width="1893" height="267" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538091" />
-    <state width="1893" height="267" key="GridCell.Tab.0.center" timestamp="1581613538091">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="379" key="GridCell.Tab.0.center" timestamp="1581631459753">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1581576616787" />
+    <state width="1419" height="379" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1581631459753" />
     <state width="1893" height="267" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538091" />
-    <state width="1893" height="267" key="GridCell.Tab.0.left" timestamp="1581613538090">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="379" key="GridCell.Tab.0.left" timestamp="1581631459752">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1581576616787" />
+    <state width="1419" height="379" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1581631459752" />
     <state width="1893" height="267" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538090" />
-    <state width="1893" height="267" key="GridCell.Tab.0.right" timestamp="1581613538091">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="379" key="GridCell.Tab.0.right" timestamp="1581631459753">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1581576616788" />
+    <state width="1419" height="379" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1581631459753" />
     <state width="1893" height="267" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538091" />
-    <state width="1419" height="303" key="GridCell.Tab.1.bottom" timestamp="1581576616791">
+    <state width="1419" height="303" key="GridCell.Tab.1.bottom" timestamp="1581630702052">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1581576616791" />
-    <state width="1419" height="303" key="GridCell.Tab.1.center" timestamp="1581576616790">
+    <state width="1419" height="303" key="GridCell.Tab.1.bottom/0.0.1440.900@0.0.1440.900" timestamp="1581630702052" />
+    <state width="1419" height="303" key="GridCell.Tab.1.center" timestamp="1581630702051">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1581576616790" />
-    <state width="1419" height="303" key="GridCell.Tab.1.left" timestamp="1581576616789">
+    <state width="1419" height="303" key="GridCell.Tab.1.center/0.0.1440.900@0.0.1440.900" timestamp="1581630702051" />
+    <state width="1419" height="303" key="GridCell.Tab.1.left" timestamp="1581630702051">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1581576616789" />
-    <state width="1419" height="303" key="GridCell.Tab.1.right" timestamp="1581576616790">
+    <state width="1419" height="303" key="GridCell.Tab.1.left/0.0.1440.900@0.0.1440.900" timestamp="1581630702051" />
+    <state width="1419" height="303" key="GridCell.Tab.1.right" timestamp="1581630702052">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="303" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1581576616790" />
-    <state x="293" y="103" key="SettingsEditor" timestamp="1581613491322">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1419" height="303" key="GridCell.Tab.1.right/0.0.1440.900@0.0.1440.900" timestamp="1581630702052" />
+    <state x="220" y="89" key="SettingsEditor" timestamp="1581628080288">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="220" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1580927987822" />
+    <state x="220" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1581628080288" />
     <state x="293" y="103" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1581613491322" />
     <state x="397" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1581532262160">
       <screen x="0" y="0" width="1440" height="900" />
