@@ -14,7 +14,7 @@ def bin_search(list, key) -> bool:
             min = mid + 1
     return False
 
-results_file = open("Results.txt", "r").readlines()
+results_file = open("articleUrlsList.txt", "r").readlines()
 
 url_list = []
 
