@@ -15,13 +15,11 @@ websiteList = [stignacenews,ourmidland,michigansthumb]
 # create Scraper objects
 scraper = Scraper("https://www.ourmidland.com/news/article/SVSU-receives-nbsp-grant-aimed-at-nbsp-watershed-13319728.php", websiteList)
 
-print("\ntitle")
-print("#################################")
-print(scraper.getArticleTitle())
-
-print("\ndate")
-print("#################################")
-print(scraper.getArticleDate())
+file = open("outputFile.txt", "a+")
+file.truncate(0)
+file.write("#############################################")
+file.write("Title:  " + scraper.getArticleTitle())
+file.write("Date:   " + scraper.getArticleDate())
 
 print("\nbody")
 print("#################################")

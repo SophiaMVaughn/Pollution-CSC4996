@@ -14,7 +14,7 @@ def bin_search(list, key) -> bool:
             min = mid + 1
     return False
 
-results_file = open("articleUrlsList.txt", "r").readlines()
+results_file = open("myUrlList.txt", "r").readlines()
 
 url_list = []
 
@@ -25,10 +25,10 @@ unique_urls = []
 url_list.sort()
 
 for url in url_list:
-    if not bin_search(unique_urls, url) and "http" in url:
+    if not bin_search(unique_urls, url):
         unique_urls.append(url)
 
-unique_urls_file = open('uniqueURLs.txt', 'a')
+unique_urls_file = open('myUniqueUrlList.txt', 'a')
 
 for url in unique_urls:
     unique_urls_file.write(url+"\n")
