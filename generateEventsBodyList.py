@@ -13,15 +13,13 @@ for title in title_list:
         index_list.append(index)
     index = index + 1
 
-print(len(index_list))
+for index in index_list:
+    page = requests.get(url_list[index])
+    soup_page = soup(page.content, 'html.parser')
+    body = soup_page.find_all("p")
 
-# for index in index_list:
-#     page = requests.get(url_list[index])
-#     soup_page = soup(page.content, 'html.parser')
-#     body = soup_page.find_all("p")
-#
-#     body_list.write("\n-DOCSTART-\n")
-#
-#     for line in body:
-#         formated_line = line.get_text().replace("\n", " ")
-#         body_list.write(formated_line)
+    body_list.write("\n-DOCSTART-\n")
+
+    for line in body:
+        formated_line = line.get_text().replace("\n", " ")
+        body_list.write(formated_line)
