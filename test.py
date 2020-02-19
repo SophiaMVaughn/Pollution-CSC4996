@@ -1,9 +1,14 @@
-import requests
-from bs4 import BeautifulSoup as soup
+import sys
+from time import sleep
 
-page = requests.get("https://www.stignacenews.com/articles/graymont-will-build-plant/")
-soup_page = soup(page.content, 'html.parser')
+lines = []
+lines.append("hello this is saular")
+lines.append("no this is what i want")
+lines.append("i like toitles")
+lines.append("what the hell is going on?")
 
-articleTitle = soup_page.find_all("title")[0].get_text()
 
-body = soup_page.find_all("p")
+
+for line in lines:
+    print("\r" + line, end="")
+    sys.stdout.flush()

@@ -18,13 +18,13 @@ newsWebsiteObjList.append(NewsWebsite("https://www.michigansthumb.com/", "title"
                                       "/news/article", False))
 
 # crate Crawler objects
+print("\n")
 crawlList = []
 for website in newsWebsiteObjList:
     crawlList.append(Crawler(website, "pollution", "contamination"))
 
 # create Scraper objects
+print("\n")
 for website in crawlList:
     for url in website.getCrawledURLs():
         scraper = Scraper(url, newsWebsiteObjList)
-
-# TODO: integrate database

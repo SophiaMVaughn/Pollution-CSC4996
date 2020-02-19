@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup as soup
 from dateutil import parser
+import database
+from textColors import bcolors
 
 ################################################
 #                Scraper Class                 #
@@ -22,7 +24,7 @@ class Scraper:
                 self.scrape()
 
     def scrape(self):
-        print("[+] Scraping " + self.articleURL)
+        print(bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + self.articleURL)
         page = requests.get(self.articleURL)
         soup_page = soup(page.content, 'html.parser')
 
@@ -30,7 +32,7 @@ class Scraper:
             # scrape article title
             self.articleTitle = soup_page.find_all(self.website.getTitleTag())[0].get_text()
         except IndexError:
-            print("[-] Could not retrieve title for " + self.articleURL)
+            print(bcolors.FAIL + "[-] Could not retrieve title for " + self.articleURL + bcolors.ENDC)
             self.articleTitle = "Empty"
 
         # scape article body
@@ -44,8 +46,21 @@ class Scraper:
             date = soup_page.find_all(self.website.getPublishingDateTag())[0].get_text().strip()
             self.articleDate = self.normalizeDate(date)
         except IndexError:
-            print("[-] Could not retrieve date for " + self.articleURL)
+            print(bcolors.FAIL + "[-] Could not retrieve date for " + self.articleURL + bcolors.ENDC)
             self.articleDate = "Empty"
+
+        # TODO: uncomment this
+        # self.storeInDatabase()
+
+    def storeInDatabase(self):
+        try:
+            database.Articles(
+                publishingDate=self.getArticleDate(),
+                title=self.getArticleTitle(),
+                url=self.getArticleURL()
+            ).save()
+        except:
+            print(bcolors.FAIL + "[-] Duplicate URL: " + self.getArticleURL() + bcolors.ENDC)
 
     def normalizeDate(self, date):
         d = parser.parse(date)
@@ -59,6 +74,9 @@ class Scraper:
 
     def getArticleBody(self):
         return self.articleBody
+
+    def getArticleURL(self):
+        return self.articleURL
 
 
 

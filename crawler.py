@@ -1,5 +1,8 @@
 import requests
 from bs4 import BeautifulSoup as soup
+from textColors import bcolors
+import sys
+from time import sleep
 
 ################################################
 #                Crawler Class                 #
@@ -25,13 +28,14 @@ class Crawler:
     def crawl(self):
 
         for keyword in self.keywords:
-            print("[+] Crawling " + self.website.getWebsiteName() + ".com for keyword \'%s\'" % keyword)
+
             searchURL = self.website.getSearchQuery(keyword, 1)
             page = requests.get(searchURL)
             soupPage = soup(page.content, 'html.parser')
 
             links = soupPage.find_all('a', href=True)
 
+            urlCount = 0
             for link in links:
 
                 link = link['href']
@@ -41,6 +45,11 @@ class Crawler:
 
                 if (self.website.getURL() + self.website.getArticleLinkStructure()) in link:
                     self.urlsCrawled.append(link)
+                    urlCount = urlCount + 1
+
+            print(bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.website.getWebsiteName() +
+                  ".com for keyword " + bcolors.WARNING + "\'%s\'" % (keyword) + bcolors.ENDC + ": " +
+                  bcolors.OKGREEN + str(urlCount) + " URLs retrieved" + bcolors.ENDC)
 
     def getCrawledURLs(self):
         return self.urlsCrawled
