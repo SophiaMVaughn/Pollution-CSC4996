@@ -46,7 +46,9 @@ class NewsWebsite:
         search = self.searchSyntax.replace("PEATKEY", keyword).replace("PEATPAGE", str(pageNum))
         return search
 
+    # returns the name of the website (without www and .com)
     def getWebsiteName(self):
+        # TODO: compensate for websites that don't use .com
         websiteName = self.articleURL.split("www.")[1].split(".com")[0]
         return websiteName
 
