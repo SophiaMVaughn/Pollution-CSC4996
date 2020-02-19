@@ -19,6 +19,8 @@ class Crawler:
         # all search keywords
         self.keywords = []
 
+        self.articleCount = 0
+
         for key in keywords:
             self.keywords.append(key)
 
@@ -35,7 +37,8 @@ class Crawler:
 
             links = soupPage.find_all('a', href=True)
 
-            urlCount = 0
+            articleCountPerKey = 0
+
             for link in links:
 
                 link = link['href']
@@ -45,12 +48,15 @@ class Crawler:
 
                 if (self.website.getURL() + self.website.getArticleLinkStructure()) in link:
                     self.urlsCrawled.append(link)
-                    urlCount = urlCount + 1
+                    self.articleCount = self.articleCount + 1
+                    articleCountPerKey = articleCountPerKey + 1
 
             print(bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.website.getWebsiteName() +
                   ".com for keyword " + bcolors.WARNING + "\'%s\'" % (keyword) + bcolors.ENDC + ": " +
-                  bcolors.OKGREEN + str(urlCount) + " URLs retrieved" + bcolors.ENDC)
+                  bcolors.OKGREEN + str(articleCountPerKey) + " URLs retrieved" + bcolors.ENDC)
 
     def getCrawledURLs(self):
         return self.urlsCrawled
 
+    def getArticleCount(self):
+        return self.articleCount
