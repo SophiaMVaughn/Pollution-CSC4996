@@ -18,5 +18,14 @@ class Articles(mongoengine.Document):
         'indexes': [
             {'fields': ['-url'], 'unique': True},
         ],
-        'ordering': ['-articleDate']
+        'ordering': ['-publishingDate']
+    }
+
+class Urls(mongoengine.Document):
+    url = mongoengine.StringField(required=True)
+
+    meta = {
+        'indexes': [
+            {'fields': ['-url'], 'unique': True},
+        ]
     }

@@ -49,9 +49,6 @@ class Scraper:
             print(bcolors.FAIL + "[-] Could not retrieve date for " + self.articleURL + bcolors.ENDC)
             self.articleDate = "Empty"
 
-        # TODO: uncomment this
-        # self.storeInDatabase()
-
     def storeInDatabase(self):
         try:
             database.Articles(

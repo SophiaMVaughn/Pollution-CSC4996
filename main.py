@@ -36,8 +36,9 @@ print("\nParsing event articles")
 print("-----------------------")
 for article in articles:
     if isArticleEvent(article):
-        print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
+        article.storeInDatabase()
         confirmedEventArticles.append(article)
+        print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
     else:
         print(bcolors.FAIL + "[-] " + article.getArticleTitle() + bcolors.ENDC)
 

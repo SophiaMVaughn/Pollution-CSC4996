@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as soup
 from textColors import bcolors
+import database
 import sys
 from time import sleep
 
@@ -25,7 +26,7 @@ class Crawler:
             self.keywords.append(key)
 
         self.crawl()
-
+        self.storeInDatabase()
 
     def crawl(self):
 
@@ -54,6 +55,13 @@ class Crawler:
             print(bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.website.getWebsiteName() +
                   ".com for keyword " + bcolors.WARNING + "\'%s\'" % (keyword) + bcolors.ENDC + ": " +
                   bcolors.OKGREEN + str(articleCountPerKey) + " URLs retrieved" + bcolors.ENDC)
+
+    def storeInDatabase(self):
+        for url in self.getCrawledURLs():
+            try:
+                database.Urls(url=url).save()
+            except:
+                pass
 
     def getCrawledURLs(self):
         return self.urlsCrawled
