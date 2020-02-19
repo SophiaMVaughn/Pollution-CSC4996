@@ -24,7 +24,7 @@ class Scraper:
                 self.scrape()
 
     def scrape(self):
-        print(bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + self.articleURL)
+        # print(bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + self.articleURL)
         page = requests.get(self.articleURL)
         soup_page = soup(page.content, 'html.parser')
 
@@ -57,7 +57,8 @@ class Scraper:
                 url=self.getArticleURL()
             ).save()
         except:
-            print(bcolors.FAIL + "[-] Duplicate URL: " + self.getArticleURL() + bcolors.ENDC)
+            # print(bcolors.WARNING + "[-] Duplicate URL: " + self.getArticleURL() + bcolors.ENDC)
+            pass
 
     def normalizeDate(self, date):
         d = parser.parse(date)

@@ -2,8 +2,7 @@ import requests
 from bs4 import BeautifulSoup as soup
 from textColors import bcolors
 import database
-import sys
-from time import sleep
+
 
 ################################################
 #                Crawler Class                 #
