@@ -30,7 +30,7 @@ class Scraper:
             # scrape article title
             self.articleTitle = soup_page.find_all(self.website.getTitleTag())[0].get_text()
         except IndexError:
-            print("Could not retrieve title for " + self.articleURL)
+            print("[-] Could not retrieve title for " + self.articleURL)
             self.articleTitle = "Empty"
 
         # scape article body
@@ -44,8 +44,8 @@ class Scraper:
             date = soup_page.find_all(self.website.getPublishingDateTag())[0].get_text().strip()
             self.articleDate = self.normalizeDate(date)
         except IndexError:
-            print("Could not retrieve body for " + self.articleURL)
-            self.articleBody = "Empty"
+            print("[-] Could not retrieve date for " + self.articleURL)
+            self.articleDate = "Empty"
 
     def normalizeDate(self, date):
         d = parser.parse(date)

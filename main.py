@@ -5,9 +5,9 @@ from scraper import Scraper
 # create NewsWebsite objects
 newsWebsiteObjList = []
 
-newsWebsiteObjList.append(NewsWebsite("https://www.stignacenews.com",
-                                      "title", "", "", "https://www.stignacenews.com/page/PEATPAGE/?s=PEATKEY",
-                                      "/articles/", False))
+# newsWebsiteObjList.append(NewsWebsite("https://www.stignacenews.com",
+#                                       "title", "", "", "https://www.stignacenews.com/page/PEATPAGE/?s=PEATKEY",
+#                                       "/articles/", False))
 
 newsWebsiteObjList.append(NewsWebsite("https://www.ourmidland.com", "title", "p", "time",
                                       "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE",
@@ -26,5 +26,5 @@ for website in newsWebsiteObjList:
 for website in crawlList:
     for url in website.getCrawledURLs():
         scraper = Scraper(url, newsWebsiteObjList)
-        print("Title: " + scraper.getArticleTitle())
 
+# TODO: integrate database

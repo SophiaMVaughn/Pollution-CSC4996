@@ -1,9 +1,9 @@
-from newsWebsite import NewsWebsite
-from crawler import Crawler
-from scraper import Scraper
+import requests
+from bs4 import BeautifulSoup as soup
 
-stignacenews = NewsWebsite("https://www.stignacenews.com", "title", "", "",
-                           "https://www.stignacenews.com/page/PEATPAGE/?s=PEATKEY", "/articles/", False)
+page = requests.get("https://www.stignacenews.com/articles/graymont-will-build-plant/")
+soup_page = soup(page.content, 'html.parser')
 
-print(stignacenews.getSearchQuery("pollution", 3))
+articleTitle = soup_page.find_all("title")[0].get_text()
 
+body = soup_page.find_all("p")
