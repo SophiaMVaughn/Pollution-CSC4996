@@ -30,7 +30,7 @@ class Crawler:
     def crawl(self):
 
         for keyword in self.keywords:
-
+            # TODO: work on moving through pages
             searchURL = self.website.getSearchQuery(keyword, 1)
             page = requests.get(searchURL)
             soupPage = soup(page.content, 'html.parser')

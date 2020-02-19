@@ -33,7 +33,7 @@ for website in crawlList:
         scraper = Scraper(url, newsWebsiteObjList)
         articles.append(scraper)
 
-print("\r" + bcolors.OKGREEN + "[+] All articles scraped")
+print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
 
 
 ####################  NLP event recognition  ###########################
