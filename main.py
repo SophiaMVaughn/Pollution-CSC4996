@@ -1,36 +1,27 @@
 from newsWebsite import NewsWebsite
+import newsWebsiteObjs
 from crawler import Crawler
 from scraper import Scraper
 from parse import isArticleEvent
 from textColors import bcolors
 
-# create NewsWebsite objects
-newsWebsiteObjList = []
 
-# newsWebsiteObjList.append(NewsWebsite("https://www.stignacenews.com",
-#                                       "title", "", "", "https://www.stignacenews.com/page/PEATPAGE/?s=PEATKEY",
-#                                       "/articles/", False))
-
-# newsWebsiteObjList.append(NewsWebsite("https://www.ourmidland.com", "title", "p", "time",
-#                                       "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE",
-#                                       "/news/article/", False))
-
-newsWebsiteObjList.append(NewsWebsite("https://www.michigansthumb.com/", "title", "p", "time",
-                                      "https://www.michigansthumb.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE",
-                                      "/news/article", False))
+####################  create NewsWebsite objects  ###########################
+newsWebsiteObjList = newsWebsiteObjs.getNewsWebsiteObjsListForTesting()
 
 # crate Crawler objects
 print("\n")
 crawlList = []
 articleCount = 0
 for website in newsWebsiteObjList:
-    crawler = Crawler(website, "pollution", "contamination")
+    crawler = Crawler(website, "spills", "dumps")
     articleCount = articleCount + crawler.getArticleCount()
     crawlList.append(crawler)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(articleCount) + " articles retrieved" + bcolors.ENDC)
 
-# create Scraper objects
+
+####################  create Scraper objects  ###########################
 articles = []
 print("\n")
 for website in crawlList:
@@ -38,7 +29,8 @@ for website in crawlList:
         scraper = Scraper(url, newsWebsiteObjList)
         articles.append(scraper)
 
-# NLP event recognition
+
+####################  NLP event recognition  ###########################
 confirmedEventArticles = []
 print("\nParsing event articles")
 print("-----------------------")
