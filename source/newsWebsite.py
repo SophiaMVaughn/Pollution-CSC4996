@@ -4,12 +4,13 @@
 ################################################
 
 class NewsWebsite:
-    def __init__(self, articleURL, titleTag, bodyTag, publishingDateTag,
+    def __init__(self, articleURL, titleTag, bodyTag, publishingDateTag, searchSyntax,
                  articleLinkStructure, infiniteScrolling):
         self.articleURL = articleURL
         self.titleTag = titleTag
         self.bodyTag = bodyTag
         self.publishingDateTag = publishingDateTag
+        self.searchSyntax = searchSyntax
         self.articleLinkStructure = articleLinkStructure
         self.infiniteScrolling = infiniteScrolling
 
@@ -42,15 +43,8 @@ class NewsWebsite:
     # returns the search query structure that the website uses. Takes the keyword to search for and
     # the page number to search within (if infinite scrolling used, then pageNum will be 0 as default)
     def getSearchQuery(self, keyword, pageNum=0):
-        # TODO: add try catch in case website not included in if-else
-        if "stignacenews" in self.articleURL:
-            return "https://www.stignacenews.com/page/" + str(pageNum) + "/?s=" + keyword
-        elif "ourmidland" in self.articleURL:
-            return "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=" \
-                   + keyword + "&page=" + str(pageNum)
-        elif "michigansthumb" in self.articleURL:
-            return "https://www.michigansthumb.com/search/?action=search&searchindex=solr&query=" \
-                   + keyword + "&page=" + str(pageNum)
+        search = self.searchSyntax.replace("PEATKEY", keyword).replace("PEATPAGE", str(pageNum))
+        return search
 
     def getWebsiteName(self):
         websiteName = self.articleURL.split("www.")[1].split(".com")[0]

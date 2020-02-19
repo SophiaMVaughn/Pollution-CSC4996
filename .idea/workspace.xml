@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="665edcdf-9897-4a9c-9e0b-edb64b289fb6" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/eventsBodyList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/eventsBodyList.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generateEventsBodyList.py" beforeDir="false" afterPath="$PROJECT_DIR$/generateEventsBodyList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/newsWebsite.py" beforeDir="false" afterPath="$PROJECT_DIR$/newsWebsite.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +38,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.generateEventsBodyList">
+  <component name="RunManager" selected="Python.main">
     <configuration name="createUniqueTitleList" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Pollution-CSC4996" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -51,27 +52,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/createUniqueTitleList.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="createUniqueUrlList" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Pollution-CSC4996" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/createUniqueUrlList.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -143,13 +123,34 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Pollution-CSC4996" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.generateEventsBodyList" />
         <item itemvalue="Python.createUniqueTitleList" />
         <item itemvalue="Python.generateTitleList" />
-        <item itemvalue="Python.createUniqueUrlList" />
-        <item itemvalue="Python.main" />
       </list>
     </recent_temporary>
   </component>
@@ -183,25 +184,25 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="184" y="112" width="1071" height="731" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1440.900@0.0.1440.900" timestamp="1580337883703" />
-    <state width="1419" height="226" key="GridCell.Tab.0.bottom" timestamp="1581905361556">
+    <state width="1419" height="162" key="GridCell.Tab.0.bottom" timestamp="1582073723984">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="226" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1581905361556" />
+    <state width="1419" height="162" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1582073723984" />
     <state width="1893" height="267" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538091" />
-    <state width="1419" height="226" key="GridCell.Tab.0.center" timestamp="1581905361555">
+    <state width="1419" height="162" key="GridCell.Tab.0.center" timestamp="1582073723983">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="226" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1581905361555" />
+    <state width="1419" height="162" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1582073723983" />
     <state width="1893" height="267" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538091" />
-    <state width="1419" height="226" key="GridCell.Tab.0.left" timestamp="1581905361555">
+    <state width="1419" height="162" key="GridCell.Tab.0.left" timestamp="1582073723982">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="226" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1581905361555" />
+    <state width="1419" height="162" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1582073723982" />
     <state width="1893" height="267" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538090" />
-    <state width="1419" height="226" key="GridCell.Tab.0.right" timestamp="1581905361556">
+    <state width="1419" height="162" key="GridCell.Tab.0.right" timestamp="1582073723983">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1419" height="226" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1581905361556" />
+    <state width="1419" height="162" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1582073723983" />
     <state width="1893" height="267" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1581613538091" />
     <state width="1419" height="303" key="GridCell.Tab.1.bottom" timestamp="1581632287079">
       <screen x="0" y="0" width="1440" height="900" />
@@ -224,10 +225,10 @@
     </state>
     <state x="220" y="89" key="SettingsEditor/0.0.1440.900@0.0.1440.900" timestamp="1581628080288" />
     <state x="293" y="103" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1581613491322" />
-    <state x="397" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1581723165948">
+    <state x="397" y="282" key="com.intellij.ide.util.TipDialog" timestamp="1582072032620">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="397" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1581723165948" />
+    <state x="397" y="282" key="com.intellij.ide.util.TipDialog/0.0.1440.900@0.0.1440.900" timestamp="1582072032620" />
     <state x="385" y="196" width="670" height="676" key="search.everywhere.popup" timestamp="1581632944296">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
