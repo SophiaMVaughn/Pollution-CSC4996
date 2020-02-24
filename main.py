@@ -3,6 +3,7 @@ import newsWebsiteObjs
 from crawler import Crawler
 from scraper import Scraper
 from parse import isArticleEvent
+from RNNBinary import readBinary
 from textColors import bcolors
 import sys
 
@@ -56,4 +57,14 @@ print("\nConfirmed event articles")
 print("-------------------------")
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
+    chems, quants = readBinary(article.getArticleBody())
+
+    if len(chems)>0:
+        print("CHEMICALS")
+    for chem in chems:
+        print(chem)
+    if len(quants)>0:
+        print("QUANTITIES")
+    for quant in quants:
+        print(quant)
 
