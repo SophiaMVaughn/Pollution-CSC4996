@@ -1,4 +1,3 @@
-from newsWebsite import NewsWebsite
 import newsWebsiteObjs
 from crawler import Crawler
 from scraper import Scraper

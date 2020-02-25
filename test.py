@@ -1,14 +1,12 @@
-import sys
-from time import sleep
+tsv = open("saular-200-articles-tsv.txt", "r").readlines()
+lastTwentyThousand = open("last-twenty-thousand.tsv", "a+")
 
-lines = []
-lines.append("hello this is saular")
-lines.append("no this is what i want")
-lines.append("i like toitles")
-lines.append("what the hell is going on?")
+count = 1
+for line in tsv:
+    if count >= 100000:
+        lastTwentyThousand.write(line)
 
-
-
-for line in lines:
-    print("\r" + line, end="")
-    sys.stdout.flush()
+# lastTwentyThousand = open("last-twenty-thousand.tsv", "r")
+#
+# for line in lastTwentyThousand:
+#     print(line)
