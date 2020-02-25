@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>P.E.A.T.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/bootstrap/js/bootstrap.min.js" rel="stylesheet">
+  <style>
+  .carousel-caption{
+      top: 50%;
+      transform: translateY(-50%);
+      text-transform: uppercase;
+  }
+  .btn{
+      font-size: 18px;
+      color: #FFF;
+      padding: 12px 22px;
+      background: #5E4485;
+      border: 2px solid #FFF;
+  }
+  @media(max-width: 600px)  {
+      .carousel-caption{
+          display: none;
+      }
+  }
+      #icon{
+          max-width: 200px;
+          margin: 1% auto;
+      }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">P.E.A.T.</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('front') }}">Home<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('table') }}">Table View</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('map') }}">Map View</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">Recent Activity</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div id="carousel" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        <li data-target="#carousel" data-slide-to="0" class="active"></li>
+    </ol>
+    <div class="carousel-inner" role="listbox">
+        <div class="item active">
+            <img src="static/img/pollution1.jpg">
+            <div class="carousel-caption">
+                <h1>P.E.A.T.</h1>
+                <h3>Pollution Events Aggregation Tool</h3>
+                <br>
+                <button type="button" class="btn btn-default">About Us</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center">
+    <h2>Take A Look At Our Data</h2>
+    <div class="row">
+        <div class="col-sm-4">
+            <img src="static/img/tableIcon.png" id="icon">
+            <h4>Table View</h4>
+            </div>
+            <div class="col-sm-4">
+            <img src="static/img/mapIcon.png"  id="icon">
+            <h4>Map View</h4>
+            </div>
+            <div class="col-sm-4">
+            <img src="static/img/newsIcon.png" id="icon">
+            <h4>Recent Activity</h4>
+            </div>
+    </div>
+</div>
+
+</body>
+</html>

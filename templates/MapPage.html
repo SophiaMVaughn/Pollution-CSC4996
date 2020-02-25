@@ -2,18 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Map</title>
+	{{polMap.js}}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <title>P.E.A.T.</title>
+
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/bootstrap/js/bootstrap.min.js" rel="stylesheet">
+
 </head>
 <link rel="stylesheet" type="text/css" href="/static/map.css">
-<body style="background-color:grey;">
-    <div class="button">
-	<video width="1024" height="576" controls>
-  	<source src="/static/pollutionWorld.mp4" type="video/mp4">
-  	</video>
-	</form>
-		<form action = "http://localhost:5000/MapPage" method = "post">
-        <input type="submit" value="Table Page">
-	</form>
+<link rel="stylesheet" type="text/css" href="/static/header.css">
+<body>
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="#">P.E.A.T.</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('table') }}">Table View</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('map') }}">Map View<span class="sr-only">(current)</span></a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">Recent Activity</a>
+      </li>
+    </ul>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+  <div class = "main">
+		{{polMap.html}}
 	</div>
 </body>
 </html>
