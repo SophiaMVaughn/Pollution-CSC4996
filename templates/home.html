@@ -17,12 +17,15 @@
       transform: translateY(-50%);
       text-transform: uppercase;
   }
+  .head{
+      text-align: center;
+  }
+
   .btn{
       font-size: 18px;
       color: #FFF;
       padding: 12px 22px;
-      background: #5E4485;
-      border: 2px solid #FFF;
+      background: #062c33;
   }
   @media(max-width: 600px)  {
       .carousel-caption{
@@ -32,6 +35,9 @@
       #icon{
           max-width: 200px;
           margin: 1% auto;
+      }
+      .row{
+          margin: 100px;
       }
   </style>
 </head>
@@ -65,11 +71,11 @@
     <div class="carousel-inner" role="listbox">
         <div class="item active">
             <img src="static/img/pollution1.jpg">
-            <div class="carousel-caption">
+            <div class="carousel-caption text-dark">
                 <h1>P.E.A.T.</h1>
                 <h3>Pollution Events Aggregation Tool</h3>
                 <br>
-                <button type="button" class="btn btn-default">About Us</button>
+                <a href="https://github.com/SophiaMVaughn/Pollution-CSC4996" class="btn btn-default" role="button">Link To GitHub</a>
             </div>
         </div>
     </div>
@@ -79,19 +85,32 @@
     <h2>Take A Look At Our Data</h2>
     <div class="row">
         <div class="col-sm-4">
-            <img src="static/img/tableIcon.png" id="icon">
+            <a href="{{ url_for('table') }}" title=""><img src="static/img/tableIcon.png" id="icon" class="img-responsive"></a>
             <h4>Table View</h4>
             </div>
             <div class="col-sm-4">
-            <img src="static/img/mapIcon.png"  id="icon">
+            <a href="{{ url_for('table') }}" title=""><img src="static/img/mapIcon.png" id="icon" class="img-responsive"></a>
             <h4>Map View</h4>
             </div>
             <div class="col-sm-4">
-            <img src="static/img/newsIcon.png" id="icon">
+            <a href="{{ url_for('table') }}" title=""><img src="static/img/newsIcon.png" id="icon" class="img-responsive"></a>
             <h4>Recent Activity</h4>
             </div>
     </div>
 </div>
+<div class="container-fluid" style="min-height: 150px; height:100%;background-color: #4e555b">
+  <div class="container">
+    <ul class="list-unstyled list-inline text-center py-2" >
+      <li class="list-inline-item text-white">
+        <h4 class="mb-1">About Us</h4>
+          <p>
+                The goal for this project is to take unstructured data from new sources, use RNN and NLP techniques, and turn that unstructured data into a structured
+                and user friendly output to share our findings with the world.
+          </p>
+      </li>
+    </ul>
+  </div>
 
+</div>
 </body>
 </html>
