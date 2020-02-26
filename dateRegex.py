@@ -11,6 +11,6 @@ def dateInfo(articleBody):
         temp = convertScrapedtoSent(para)
         for sent in temp:
             datePattern = regex.findall(sent)
-            for date in datePattern
-        dates.append(sent)
+            for date in datePattern:
+                dates.append(date)
     return dates

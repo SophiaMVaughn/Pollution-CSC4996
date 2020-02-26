@@ -98,7 +98,7 @@ for article in confirmedEventArticles:
      
     #for pulling date information
     dates = dateInfo(article.getArticleBody())
-    if len(dateRegex)>0:
+    if len(dates)>0:
         print("DATE")
-    for sent in dateRegex:
+    for sent in dates:
         print(sent)
