@@ -3,8 +3,11 @@ from crawler import Crawler
 from scraper import Scraper
 from parse import isArticleEvent
 from textColors import bcolors
+import testCollectionIncidents
 import sys
 
+
+testCollectionIncidents.populateDatabase()
 
 ####################  create NewsWebsite objects  ###########################
 newsWebsiteObjList = newsWebsiteObjs.getNewsWebsiteObjsListForTesting()
