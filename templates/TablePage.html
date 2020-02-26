@@ -21,7 +21,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">P.E.A.T.</a>
+  <a class="navbar-brand" href="{{ url_for('front') }}">P.E.A.T.</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -51,16 +51,20 @@
   <thead class="thead-light">
     <tr>
       <th scope="col">Date</th>
-      <th scope="col">Article Title</th>
+        <th scope="col">Chemical</th>
+        <th scope="col">Location</th>
+      <th scope="col">Official Statement</th>
       <th scope="col">URL</th>
     </tr>
   </thead>
   <tbody>
     {% for pieces in cookie %}
         <tr>
-            <td>{{pieces.articleDate}}</a></td>
-            <td>{{pieces.articleTitle}}</td>
-            <td>{{pieces.url}}</td>
+            <td>{{pieces.date}}</a></td>
+            <td>{{pieces.chemical}}</td>
+            <td>{{pieces.location}}</td>
+            <td>{{pieces.officialStatement}}</td>
+            <td>{{pieces.articleLinks}}</td>
     {%endfor%}
         </tr>
   </tbody>
