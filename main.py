@@ -79,12 +79,12 @@ for article in confirmedEventArticles:
     offComm, people = officialComment(article.getArticleBody())
     # if len(offComm)>0:
     #     print("OFFICIAL COMMENTS")
-    for sent in offComm:
-        database.Incidents(
-            chemicals=["chem1", "chem2"],
+    #for sent in offComm:
+    database.Incidents(
+            chemicals=chems,#["chem1", "chem2"],
             date="date",
             location="location",
-            officialStatement=sent,
+            officialStatement=offComm,
             articleLinks=["www.test.com"]
         ).save()
     if len(people)>0:
