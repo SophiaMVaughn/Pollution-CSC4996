@@ -66,29 +66,30 @@ for article in confirmedEventArticles:
 
 
     # #NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
-    # chems, quants = readBinary(article.getArticleBody())
+    chems, quants = readBinary(article.getArticleBody())
     #
-    # if len(chems)>0:
-    #     print("CHEMICALS")
-    # for chem in chems:
-    #     print(chem)
-    # if len(quants)>0:
-    #     print("QUANTITIES")
-    # for quant in quants:
-    #     print(quant)
+    if len(chems)>0:
+        print("CHEMICALS")
+    for chem in chems:
+        print(chem)
+    if len(quants)>0:
+        print("QUANTITIES")
+    for quant in quants:
+        print(quant)
 
 
     offComm, people = officialComment(article.getArticleBody())
-    # if len(offComm)>0:
-    #     print("OFFICIAL COMMENTS")
-    #for sent in offComm:
-    database.Incidents(
-            chemicals=["chem1", "chem2"],
-            date="date",
-            location="location",
-            officialStatement=str(offComm),
-            articleLinks=["www.test.com"]
-        ).save()
+    if len(offComm)>0:
+        print("OFFICIAL COMMENTS")
+    for sent in offComm:
+        print(sent)
+##    database.Incidents(
+##            chemicals=["chem1", "chem2"],
+##            date="date",
+##            location="location",
+##            officialStatement=str(offComm),
+##            articleLinks=["www.test.com"]
+##        ).save()
     if len(people)>0:
         print("PEOPLE")
     for ppl in people:
