@@ -6,10 +6,11 @@ from RNNBinary import readBinary
 from officialComm import officialComment
 from textColors import bcolors
 import testCollectionIncidents
+import database
 import sys
 
 
-testCollectionIncidents.populateDatabase()
+# testCollectionIncidents.populateDatabase()
 
 ####################  create NewsWebsite objects  ###########################
 newsWebsiteObjList = newsWebsiteObjs.getNewsWebsiteObjsListForTesting()
@@ -72,14 +73,20 @@ for article in confirmedEventArticles:
     #     print("QUANTITIES")
     # for quant in quants:
     #     print(quant)
-    #
-    # offComm, people = officialComment(article.getArticleBody())
+
+    offComm, people = officialComment(article.getArticleBody())
     # if len(offComm)>0:
     #     print("OFFICIAL COMMENTS")
-    # for sent in offComm:
-    #     print(sent)
-    # if len(people)>0:
-    #     print("PEOPLE")
-    # for ppl in people:
-    #     print(ppl)
+    for sent in offComm:
+        database.Incidents(
+            chemicals=["chem1", "chem2"],
+            date="date",
+            location="location",
+            officialStatement=sent,
+            articleLinks=["www.test.com"]
+        ).save()
+    if len(people)>0:
+        print("PEOPLE")
+    for ppl in people:
+        print(ppl)
 
