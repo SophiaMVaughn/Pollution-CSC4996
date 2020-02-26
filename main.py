@@ -4,6 +4,7 @@ from scraper import Scraper
 from parse import isArticleEvent
 from RNNBinary import readBinary
 from officialComm import officialComment
+from dateRegex import dateInfo
 from textColors import bcolors
 import testCollectionIncidents
 import mainHelper
@@ -94,3 +95,10 @@ for article in confirmedEventArticles:
         print("PEOPLE")
     for ppl in people:
         print(ppl)
+     
+    #for pulling date information
+    dates = dateInfo(article.getArticleBody())
+    if len(dateRegex)>0:
+        print("DATE")
+    for sent in dateRegex:
+        print(sent)
