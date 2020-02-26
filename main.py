@@ -6,11 +6,10 @@ from RNNBinary import readBinary
 from officialComm import officialComment
 from textColors import bcolors
 import testCollectionIncidents
+import mainHelper
 import database
 import sys
 
-
-# testCollectionIncidents.populateDatabase()
 
 ####################  create NewsWebsite objects  ###########################
 newsWebsiteObjList = newsWebsiteObjs.getNewsWebsiteObjsListForTesting()
@@ -30,13 +29,16 @@ print("\n" + bcolors.OKGREEN + "[+] " + str(articleCount) + " articles retrieved
 
 ####################  create Scraper objects  ###########################
 articles = []
+articleTitles = []
 print("\n")
 for website in crawlList:
     for url in website.getCrawledURLs():
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + url, end="")
         sys.stdout.flush()
         scraper = Scraper(url, newsWebsiteObjList)
-        articles.append(scraper)
+        if scraper.getArticleTitle() not in articleTitles:
+            articleTitles.append(scraper.getArticleTitle())
+            articles.append(scraper)
 
 print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
 
@@ -89,4 +91,3 @@ for article in confirmedEventArticles:
         print("PEOPLE")
     for ppl in people:
         print(ppl)
-
