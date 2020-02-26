@@ -58,7 +58,7 @@ print("\nConfirmed event articles")
 print("-------------------------")
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
-
+    print(article.getArticleURL())
     #NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
     chems, quants = readBinary(article.getArticleBody())
 
