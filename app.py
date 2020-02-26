@@ -1,10 +1,11 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, jsonify
 from flask_pymongo import PyMongo
 from flask_googlemaps import GoogleMaps
 from flask_googlemaps import Map
 from pymongo import MongoClient
 from flask_bootstrap import Bootstrap
 import platform
+import _json
 import googlemaps
 
 
@@ -29,33 +30,45 @@ cookie = []
 
 #THIS LOOP IS FOR THE INCIDENT COLLECTION
 for task in all_events:
-    cookie.append({ 'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
+    cookie.append({ 'chemicals': task['\ufeffchemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
 
 app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
 GoogleMaps(app)
 
 Bootstrap(app)
 
-gmaps = googlemaps.Client(key="AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI")
-#locResults= []
-#locations = []
-#for crumb in cookie:
-    #result = gmaps.find_place(
-       # input=crumb['location'],
-      #  input_type='textquery',
-     #   fields=['place_id', 'name', 'types', 'geometry', 'formatted_address'],
-    #    location_bias='point: 42.3314, -83.0458',
-   #     language='en'
-    #)
-    #locResults.append(result)
-    #for loc in locResults:
-     #   print(loc)
+gmaps = googlemaps.Client(key="AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI")#locResults= []
+locations = []
+locResults= []
+latLong = []
+k = 0
+for crumb in cookie:
+    result = gmaps.find_place(
+        input=crumb['location'],
+        input_type='textquery',
+        fields=['geometry'],
+        location_bias='point: 42.3314, -83.0458',
+        language='en'
+    )
+    locResults.append(result['candidates'])
+    b = locResults[k][0].get("geometry")
+    c = b.get("location")
+    k += 1
+    if c not in locations:
+        locations.append(c)
+        #print(c)
+        #print(crumb['location'])
 
-    # https://developers.google.com/places/web-service/search#Fields
-    # circle:radius@lat,lng
-    # rectangle:south,west|north,east
-    # https://developers.google.com/maps/faq#languagesupport
+#FIGURE OUT A WAY TO TRACK LONG AND LAT TO SPECIFIC LOCATIONS TO MAKE SURE THEY ARE BEING APPLIED TO THE CORRECT LOCATIONS AS WELL AS HANDLE DUPLICATE LOCATIONS
 
+final = []
+d = 0
+for task in cookie:
+    final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
+                       'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': locations[d].get('lat'), 'lng': locations[d].get('lng')})
+    d +=1
+#for a in final:
+    #print (a)
 @app.route("/")
 def home():
     return redirect(url_for('front'))
@@ -73,6 +86,17 @@ def table():
 
 @app.route("/MapPage", methods=['GET', 'POST'])
 def map():
+    markers = []  # initialize a list to store your addresses
+    for add in final:
+        details = {
+            'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+            "lat": add.get('lat'),
+            "lng": add.get('lng'),
+            "infobox": add.get('location')}
+        markers.append(details)
+
+
+
     print(request.method)
     if request.method == 'POST':
         return redirect(url_for('table'))
@@ -92,65 +116,7 @@ def map():
         lat= 42.7325,
         lng= -84.5555,
         zoom = 6,
-        markers=[
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 45.87556,
-                'lng': -84.73229,
-                'infobox': "St. Ignace"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 43.80195,
-                'lng': -83.00077,
-                'infobox': "Bad Axe"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 41.89754,
-                'lng': -84.03716,
-                'infobox': "Adrian"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 46.49771,
-                'lng': -84.34758,
-                'infobox': "Sault Ste. Marie"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 45.64695,
-                'lng': -84.47447,
-                'infobox': "Cheyboygan"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 41.94032,
-                'lng': -85.00052,
-                'infobox': "Coldwater"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 41.92004,
-                'lng': -84.63051,
-                'infobox': "Hillsdale"
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 42.98725,
-                'lng': -85.07111,
-                'infobox': '<h2>Coldwater</h2>'+
-                '<p>This is the map pin for Coldwater</p>'+
-                '<img src="static/img/pollution1.png">'+
-                '<a href="https://www.coldwater.org">Coldwater Link</a>'
-            },
-            {
-                'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
-                'lat': 42.3314,
-                'lng': -83.0458,
-                'infobox': "Detroit"
-            }
-        ]
+        markers= markers
     )
     return render_template('MapPage.html', polMap = polMap)
 
