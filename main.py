@@ -20,7 +20,7 @@ print("\n")
 crawlList = []
 articleCount = 0
 for website in newsWebsiteObjList:
-    crawler = Crawler(website, "spills", "dumps")
+    crawler = Crawler(website, "spills")
     articleCount = articleCount + crawler.getArticleCount()
     crawlList.append(crawler)
 
@@ -86,7 +86,7 @@ for article in confirmedEventArticles:
             chemicals=["chem1", "chem2"],
             date="date",
             location="location",
-            officialStatement=offComm,
+            officialStatement=str(offComm),
             articleLinks=["www.test.com"]
         ).save()
     if len(people)>0:
