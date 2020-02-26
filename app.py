@@ -44,7 +44,7 @@ latLong = []
 k = 0
 for crumb in cookie:
     result = gmaps.find_place(
-        input=crumb['location'],
+        input=crumb['location'] + ', MI',
         input_type='textquery',
         fields=['geometry'],
         location_bias='point: 42.3314, -83.0458',
