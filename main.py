@@ -2,6 +2,8 @@ import newsWebsiteObjs
 from crawler import Crawler
 from scraper import Scraper
 from parse import isArticleEvent
+from RNNBinary import readBinary
+from officialComm import officialComment
 from textColors import bcolors
 import testCollectionIncidents
 import sys
@@ -58,4 +60,26 @@ print("\nConfirmed event articles")
 print("-------------------------")
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
+
+    # #NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
+    # chems, quants = readBinary(article.getArticleBody())
+    #
+    # if len(chems)>0:
+    #     print("CHEMICALS")
+    # for chem in chems:
+    #     print(chem)
+    # if len(quants)>0:
+    #     print("QUANTITIES")
+    # for quant in quants:
+    #     print(quant)
+    #
+    # offComm, people = officialComment(article.getArticleBody())
+    # if len(offComm)>0:
+    #     print("OFFICIAL COMMENTS")
+    # for sent in offComm:
+    #     print(sent)
+    # if len(people)>0:
+    #     print("PEOPLE")
+    # for ppl in people:
+    #     print(ppl)
 

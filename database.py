@@ -1,5 +1,7 @@
 import mongoengine
 
+# TODO: consider adding foreign key that links Incidents collection to Articles collection
+
 mongoengine.connect(
     db="Pollution",
     # username="root",
