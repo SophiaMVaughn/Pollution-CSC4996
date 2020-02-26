@@ -260,12 +260,24 @@ def readBinary(articleBody):
     chemicals = []
     quantities = []
     for i in range(len(y_pred)):
+        #phrase = ""
         for j in range(len(y_pred[i])):
             if('chem' in y_pred[i][j]): #and y_pred[i][j]==y_true[i][j]
-                #print("FOUND: ",y_pred[i][j], words[i][j])
                 chemicals.append(words[i][j])
+                #if j!=(len(y_pred[i])-1) and 'I-' in y_pred[i][j+1]:
+                    #phrase=phrase+words[i][j]+" "
+                #elif j==(len(y_pred[i])-1) or 'B-' in y_pred[i][j+1]:
+                    #phrase+=words[i][j]
+                    #chemicals.append(phrase)
+                    #phrase = ""
             elif 'quant' in y_pred[i][j]:
                 quantities.append(words[i][j])
+                #if j!=(len(y_pred[i])-1) and 'I-' in y_pred[i][j+1]:
+                    #phrase=phrase+words[i][j]+" "
+                #elif j==(len(y_pred[i])-1) or 'B-' in y_pred[i][j+1]:
+                    #phrase+=words[i][j]
+                    #quantities.append(words[i][j])
+                    #phrase = ""
     return chemicals, quantities
     
 

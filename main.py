@@ -64,6 +64,7 @@ print("-------------------------")
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
 
+
     # #NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
     # chems, quants = readBinary(article.getArticleBody())
     #
@@ -76,15 +77,16 @@ for article in confirmedEventArticles:
     # for quant in quants:
     #     print(quant)
 
+
     offComm, people = officialComment(article.getArticleBody())
     # if len(offComm)>0:
     #     print("OFFICIAL COMMENTS")
-    for sent in offComm:
-        database.Incidents(
+    #for sent in offComm:
+    database.Incidents(
             chemicals=["chem1", "chem2"],
             date="date",
             location="location",
-            officialStatement=sent,
+            officialStatement=offComm,
             articleLinks=["www.test.com"]
         ).save()
     if len(people)>0:
