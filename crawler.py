@@ -46,6 +46,8 @@ class Crawler:
                 if self.website.getURL() not in link:
                     link = self.website.getURL() + link
 
+                # TODO: for some websites, different article types have different link structures
+                #  but you can search for common structure attribute in the link
                 if (self.website.getURL() + self.website.getArticleLinkStructure()) in link:
                     self.urlsCrawled.append(link)
                     self.articleCount = self.articleCount + 1
