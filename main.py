@@ -6,6 +6,7 @@ from RNNBinary import readBinary
 from officialComm import officialComment
 from dateRegex import dateInfo
 from textColors import bcolors
+from Location import locationsInfo
 import testCollectionIncidents
 import mainHelper
 import database
@@ -79,7 +80,13 @@ for article in confirmedEventArticles:
         print("QUANTITIES")
     for quant in quants:
         print(quant)
-
+        
+    #For getting location information
+    local = locationsInfo(article.getArticleBody())
+    if len(local) > 0:
+        print("Location")
+    for sent in local:
+        print(sent)
 
     offComm, people = officialComment(article.getArticleBody())
     if len(offComm)>0:
