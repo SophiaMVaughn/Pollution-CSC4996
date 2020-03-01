@@ -15,7 +15,9 @@ def locationsInfo(articleBody):
             lake=lakes.findall(sent)
             for Lake in lake:
                 local.append(Lake)
+                break
             river =rivers.findall(sent)
             for River in river:
                 local.append(River)
+                break
     return local
