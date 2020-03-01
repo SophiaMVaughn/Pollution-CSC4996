@@ -29,7 +29,7 @@ pPt.add("pat3",None,[{"LEMMA": {"IN": ["official","Official"]}},
                      {"LEMMA": {"IN": ["announce", "hazard", "say", "stated", "issued","warned"]}}]) #lemmatized words (said/discussed/etc.)
 
 pPt.add("pat4",None,
-        [{"LEMMA": {"IN": ["According", "according"]}}])                          "spokeswoman","spokesman"]}}])
+        [{"LEMMA": {"IN": ["According", "according"]}}])
 class locatedData:
     def __init__(self):
         chemicals = []
