@@ -62,6 +62,7 @@ print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles f
 
 print("\nConfirmed event articles")
 print("-------------------------")
+i=0
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
 
@@ -90,7 +91,7 @@ for article in confirmedEventArticles:
             date="date",
             location="location",
             officialStatement=offComm,
-            articleLinks=[article.getURL()]
+            articleLinks=["www.abcdefg"+str(i)+".com"]
         ).save()
     if len(people)>0:
         print("PEOPLE")
