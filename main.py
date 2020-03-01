@@ -89,7 +89,7 @@ for article in confirmedEventArticles:
             chemicals=chems,
             date="date",
             location="location",
-            officialStatement=offcomm,
+            officialStatement=offComm,
             articleLinks=[article.getURL()]
         ).save()
     if len(people)>0:
