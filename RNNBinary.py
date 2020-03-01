@@ -260,24 +260,61 @@ def readBinary(articleBody):
     chemicals = []
     quantities = []
     for i in range(len(y_pred)):
-        #phrase = ""
+        phrase = ""
         for j in range(len(y_pred[i])):
             if('chem' in y_pred[i][j]): #and y_pred[i][j]==y_true[i][j]
-                chemicals.append(words[i][j])
-                #if j!=(len(y_pred[i])-1) and 'I-' in y_pred[i][j+1]:
-                    #phrase=phrase+words[i][j]+" "
-                #elif j==(len(y_pred[i])-1) or 'B-' in y_pred[i][j+1]:
-                    #phrase+=words[i][j]
-                    #chemicals.append(phrase)
-                    #phrase = ""
+                #chemicals.append(words[i][j])
+                if j!=(len(y_pred[i])-1) and 'I-' in y_pred[i][j+1]:
+                    phrase=phrase+words[i][j]+" "
+                elif j==(len(y_pred[i])-1) or "I-" in y_pred[i][j]:
+                    if j!=(len(y_pred[i])-1) and "I-" in y_pred[i][j+1]:
+                        phrase=phrase+words[i][j]+" "
+                    else:
+                        phrase=phrase+words[i][j]
+                        chemicals.append(phrase)
+                        phrase = ""
+                elif j==(len(y_pred[i])-1) or 'B-' in y_pred[i][j+1] or 'O' in y_pred[i][j+1]:
+                    phrase=phrase+words[i][j]
+                    chemicals.append(phrase)
+                    phrase = ""
             elif 'quant' in y_pred[i][j]:
-                quantities.append(words[i][j])
-                #if j!=(len(y_pred[i])-1) and 'I-' in y_pred[i][j+1]:
-                    #phrase=phrase+words[i][j]+" "
-                #elif j==(len(y_pred[i])-1) or 'B-' in y_pred[i][j+1]:
-                    #phrase+=words[i][j]
-                    #quantities.append(words[i][j])
-                    #phrase = ""
+                #quantities.append(words[i][j])
+                if j!=(len(y_pred[i])-1) and 'I-' in y_pred[i][j+1]:
+                    phrase=phrase+words[i][j]+" "
+                elif j==(len(y_pred[i])-1) or "I-" in y_pred[i][j]:
+                    if j!=(len(y_pred[i])-1) and "I-" in y_pred[i][j+1]:
+                        phrase=phrase+words[i][j]+" "
+                    else:
+                        phrase=phrase+words[i][j]
+                        quantities.append(phrase)
+                        phrase = ""
+                elif j==(len(y_pred[i])-1) or 'B-' in y_pred[i][j+1] or 'O' in y_pred[i][j+1]:
+                    phrase=phrase+words[i][j]
+                    quantities.append(phrase)
+                    phrase = ""
+
+    bad_chars = [',', '”', ',', '"', "'"]
+    for chem in chemicals:
+        for c in bad_chars:
+            if c in chem:
+                try:
+                    chemicals.remove(chem)
+                except:
+                    chemicals.append(chem.replace(c, ''))
+                chemicals.append(chem.replace(c, ''))
+    for quant in quantities:
+        for c in bad_chars:
+            if c in quant:
+                try:
+                    quantities.remove(quant)
+                except:
+                    quantities.append(quant.replace(c, ''))
+                quantities.append(quant.replace(c, ''))
+
+    chemicals = list(set(chemicals))
+    quantities = list(set(quantities))
+
+
     return chemicals, quantities
     
 
