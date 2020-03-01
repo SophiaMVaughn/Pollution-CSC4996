@@ -4,8 +4,8 @@ from officialComm import convertScrapedtoSent
 def locationsInfo(articleBody):
     # reading from a body of text to find locations
     #test = open("LocationTest.txt", "r")
-    lakes = re.compile(r'(?i) *lake (\w+)')
-    rivers = re.compile(r'(?i)\w+(?=\s+river)')
+    lakes = re.compile(r'(?i)\S*lake\S*(?:\s\S+)?')
+    rivers = re.compile(r'(?i)(?:\S+\s)?\S*river')
     #store all locations in array
     local = []
     # return all locations found in body of text from file
