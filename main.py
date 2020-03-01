@@ -86,13 +86,14 @@ for article in confirmedEventArticles:
         print("OFFICIAL COMMENTS")
     for sent in offComm:
         print(sent)
-    database.Incidents(
-            chemicals=chems,
-            date="date",
-            location="location",
-            officialStatement=offComm,
-            articleLinks=["www.abcdefg"+str(i)+".com"]
-        ).save()
+##    database.Incidents(
+##            chemicals=chems,
+##            date="date",
+##            location="location",
+##            officialStatement=offComm,
+##            articleLinks=["www.abcdefg"+str(i)+".com"]
+##        ).save()
+    i+=1
     if len(people)>0:
         print("PEOPLE")
     for ppl in people:
