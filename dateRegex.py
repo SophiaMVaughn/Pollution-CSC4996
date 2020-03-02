@@ -13,19 +13,22 @@ def dateInfo(articleBody):
             datePattern = regex.findall(sent)
             for date in datePattern:
                 if date[0]==' ':
-                    date = date[1:]
+                    date = date[1:] #remove starting space if there is one
                 if ',' in date:
                     s = date.split(',')
                     if s[1][0]==' ':
-                        dates.append(date)
+                        if s[1][1].isdigit():
+                            dates.append(date) #if a , has a year following it
+                        else:
+                            continue #ignore it if it has a comma but the following word is not numbers (25, or 30 should not be a date)
                     elif s[1][0]!=' ' and s[1][0].isdigit() and s[0][-1].isdigit():
-                        continue
+                        continue #ignore if , between 2 numbers (300,000)
                 elif date.isdigit(): #if it is all numbers and nothing else
                     temp = int(date)
                     if temp < 1980 or temp > 2020:
                         continue
                     else:
                         dates.append(date)
-                else:        
+                else:  #if it doesn't have a comma or is just numbers, use it      
                     dates.append(date)
     return dates
