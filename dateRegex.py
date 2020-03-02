@@ -12,5 +12,20 @@ def dateInfo(articleBody):
         for sent in temp:
             datePattern = regex.findall(sent)
             for date in datePattern:
-                dates.append(date)
+                if date[0]==' ':
+                    date = date[1:]
+                if ',' in date:
+                    s = date.split(',')
+                    if s[1][0]==' ':
+                        dates.append(date)
+                    elif s[1][0]!=' ' and s[1][0].isdigit() and s[0][-1].isdigit():
+                        continue
+                elif date.isdigit(): #if it is all numbers and nothing else
+                    temp = int(date)
+                    if temp < 1980 or temp > 2020:
+                        continue
+                    else:
+                        dates.append(date)
+                else:        
+                    dates.append(date)
     return dates
