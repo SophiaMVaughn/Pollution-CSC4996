@@ -36,6 +36,6 @@ class Incidents(mongoengine.Document):
     chemicals = mongoengine.ListField(mongoengine.StringField(required=True))
     date = mongoengine.StringField(required=True)
     location = mongoengine.StringField(required=True)
-    officialStatement = mongoengine.StringField(required=True)
+    officialStatement = mongoengine.ListField(mongoengine.StringField(required=True))
     articleLinks = mongoengine.ListField(mongoengine.StringField(required=True))
 

@@ -4,7 +4,9 @@ from scraper import Scraper
 from parse import isArticleEvent
 from RNNBinary import readBinary
 from officialComm import officialComment
+from dateRegex import dateInfo
 from textColors import bcolors
+from Location import locationsInfo
 import testCollectionIncidents
 import mainHelper
 import database
@@ -61,35 +63,52 @@ print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles f
 
 print("\nConfirmed event articles")
 print("-------------------------")
+i=0
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article.getArticleTitle() + bcolors.ENDC)
 
 
     # #NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
-    # chems, quants = readBinary(article.getArticleBody())
+    chems, quants = readBinary(article.getArticleBody())
     #
-    # if len(chems)>0:
-    #     print("CHEMICALS")
-    # for chem in chems:
-    #     print(chem)
-    # if len(quants)>0:
-    #     print("QUANTITIES")
-    # for quant in quants:
-    #     print(quant)
-
+    
+    if len(chems)>0:
+        print("CHEMICALS")
+    for chem in chems:
+        print(chem)
+    if len(quants)>0:
+        print("QUANTITIES")
+    for quant in quants:
+        print(quant)
+        
+    #For getting location information
+    local = locationsInfo(article.getArticleBody())
+    if len(local) > 0:
+        print("Location")
+    for sent in local:
+        print(sent)
 
     offComm, people = officialComment(article.getArticleBody())
-    # if len(offComm)>0:
-    #     print("OFFICIAL COMMENTS")
-    #for sent in offComm:
-    database.Incidents(
-            chemicals=["chem1", "chem2"],
-            date="date",
-            location="location",
-            officialStatement=str(offComm),
-            articleLinks=["www.test.com"]
-        ).save()
+    if len(offComm)>0:
+        print("OFFICIAL COMMENTS")
+    for sent in offComm:
+        print(sent)
+##    database.Incidents(
+##            chemicals=chems,
+##            date="date",
+##            location="location",
+##            officialStatement=offComm,
+##            articleLinks=["www.abcdefg"+str(i)+".com"]
+##        ).save()
+    i+=1
     if len(people)>0:
         print("PEOPLE")
     for ppl in people:
         print(ppl)
+     
+    #for pulling date information
+    dates = dateInfo(article.getArticleBody())
+    if len(dates)>0:
+        print("DATE")
+    for sent in dates:
+        print(sent)
