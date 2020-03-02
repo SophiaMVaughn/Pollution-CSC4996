@@ -9,8 +9,8 @@ class ScraperInterface:
         self.validArticles = []
         self.articleCount = 0
 
-        self.websites.append(Ourmidland(keywords))
-        # self.websites.append(MarionPress(keywords))
+        # self.websites.append(Ourmidland(keywords))
+        self.websites.append(MarionPress(keywords))
         # self.websites.append(TheCountyPress(keywords))
         # self.websites.append(LakeCountyStar(keywords))
         # self.websites.append(NorthernExpress(keywords))

@@ -75,7 +75,8 @@ def convertScrapedtoSent(splitContent):
 
 
 def isArticleEvent(article):
-    tS = convertScrapedtoSent(article['body'])
+    body = article['body'].split("\n")
+    tS = convertScrapedtoSent(body)
     numPos = 0
     numNeg = 0
     for sentence in tS:

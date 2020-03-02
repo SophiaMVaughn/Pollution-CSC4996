@@ -1,4 +1,5 @@
 from scraper import Scraper
+import sys
 
 class Ourmidland(Scraper):
     def __init__(self, keywords):
@@ -24,7 +25,10 @@ class MarionPress(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("http://www.marion-press.com/")
         self.setSearchQueryStructure("http://www.marion-press.com/page/PEATPAGE/?s=PEATKEY&x=0&y=0")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to marion-press.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -43,7 +47,10 @@ class TheCountyPress(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://thecountypress.mihomepaper.com/")
         self.setSearchQueryStructure("https://thecountypress.mihomepaper.com/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to thecountypress.mihomepaper.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -60,7 +67,10 @@ class LakeCountyStar(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.lakecountystar.com/")
         self.setSearchQueryStructure("https://www.lakecountystar.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to lakecountystar.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -78,7 +88,10 @@ class NorthernExpress(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.northernexpress.com/")
         self.setSearchQueryStructure("https://www.northernexpress.com/search/?query=PEATKEY&content=news&page=PEATPAGE")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to northernexpress.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -98,7 +111,10 @@ class ManisteeNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.manisteenews.com/")
         self.setSearchQueryStructure("https://www.manisteenews.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to manisteenews.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -117,7 +133,10 @@ class MichiganChronicle(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://michiganchronicle.com/")
         self.setSearchQueryStructure("https://michiganchronicle.com/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to michiganchronicle.com:", sys.exc_info()[0])
         self.scrapeAll()
 
 
@@ -127,7 +146,10 @@ class ClarkstonNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://clarkstonnews.com/")
         self.setSearchQueryStructure("https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to clarkstonnews.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     # TODO: not the best way to scrape articles
@@ -146,7 +168,10 @@ class HarborLightNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.harborlightnews.com/")
         self.setSearchQueryStructure("https://www.harborlightnews.com/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to harborlightnews.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -163,7 +188,10 @@ class TheDailyNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://thedailynews.cc/")
         self.setSearchQueryStructure("https://thedailynews.cc/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to thedailynews.cc:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -181,7 +209,10 @@ class LakeOrionReview(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://lakeorionreview.com/")
         self.setSearchQueryStructure("https://lakeorionreview.com/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to lakeorionreview.com:", sys.exc_info()[0])
         self.scrapeAll()
 
 
@@ -191,7 +222,10 @@ class LeelanauNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.leelanaunews.com/")
         self.setSearchQueryStructure("https://www.leelanaunews.com/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to leelanaunews.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -208,7 +242,10 @@ class HoughtonLakeResorter(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.houghtonlakeresorter.com/")
         self.setSearchQueryStructure("https://www.houghtonlakeresorter.com/page/PEATPAGE/?s=PEATKEY")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to houghtonlakeresorter.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -225,7 +262,10 @@ class IronMountainDailyNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.ironmountaindailynews.com/")
         self.setSearchQueryStructure("https://www.ironmountaindailynews.com/search/PEATKEY/page/PEATPAGE/")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to ironmountaindailynews.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -244,7 +284,10 @@ class MiningJournal(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.miningjournal.net/")
         self.setSearchQueryStructure("https://www.miningjournal.net/search/PEATKEY/page/PEATPAGE/")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to miningjournal.net:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -263,7 +306,10 @@ class TheAlpenaNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.thealpenanews.com/")
         self.setSearchQueryStructure("https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Failed to connect to thealpenanews.com:", sys.exc_info()[0])
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):

@@ -64,7 +64,7 @@ class Scraper(Crawler):
         try:
             return self.normalizeDate(date.get_text().strip())
         except:
-            print("[-] Exception: could not formate date")
+            print("[-] Exception: could not format date")
             return ""
 
     def scrapeBody(self, newspaperArticleObj=None):

@@ -10,7 +10,7 @@ import database
 import sys
 
 
-keywords = ["pollution"]
+keywords = ["spill"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
@@ -28,7 +28,7 @@ print("\nParsing event articles")
 print("-----------------------")
 for article in scraper.getScrapedArticles():
     if isArticleEvent(article):
-        article.storeInDatabase()
+        scraper.storeInArticlesCollection(article)
         confirmedEventArticles.append(article)
         confirmedEventCount = confirmedEventCount + 1
         print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
@@ -45,7 +45,6 @@ for article in confirmedEventArticles:
 
     # NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
     chems, quants = readBinary(article['body'])
-    #
 
     if len(chems)>0:
         print("CHEMICALS")
