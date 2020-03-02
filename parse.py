@@ -74,8 +74,8 @@ def convertScrapedtoSent(splitContent):
     return tokenizedSent
 
 
-def isArticleEvent(articleBody):
-    tS = convertScrapedtoSent(articleBody.getArticleBody())
+def isArticleEvent(article):
+    tS = convertScrapedtoSent(article['body'])
     numPos = 0
     numNeg = 0
     for sentence in tS:

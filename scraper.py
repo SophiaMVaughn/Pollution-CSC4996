@@ -1,84 +1,82 @@
 import requests
 from bs4 import BeautifulSoup as soup
 from dateutil import parser
+import newspaper
 import database
-from textColors import bcolors
+import sys
+from crawler import Crawler
 
-################################################
-#                Scraper Class                 #
-################################################
 
-class Scraper:
-    def __init__(self, url, websiteObjList):
-        self.articleURL = url
-        self.websiteObjList = websiteObjList
-        self.articleTitle = ""
-        self.articleBody = []
-        self.articleDate = ""
+class Scraper(Crawler):
+    def __init__(self):
+        super().__init__()
+        self.titles = []
+        self.scrapedArticles = []
 
-        websiteName = url.split("www.")[1].split(".com")[0]
+    def scrapeAll(self):
+        for article in self.articleLinks:
+            print("scraping: ",article)
+            self.scrape(article)
 
-        for website in websiteObjList:
-            if websiteName == website.getWebsiteName():
-                self.website = website
-                self.scrape()
+    def scrape(self, url):
+        article = newspaper.Article(url)
+        article.download()
+        article.parse()
 
-    def scrape(self):
-        # print(bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + self.articleURL)
-        page = requests.get(self.articleURL)
-        soup_page = soup(page.content, 'html.parser')
+        page = requests.get(url)
+        soupPage = soup(page.content, 'html.parser')
+
+        if self.scrapeTitle(article) not in self.titles:
+
+            article = {
+                "url": url,
+                "title": self.scrapeTitle(article),
+                "publishingDate": self.scrapePublishingDate(soupPage),
+                "body": self.scrapeBody(article)
+            }
+
+            self.scrapedArticles.append(article)
+            self.titles.append(article["title"])
+
+    def scrapeTitle(self, newspaperArticleObj=None):
+        title = newspaperArticleObj.title
+        if title is None:
+            return ""
+        else:
+            return title
+
+    def scrapePublishingDate(self, soupPage=None):
+        # TODO: improve
+        date = ""
+        if soupPage.find("time", {"itemprop": "datePublished"}) is not None:
+            date = soupPage.find("time", {"itemprop": "datePublished"})
+        elif soupPage.find("span", {"class": "byline__time"}) is not None:
+            date = soupPage.find("span", {"class": "byline__time"})
+        elif soupPage.find("time"):
+            date = soupPage.find("time")
+        elif soupPage.find("h6") is not None:
+            date = soupPage.find("h6")
+            date = date.get_text()
+            date = date.split("|")[1]
+        elif soupPage.find("p") is not None:
+            date = soupPage.find("p")
 
         try:
-            # scrape article title
-            self.articleTitle = soup_page.find_all(self.website.getTitleTag())[0].get_text()
-        except IndexError:
-            print(bcolors.FAIL + "[-] Could not retrieve title for " + self.articleURL + bcolors.ENDC)
-            self.articleTitle = "Empty"
-
-        # scape article body
-        body = soup_page.find_all(self.website.getBodyTag())
-
-        for line in body:
-            self.articleBody.append(line.get_text())
-
-        try:
-            # scrape article publishing date
-            date = soup_page.find_all(self.website.getPublishingDateTag())[0].get_text().strip()
-            self.articleDate = self.normalizeDate(date)
-        except IndexError:
-            print(bcolors.FAIL + "[-] Could not retrieve date for " + self.articleURL + bcolors.ENDC)
-            self.articleDate = "Empty"
-
-    def storeInDatabase(self):
-        try:
-            database.Articles(
-                publishingDate=self.getArticleDate(),
-                title=self.getArticleTitle(),
-                url=self.getArticleURL()
-            ).save()
+            return self.normalizeDate(date.get_text().strip())
         except:
-            # print(bcolors.WARNING + "[-] Duplicate URL: " + self.getArticleURL() + bcolors.ENDC)
-            pass
+            print("[-] Exception: could not formate date")
+            return ""
+
+    def scrapeBody(self, newspaperArticleObj=None):
+        body = newspaperArticleObj.text
+        if body is None:
+            return ""
+        else:
+            return body
 
     def normalizeDate(self, date):
         d = parser.parse(date)
         return d.strftime("%m/%d/%Y")
 
-    def getArticleTitle(self):
-        return self.articleTitle
-
-    def getArticleDate(self):
-        return self.articleDate
-
-    def getArticleBody(self):
-        return self.articleBody
-
-    def getArticleURL(self):
-        return self.articleURL
-
-
-
-
-
-
-
+    def getScrapedArticles(self):
+        return self.scrapedArticles
