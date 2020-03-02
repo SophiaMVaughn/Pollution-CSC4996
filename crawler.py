@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup as soup
 import database
 import newspaper
+from textColors import bcolors
 
 
 class Crawler:
@@ -13,7 +14,6 @@ class Crawler:
         self.articleCount = 0
 
     def crawl(self):
-        print("Crawling: " + self.baseUrl)
         links = []
         for keyword in self.keywords:
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE","1")
@@ -25,10 +25,14 @@ class Crawler:
             for link in soupLinks:
                 if link['href'] not in links:
                     links.append(link['href'])
-                    self.articleCount = self.articleCount + 1
 
         self.articleLinks = self.filterLinksForArticles(links)
+        self.articleCount = self.articleCount + len(self.articleLinks)
         self.storeInUrlsCollection(self.articleLinks)
+
+        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.baseUrl
+              + " for keyword " + bcolors.WARNING + "\'%s\'" % (keyword) + bcolors.ENDC + ": " +
+              bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def crawlHomePage(self):
         links = newspaper.build('https://thecountypress.mihomepaper.com/', memoize_articles=False)

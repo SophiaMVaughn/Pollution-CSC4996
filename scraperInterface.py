@@ -1,6 +1,7 @@
 from websites import *
 import database
 import sys
+from textColors import bcolors
 
 class ScraperInterface:
     def __init__(self, keywords):
@@ -9,24 +10,26 @@ class ScraperInterface:
         self.validArticles = []
         self.articleCount = 0
 
-        # self.websites.append(Ourmidland(keywords))
+        self.websites.append(Ourmidland(keywords))
         self.websites.append(MarionPress(keywords))
-        # self.websites.append(TheCountyPress(keywords))
-        # self.websites.append(LakeCountyStar(keywords))
-        # self.websites.append(NorthernExpress(keywords))
-        # self.websites.append(ManisteeNews(keywords))
-        # self.websites.append(MichiganChronicle(keywords))
-        # self.websites.append(HarborLightNews(keywords))
-        # self.websites.append(TheDailyNews(keywords))
-        # self.websites.append(LeelanauNews(keywords))
-        # self.websites.append(HoughtonLakeResorter(keywords))
-        # self.websites.append(IronMountainDailyNews(keywords))
-        # self.websites.append(MiningJournal(keywords))
-        # self.websites.append(TheAlpenaNews(keywords))
+        self.websites.append(TheCountyPress(keywords))
+        self.websites.append(LakeCountyStar(keywords))
+        self.websites.append(NorthernExpress(keywords))
+        self.websites.append(ManisteeNews(keywords))
+        self.websites.append(HarborLightNews(keywords))
+        self.websites.append(TheDailyNews(keywords))
+        self.websites.append(LeelanauNews(keywords))
+        self.websites.append(HoughtonLakeResorter(keywords))
+        self.websites.append(IronMountainDailyNews(keywords))
+        self.websites.append(MiningJournal(keywords))
+        self.websites.append(TheAlpenaNews(keywords))
 
         # TODO: not working
         # self.websites.append(LakeOrionReview(keywords))
         # self.websites.append(ClarkstonNews(keywords))
+        # self.websites.append(MichiganChronicle(keywords))
+
+        print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
 
         self.generateArticleCount()
 

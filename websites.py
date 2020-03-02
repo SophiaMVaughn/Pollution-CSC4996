@@ -1,13 +1,30 @@
 from scraper import Scraper
 import sys
 
+# Not yet implemented
+# ----------------------------
+# https://www.candgnews.com/
+# https://www.mlive.com/
+# https://www.leaderpub.com/
+# https://www.macombdaily.com/
+# https://www.theoaklandpress.com/
+# https://www.shorelinemedia.net/
+# https://www.detroitnews.com/
+# https://www.freep.com/
+# https://www.thetimesherald.com/
+
+
 class Ourmidland(Scraper):
     def __init__(self, keywords):
         super().__init__()
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.ourmidland.com/")
         self.setSearchQueryStructure("https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
-        self.crawl()
+        try:
+            self.crawl()
+        except:
+            print("[-] Error crawling marion-press.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -28,7 +45,8 @@ class MarionPress(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to marion-press.com:", sys.exc_info()[0])
+            print("[-] Error crawling marion-press.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -50,7 +68,8 @@ class TheCountyPress(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to thecountypress.mihomepaper.com:", sys.exc_info()[0])
+            print("[-] Error crawling thecountypress.mihomepaper.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -70,7 +89,8 @@ class LakeCountyStar(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to lakecountystar.com:", sys.exc_info()[0])
+            print("[-] Error crawling lakecountystar.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -91,7 +111,8 @@ class NorthernExpress(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to northernexpress.com:", sys.exc_info()[0])
+            print("[-] Error crawling northernexpress.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -114,7 +135,8 @@ class ManisteeNews(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to manisteenews.com:", sys.exc_info()[0])
+            print("[-] Error crawling manisteenews.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -136,7 +158,8 @@ class MichiganChronicle(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to michiganchronicle.com:", sys.exc_info()[0])
+            print("[-] Error crawling michiganchronicle.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
 
@@ -149,7 +172,8 @@ class ClarkstonNews(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to clarkstonnews.com:", sys.exc_info()[0])
+            print("[-] Error crawling clarkstonnews.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     # TODO: not the best way to scrape articles
@@ -171,7 +195,8 @@ class HarborLightNews(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to harborlightnews.com:", sys.exc_info()[0])
+            print("[-] Error crawling harborlightnews.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -191,7 +216,8 @@ class TheDailyNews(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to thedailynews.cc:", sys.exc_info()[0])
+            print("[-] Error crawling thedailynews.cc:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -212,7 +238,8 @@ class LakeOrionReview(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to lakeorionreview.com:", sys.exc_info()[0])
+            print("[-] Error crawling lakeorionreview.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
 
@@ -225,7 +252,8 @@ class LeelanauNews(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to leelanaunews.com:", sys.exc_info()[0])
+            print("[-] Error crawling leelanaunews.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -245,7 +273,8 @@ class HoughtonLakeResorter(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to houghtonlakeresorter.com:", sys.exc_info()[0])
+            print("[-] Error crawling houghtonlakeresorter.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -265,7 +294,8 @@ class IronMountainDailyNews(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to ironmountaindailynews.com:", sys.exc_info()[0])
+            print("[-] Error crawling ironmountaindailynews.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -287,7 +317,8 @@ class MiningJournal(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to miningjournal.net:", sys.exc_info()[0])
+            print("[-] Error crawling miningjournal.net:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):
@@ -309,7 +340,8 @@ class TheAlpenaNews(Scraper):
         try:
             self.crawl()
         except:
-            print("[-] Failed to connect to thealpenanews.com:", sys.exc_info()[0])
+            print("[-] Error crawling thealpenanews.com:", sys.exc_info()[0])
+            raise
         self.scrapeAll()
 
     def filterLinksForArticles(self, links):

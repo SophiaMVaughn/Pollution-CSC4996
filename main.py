@@ -6,11 +6,16 @@ from dateRegex import dateInfo
 from textColors import bcolors
 from Location import locationsInfo
 import testCollectionIncidents
+from mongoengine import connect
 import database
 import sys
+import os.path
 
 
-keywords = ["spill"]
+db = connect(db="Pollution")
+db.drop_database("Pollution")
+
+keywords = ["pollution"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
@@ -37,11 +42,14 @@ for article in scraper.getScrapedArticles():
 
 print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles found" + bcolors.ENDC)
 
-print("\nConfirmed event articles")
+print("\nRunning NLP analysis")
 print("-------------------------")
 i = 0
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
+
+    if not os.path.exists("./out_base"):
+        continue
 
     # NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
     chems, quants = readBinary(article['body'])

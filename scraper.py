@@ -5,6 +5,7 @@ import newspaper
 import database
 import sys
 from crawler import Crawler
+from textColors import bcolors
 
 
 class Scraper(Crawler):
@@ -14,9 +15,10 @@ class Scraper(Crawler):
         self.scrapedArticles = []
 
     def scrapeAll(self):
-        for article in self.articleLinks:
-            print("scraping: ",article)
-            self.scrape(article)
+        for articleUrl in self.articleLinks:
+            print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + articleUrl, end="")
+            sys.stdout.flush()
+            self.scrape(articleUrl)
 
     def scrape(self, url):
         article = newspaper.Article(url)
@@ -49,20 +51,20 @@ class Scraper(Crawler):
         # TODO: improve
         date = ""
         if soupPage.find("time", {"itemprop": "datePublished"}) is not None:
-            date = soupPage.find("time", {"itemprop": "datePublished"})
+            date = soupPage.find("time", {"itemprop": "datePublished"}).get_text().strip()
         elif soupPage.find("span", {"class": "byline__time"}) is not None:
-            date = soupPage.find("span", {"class": "byline__time"})
+            date = soupPage.find("span", {"class": "byline__time"}).get_text().strip()
         elif soupPage.find("time"):
-            date = soupPage.find("time")
+            date = soupPage.find("time").get_text().strip()
         elif soupPage.find("h6") is not None:
             date = soupPage.find("h6")
-            date = date.get_text()
+            date = date.get_text().strip()
             date = date.split("|")[1]
         elif soupPage.find("p") is not None:
-            date = soupPage.find("p")
+            date = soupPage.find("p").get_text().strip()
 
         try:
-            return self.normalizeDate(date.get_text().strip())
+            return self.normalizeDate(date)
         except:
             print("[-] Exception: could not format date")
             return ""
