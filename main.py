@@ -52,49 +52,25 @@ i = 0
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
 
-    if not os.path.exists("./out_base"):
-        continue
     body = article['body'].split("\n")
     # NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
     chems, quants = readBinary(body)
 
-    if len(chems)>0:
-        print("CHEMICALS")
-    for chem in chems:
-        print(chem)
-    if len(quants)>0:
-        print("QUANTITIES")
-    for quant in quants:
-        print(quant)
-
     # For getting location information
-    local = locationsInfo(body)
-    if len(local) > 0:
-        print("Location")
-    for sent in local:
-        print(sent)
+    location = locationsInfo(body)
 
     offComm, people = officialComment(body)
-    if len(offComm)>0:
-        print("OFFICIAL COMMENTS")
-    for sent in offComm:
-        print(sent)
-#    database.Incidents(
-#            chemicals=chems,
-#            date="date",
-#            location="location",
-#            officialStatement=offComm,
-#            articleLinks=["www.abcdefg"+str(i)+".com"]
-#        ).save()
-    i += 1
-    if len(people)>0:
-        print("PEOPLE")
-    for ppl in people:
-        print(ppl)
 
     # for pulling date information
     dates = dateInfo(body)
-    if len(dates)>0:
-        print("DATE")
-    for sent in dates:
-        print(sent)
+
+    if len(location) == 0:
+        location = ["none"]
+
+    database.Incidents(
+        chemicals=chems,
+        date=dates[0],
+        location=location[0],
+        officialStatement=offComm,
+        articleLinks=[article['url']]
+    ).save()
