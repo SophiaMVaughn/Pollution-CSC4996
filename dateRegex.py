@@ -21,7 +21,7 @@ def dateInfo(articleBody):
                             dates.append(date) #if a , has a year following it
                         else:
                             continue #ignore it if it has a comma but the following word is not numbers (25, or 30 should not be a date)
-                    elif s[1][0]!=' ' and s[1][0].isdigit() and s[0][-1].isdigit():
+                    elif len(s[0])>1 and s[1][0]!=' ' and s[1][0].isdigit() and s[0][-1].isdigit():
                         continue #ignore if , between 2 numbers (300,000)
                 elif date.isdigit(): #if it is all numbers and nothing else
                     temp = int(date)

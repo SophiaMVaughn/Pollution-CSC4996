@@ -293,7 +293,7 @@ def readBinary(articleBody):
                     quantities.append(phrase)
                     phrase = ""
 
-    bad_chars = [',', '”', ',', '"', "'"]
+    bad_chars = [',', '”', ',', '"', "'", ")", "("]
     for chem in chemicals:
         for c in bad_chars:
             if c in chem:

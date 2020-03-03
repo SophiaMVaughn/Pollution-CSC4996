@@ -54,9 +54,9 @@ for article in confirmedEventArticles:
 
     if not os.path.exists("./out_base"):
         continue
-
+    body = article['body'].split("\n")
     # NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
-    chems, quants = readBinary(article['body'])
+    chems, quants = readBinary(body)
 
     if len(chems)>0:
         print("CHEMICALS")
@@ -68,13 +68,13 @@ for article in confirmedEventArticles:
         print(quant)
 
     # For getting location information
-    local = locationsInfo(article['body'])
+    local = locationsInfo(body)
     if len(local) > 0:
         print("Location")
     for sent in local:
         print(sent)
 
-    offComm, people = officialComment(article['body'])
+    offComm, people = officialComment(body)
     if len(offComm)>0:
         print("OFFICIAL COMMENTS")
     for sent in offComm:
@@ -93,7 +93,7 @@ for article in confirmedEventArticles:
         print(ppl)
 
     # for pulling date information
-    dates = dateInfo(article['body'])
+    dates = dateInfo(body)
     if len(dates)>0:
         print("DATE")
     for sent in dates:
