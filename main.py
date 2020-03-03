@@ -17,6 +17,7 @@ db.drop_database("Pollution")
 
 errorLog = open("errorLog.txt","r+")
 errorLog.truncate(0)
+errorLog.close()
 
 keywords = ["pollution"]
 scraper = ScraperInterface(keywords)

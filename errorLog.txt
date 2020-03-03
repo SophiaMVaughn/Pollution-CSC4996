@@ -1,4 +1,3 @@
-
 could not format date for article: http://www.marion-press.com/category/news/government/
 could not format date for article: http://www.marion-press.com/category/news/happening-now/
 could not format date for article: http://www.marion-press.com/category/news/
@@ -7,34 +6,3 @@ could not format date for article: http://www.marion-press.com/category/news/pol
 could not format date for article: http://www.marion-press.com/category/news/schools/
 could not format date for article: http://www.marion-press.com/category/news/sports/
 could not format date for article: http://www.marion-press.com/category/news/top-stories/
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-01
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-26
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-23
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-19
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-16
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-27
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-20
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-13
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-06
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-01-30
-could not format date for article: https://www.houghtonlakeresorter.com/category/news/features/
-could not format date for article: https://www.houghtonlakeresorter.com/category/news/law-enforcement/could not format date for article: http://www.marion-press.com/category/news/government/
-could not format date for article: http://www.marion-press.com/category/news/happening-now/
-could not format date for article: http://www.marion-press.com/category/news/
-could not format date for article: http://www.marion-press.com/category/news/obituaries/
-could not format date for article: http://www.marion-press.com/category/news/police-and-courts/
-could not format date for article: http://www.marion-press.com/category/news/schools/
-could not format date for article: http://www.marion-press.com/category/news/sports/
-could not format date for article: http://www.marion-press.com/category/news/top-stories/
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-01
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-26
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-23
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-19
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-16
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-27
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-20
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-13
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-06
-could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-01-30
-could not format date for article: https://www.houghtonlakeresorter.com/category/news/features/
-could not format date for article: https://www.houghtonlakeresorter.com/category/news/law-enforcement/

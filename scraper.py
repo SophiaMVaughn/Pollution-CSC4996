@@ -1,8 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as soup
 from dateutil import parser
-import newspaper
-import database
 import sys
 from crawler import Crawler
 from textColors import bcolors
@@ -41,6 +39,7 @@ class Scraper(Crawler):
             if article['publishingDate'] == "":
                 errorLog = open("errorLog.txt", "a+")
                 errorLog.write("could not format date for article: " + article['url'] + "\n")
+                errorLog.close()
 
             self.scrapedArticles.append(article)
             self.titles.append(article["title"])
