@@ -69,7 +69,8 @@ class ScraperInterface:
                 publishingDate=article['publishingDate']
             ).save()
         except:
-            print("Unexpected error:", sys.exc_info()[0])
+            errorLog = open("errorLog.txt", "a+")
+            errorLog.write("\ncould not add article: " + article['url'])
             # raise
             pass
 
@@ -86,7 +87,6 @@ class ScraperInterface:
                 articleLinks=links
             ).save()
         except:
-            print("Unexpected error:", sys.exc_info()[0])
-            # raise
+            raise
             pass
 

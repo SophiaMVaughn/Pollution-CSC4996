@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup as soup
 import database
 import newspaper
+from newspaper import urls as urlChecker
 from textColors import bcolors
 
 
@@ -35,13 +36,22 @@ class Crawler:
               bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def crawlHomePage(self):
-        links = newspaper.build('https://thecountypress.mihomepaper.com/', memoize_articles=False)
+        links = newspaper.build(self.baseUrl, memoize_articles=False)
         for article in links.articles:
             self.homePageArticleLinks.append(article.url)
         self.storeInUrlsCollection(self.homePageArticleLinks)
 
-    def filterLinksForArticles(self, links):
-        return links
+    def filterLinksForArticles(self, urls):
+        validArticleUrls = []
+        for url in urls:
+            urlSplit = url.split("/")
+            if len(urlSplit) < 5:
+                continue
+            if urlSplit[-2:-1][0].isnumeric() and urlSplit[-3:-2][0].isnumeric():
+                continue
+            if urlChecker.valid_url(url):
+                validArticleUrls.append(url)
+        return validArticleUrls
 
     def setBaseUrl(self, url):
         self.baseUrl = url

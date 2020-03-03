@@ -27,13 +27,13 @@ class Ourmidland(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/article/" in link:
-                link = "https://www.ourmidland.com" + link
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/article/" in link:
+    #             link = "https://www.ourmidland.com" + link
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class MarionPress(Scraper):
@@ -49,14 +49,14 @@ class MarionPress(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            linkSplit = link.split("/")
-            if len(linkSplit) > 6:
-                if linkSplit[3].isnumeric() and linkSplit[4].isnumeric():
-                    filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         linkSplit = link.split("/")
+    #         if len(linkSplit) > 6:
+    #             if linkSplit[3].isnumeric() and linkSplit[4].isnumeric():
+    #                 filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class TheCountyPress(Scraper):
@@ -72,12 +72,12 @@ class TheCountyPress(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/articles/" in link:
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/articles/" in link:
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class LakeCountyStar(Scraper):
@@ -93,13 +93,13 @@ class LakeCountyStar(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/article/" in link:
-                link = "https://www.lakecountystar.com" + link
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/article/" in link:
+    #             link = "https://www.lakecountystar.com" + link
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class NorthernExpress(Scraper):
@@ -115,15 +115,15 @@ class NorthernExpress(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/news/" in link:
-                linkSplit = link.split("/")
-                if len(linkSplit) > 4:
-                    link = "https://www.northernexpress.com" + link
-                    filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/news/" in link:
+    #             linkSplit = link.split("/")
+    #             if len(linkSplit) > 4:
+    #                 link = "https://www.northernexpress.com" + link
+    #                 filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class ManisteeNews(Scraper):
@@ -139,13 +139,13 @@ class ManisteeNews(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/article/" in link:
-                link = "https://www.manisteenews.com" + link
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/article/" in link:
+    #             link = "https://www.manisteenews.com" + link
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 # TODO: not scraping links
@@ -176,14 +176,14 @@ class ClarkstonNews(Scraper):
             raise
         self.scrapeAll()
 
-    # TODO: not the best way to scrape articles
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            linkSplit = link.split("/")
-            if len(linkSplit) > 5:
-                filteredLinks.append(link)
-        return filteredLinks
+    # # TODO: not the best way to scrape articles
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         linkSplit = link.split("/")
+    #         if len(linkSplit) > 5:
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class HarborLightNews(Scraper):
@@ -199,12 +199,12 @@ class HarborLightNews(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/articles/" in link:
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/articles/" in link:
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class TheDailyNews(Scraper):
@@ -220,12 +220,12 @@ class TheDailyNews(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/articles/" in link:
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/articles/" in link:
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 # TODO: not working
@@ -256,12 +256,12 @@ class LeelanauNews(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/articles/" in link:
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/articles/" in link:
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class HoughtonLakeResorter(Scraper):
@@ -277,12 +277,12 @@ class HoughtonLakeResorter(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            if "/articles/" in link:
-                filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         if "/articles/" in link:
+    #             filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class IronMountainDailyNews(Scraper):
@@ -298,14 +298,14 @@ class IronMountainDailyNews(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            linkSplit = link.split("/")
-            if len(linkSplit) > 5:
-                if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
-                    filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         linkSplit = link.split("/")
+    #         if len(linkSplit) > 5:
+    #             if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
+    #                 filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class MiningJournal(Scraper):
@@ -321,14 +321,14 @@ class MiningJournal(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            linkSplit = link.split("/")
-            if len(linkSplit) > 5:
-                if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
-                    filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         linkSplit = link.split("/")
+    #         if len(linkSplit) > 5:
+    #             if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
+    #                 filteredLinks.append(link)
+    #     return filteredLinks
 
 
 class TheAlpenaNews(Scraper):
@@ -344,11 +344,12 @@ class TheAlpenaNews(Scraper):
             raise
         self.scrapeAll()
 
-    def filterLinksForArticles(self, links):
-        filteredLinks = []
-        for link in links:
-            linkSplit = link.split("/")
-            if len(linkSplit) > 5:
-                if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
-                    filteredLinks.append(link)
-        return filteredLinks
+    # def filterLinksForArticles(self, links):
+    #     filteredLinks = []
+    #     for link in links:
+    #         linkSplit = link.split("/")
+    #         if len(linkSplit) > 5:
+    #             if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
+    #                 filteredLinks.append(link)
+    #     return filteredLinks
+

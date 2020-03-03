@@ -15,6 +15,9 @@ import os.path
 db = connect(db="Pollution")
 db.drop_database("Pollution")
 
+errorLog = open("errorLog.txt","r+")
+errorLog.truncate(0)
+
 keywords = ["pollution"]
 scraper = ScraperInterface(keywords)
 
