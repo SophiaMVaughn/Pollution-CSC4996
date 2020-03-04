@@ -8,6 +8,7 @@ from textColors import bcolors
 from Location import locationsInfo
 import testCollectionIncidents
 from mongoengine import connect
+from dateutil import parser
 import database
 import sys
 import os.path
@@ -24,7 +25,7 @@ articleBodies = open("articleBodies.txt","r+")
 articleBodies.truncate(0)
 articleBodies.close()
 
-keywords = ["dump"]
+keywords = ["spill"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
@@ -63,26 +64,37 @@ for article in confirmedEventArticles:
     chems, quants = readBinary(body)
 
     # For getting location information
-    location = locationsInfo(body)
+    locations = locationsInfo(body)
 
     offComm, people = officialComment(body)
 
     # for pulling date information
     dates = dateInfo(body)
 
-    if len(location) == 0:
-        location = ["none"]
+
+    if len(locations) == 0:
+        location = ""
+    else:
+        location = locations[0]
 
     if len(dates) == 0:
-        dates = ["none"]
+        date = article['publishingDate']
+    else:
+        date = dates[0]
+
+    try:
+        d = parser.parse(date)
+        date = d.strftime("%m/%d/%Y")
+    except:
+        date = article['publishingDate']
 
     if len(offComm) is None:
-        offComm = "none"
+        offComm = ""
 
     articleLinks = []
     articleLinks.append(article['url'])
 
-    scraper.storeInIncidentsCollection(chems, dates[0], location[0], offComm, articleLinks)
+    scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 
     # database.Incidents(
     #     chemicals=chems,
