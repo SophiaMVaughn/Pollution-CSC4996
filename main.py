@@ -1,5 +1,6 @@
 from scraperInterface import ScraperInterface
 from parse import isArticleEvent
+from parse import convertScrapedtoSent
 from RNNBinary import readBinary
 from officialComm import officialComment
 from dateRegex import dateInfo
@@ -19,7 +20,11 @@ errorLog = open("errorLog.txt","r+")
 errorLog.truncate(0)
 errorLog.close()
 
-keywords = ["pollution"]
+articleBodies = open("articleBodies.txt","r+")
+articleBodies.truncate(0)
+articleBodies.close()
+
+keywords = ["spills"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
@@ -52,7 +57,8 @@ i = 0
 for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
 
-    body = article['body'].split("\n")
+    body = convertScrapedtoSent(article['body'])
+
     # NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
     chems, quants = readBinary(body)
 
@@ -66,6 +72,14 @@ for article in confirmedEventArticles:
 
     if len(location) == 0:
         location = ["none"]
+
+    if len(dates) == 0:
+        dates = ["none"]
+
+    for chem in chems:
+        print(chem)
+
+    # scraper.storeInIncidentsCollection(chems, dates[0], location[0], offComm, article['url'])
 
     database.Incidents(
         chemicals=chems,

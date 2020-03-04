@@ -68,6 +68,12 @@ class ScraperInterface:
                 title=article['title'],
                 publishingDate=article['publishingDate']
             ).save()
+
+            articleBodies = open("articleBodies.txt", "a+")
+            articleBodies.write("url: " + article['url'] + "\n")
+            articleBodies.write(article['body'] + "\n")
+            articleBodies.write("\n" + "#"*100 + "\n")
+            articleBodies.close()
         except:
             errorLog = open("errorLog.txt", "a+")
             errorLog.write("\ncould not add article: " + article['url'])

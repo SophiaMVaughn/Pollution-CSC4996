@@ -67,15 +67,14 @@ for pat in negPats:
 def convertScrapedtoSent(splitContent):
     tokenizedSent = []
     # tokenize
-    for eachPara in splitContent:
-        NLPtxt = nlp(eachPara)
-        for eachSent in NLPtxt.sents:
-            tokenizedSent.append(eachSent.string.strip())
+    NLPtxt = nlp(splitContent)
+    for eachSent in NLPtxt.sents:
+        tokenizedSent.append(eachSent.string.strip())
     return tokenizedSent
 
 
 def isArticleEvent(article):
-    body = article['body'].split("\n")
+    body = article['body']
     tS = convertScrapedtoSent(body)
     numPos = 0
     numNeg = 0

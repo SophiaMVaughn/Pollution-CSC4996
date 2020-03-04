@@ -4,8 +4,13 @@ import newspaper
 from newspaper import urls
 from validator_collection import validators, checkers
 import re
+from tqdm import tqdm
+import time
+from colorama import Fore
 
-errorLog = open("errorLog.txt","r+")
-errorLog.truncate(0)
-errorLog = open("errorLog.txt", "a+")
-errorLog.write("hello")
+colors = Fore.__dict__
+
+
+
+
+

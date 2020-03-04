@@ -4,6 +4,7 @@ from dateutil import parser
 import sys
 from crawler import Crawler
 from textColors import bcolors
+from tqdm import tqdm
 import re
 
 
@@ -14,14 +15,23 @@ class Scraper(Crawler):
         self.scrapedArticles = []
 
     def scrapeAll(self):
+
+        loop = tqdm(total=len(self.articleLinks), position=0, leave=False)
+
         for articleUrl in self.articleLinks:
-            print("\r\t" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + articleUrl, end="")
-            sys.stdout.flush()
+
+            loop.set_description("\t[+] Scraping...".format(articleUrl))
+            loop.update(1)
+
+            # print("\r\t" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + articleUrl, end="")
+            # sys.stdout.flush()
+
             try:
                 self.scrape(articleUrl)
             except:
                 print("Unexpected error:", sys.exc_info()[0])
                 raise
+        loop.close()
 
     def scrape(self, url):
         page = requests.get(url)
