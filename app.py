@@ -22,57 +22,63 @@ app = Flask(__name__)
 client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.Pollution
 collection = db.Incidents
-all_events = collection.find()
-cookie = []
+
+app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
+GoogleMaps(app)
+Bootstrap(app)
+
+def populate():
+
+    all_events = collection.find()
+    cookie = []
 
 #THIS LOOP IS FOR THE ARTICLES COLLECTION
 #for task in all_events:
     #cookie.append({'articleDate': task['articleDate'], 'articleTitle': task['articleTitle'], 'url': task['url']})
 
 #THIS LOOP IS FOR THE INCIDENT COLLECTION
-for task in all_events:
-    cookie.append({ 'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
+    for task in all_events:
+        cookie.append({ 'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
 
-app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
-GoogleMaps(app)
 
-Bootstrap(app)
 
-gmaps = googlemaps.Client(key="AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI")#locResults= []
-locations = []
-locResults= []
-latLong = []
-k = 0
-for crumb in cookie:
-    result = gmaps.find_place(
-        input=crumb['location'] + ', MI',
-        input_type='textquery',
-        fields=['geometry'],
-        location_bias='point: 42.3314, -83.0458',
-        language='en'
-    )
-    locResults.append(result['candidates'])
-    b = locResults[k][0].get("geometry")
-    c = b.get("location")
-    k += 1
-    locations.append(c)
-        #print(c)
-        #print(crumb['location'])
+    gmaps = googlemaps.Client(key="AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI")#locResults= []
+    locations = []
+    locResults= []
+    latLong = []
+    k = 0
+    for crumb in cookie:
+        result = gmaps.find_place(
+            input=crumb['location'] + ', MI',
+            input_type='textquery',
+            fields=['geometry'],
+            location_bias='point: 42.3314, -83.0458',
+            language='en'
+        )
+        locResults.append(result['candidates'])
+        b = locResults[k][0].get("geometry")
+        c = b.get("location")
+        k += 1
+        locations.append(c)
+            #print(c)
+            #print(crumb['location'])
 
-#FIGURE OUT A WAY TO TRACK LONG AND LAT TO SPECIFIC LOCATIONS TO MAKE SURE THEY ARE BEING APPLIED TO THE CORRECT LOCATIONS AS WELL AS HANDLE DUPLICATE LOCATIONS
+    #FIGURE OUT A WAY TO TRACK LONG AND LAT TO SPECIFIC LOCATIONS TO MAKE SURE THEY ARE BEING APPLIED TO THE CORRECT LOCATIONS AS WELL AS HANDLE DUPLICATE LOCATIONS
 
-final = []
-d = 0
-rand = .0001
-for task in cookie:
-    rand = random.uniform(.0001, .0009)
-    final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
-                       'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
-    d +=1
-#for a in final:
-    #print (a)
+    final = []
+    d = 0
+    rand = .0001
+    for task in cookie:
+        rand = random.uniform(.0001, .0009)
+        final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
+                        'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
+        d +=1
+    #for a in final:
+        #print (a)
+    return(final)
 @app.route("/")
 def home():
+    populate()
     return redirect(url_for('front'))
 
 @app.route("/home")
@@ -81,6 +87,7 @@ def front():
 
 @app.route("/TablePage", methods=['GET', 'POST'])
 def table():
+    cookie = populate()
     print(request.method)
     if request.method == 'POST':
         return redirect(url_for('map'))
@@ -88,6 +95,7 @@ def table():
 
 @app.route("/MapPage", methods=['GET', 'POST'])
 def map():
+    final = populate()
     markers = []  # initialize a list to store your addresses
     for add in final:
         a = add.get('chemicals')
