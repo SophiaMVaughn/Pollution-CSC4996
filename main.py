@@ -24,7 +24,7 @@ articleBodies = open("articleBodies.txt","r+")
 articleBodies.truncate(0)
 articleBodies.close()
 
-keywords = ["spills"]
+keywords = ["pollution"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
@@ -76,15 +76,18 @@ for article in confirmedEventArticles:
     if len(dates) == 0:
         dates = ["none"]
 
-    for chem in chems:
-        print(chem)
+    if len(offComm) is None:
+        offComm = "none"
 
-    # scraper.storeInIncidentsCollection(chems, dates[0], location[0], offComm, article['url'])
+    articleLinks = []
+    articleLinks.append(article['url'])
 
-    database.Incidents(
-        chemicals=chems,
-        date=dates[0],
-        location=location[0],
-        officialStatement=offComm,
-        articleLinks=[article['url']]
-    ).save()
+    scraper.storeInIncidentsCollection(chems, dates[0], location[0], offComm, articleLinks)
+
+    # database.Incidents(
+    #     chemicals=chems,
+    #     date=dates[0],
+    #     location=location[0],
+    #     officialStatement=offComm,
+    #     articleLinks=[article['url']]
+    # ).save()
