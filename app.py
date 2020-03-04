@@ -30,7 +30,7 @@ cookie = []
 
 #THIS LOOP IS FOR THE INCIDENT COLLECTION
 for task in all_events:
-    cookie.append({ 'chemicals': task['\ufeffchemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
+    cookie.append({ 'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
 
 app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
 GoogleMaps(app)
@@ -92,7 +92,12 @@ def map():
             'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             "lat": add.get('lat'),
             "lng": add.get('lng'),
-            "infobox": add.get('location')}
+            "infobox": "<p><b>Date: </b>" + add.get('date') + "</p>" +
+                       "<p><b>Location: </b>" + add.get('location') + "</p>" +
+                       "<p><b>Chemicals: </b>" + add.get('chemicals') + "</p>" +
+                       "<p><b>Statement: </b>" + add.get('officialStatement') + "</p>" +
+                       "<p><b>References: </b>" + "<a href=" + add.get('articleLinks') + "> Article Link</a>" + "</p>"
+                }
         markers.append(details)
 
 
