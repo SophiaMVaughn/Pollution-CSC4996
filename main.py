@@ -25,7 +25,7 @@ articleBodies = open("articleBodies.txt","r+")
 articleBodies.truncate(0)
 articleBodies.close()
 
-keywords = ["pollution"]
+keywords = ["spill"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
@@ -64,6 +64,7 @@ for article in confirmedEventArticles:
     count = count + 1
     print("\n" + bcolors.OKGREEN + "[+] (" + str(count) + "/" + str(len(confirmedEventArticles)) + ") "
           + article['title'] + bcolors.ENDC)
+    print(article['url'])
 
     body = convertScrapedtoSent(article['body'])
 
