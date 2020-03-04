@@ -25,7 +25,7 @@ articleBodies = open("articleBodies.txt","r+")
 articleBodies.truncate(0)
 articleBodies.close()
 
-keywords = ["spill"]
+keywords = ["pollution"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
@@ -37,26 +37,33 @@ for article in scraper.getScrapedArticles():
 
 
 ####################  NLP event recognition  ###########################
+
 confirmedEventArticles = []
 confirmedEventCount = 0
+count = 0
 print("\nParsing event articles")
 print("-----------------------")
 for article in scraper.getScrapedArticles():
+    count = count + 1
     if isArticleEvent(article):
         scraper.storeInArticlesCollection(article)
         confirmedEventArticles.append(article)
         confirmedEventCount = confirmedEventCount + 1
-        print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
+        print(bcolors.OKGREEN + "[+] (" + str(count) + "/" + str(len(scraper.getScrapedArticles()))
+              + ") " + article['title'] + bcolors.ENDC)
     else:
-        print(bcolors.FAIL + "[-] " + article['title'] + bcolors.ENDC)
+        print(bcolors.FAIL + "[-] (" + str(count) + "/" + str(len(scraper.getScrapedArticles()))
+              + ") " + article['title'] + bcolors.ENDC)
 
 print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles found" + bcolors.ENDC)
 
 print("\nRunning NLP analysis")
 print("-------------------------")
-i = 0
+count = 0
 for article in confirmedEventArticles:
-    print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
+    count = count + 1
+    print("\n" + bcolors.OKGREEN + "[+] (" + str(count) + "/" + str(len(confirmedEventArticles)) + ") "
+          + article['title'] + bcolors.ENDC)
 
     body = convertScrapedtoSent(article['body'])
 
@@ -66,6 +73,7 @@ for article in confirmedEventArticles:
     # For getting location information
     locations = locationsInfo(body)
 
+    # for getting official statement
     offComm, people = officialComment(body)
 
     # for pulling date information
@@ -95,11 +103,3 @@ for article in confirmedEventArticles:
     articleLinks.append(article['url'])
 
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
-
-    # database.Incidents(
-    #     chemicals=chems,
-    #     date=dates[0],
-    #     location=location[0],
-    #     officialStatement=offComm,
-    #     articleLinks=[article['url']]
-    # ).save()

@@ -49,15 +49,6 @@ class MarionPress(Scraper):
             raise
         self.scrapeAll()
 
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         linkSplit = link.split("/")
-    #         if len(linkSplit) > 6:
-    #             if linkSplit[3].isnumeric() and linkSplit[4].isnumeric():
-    #                 filteredLinks.append(link)
-    #     return filteredLinks
-
 
 class TheCountyPress(Scraper):
     def __init__(self, keywords):
@@ -71,13 +62,6 @@ class TheCountyPress(Scraper):
             print("[-] Error crawling thecountypress.mihomepaper.com:", sys.exc_info()[0])
             raise
         self.scrapeAll()
-
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         if "/articles/" in link:
-    #             filteredLinks.append(link)
-    #     return filteredLinks
 
 
 class LakeCountyStar(Scraper):
@@ -176,15 +160,6 @@ class ClarkstonNews(Scraper):
             raise
         self.scrapeAll()
 
-    # # TODO: not the best way to scrape articles
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         linkSplit = link.split("/")
-    #         if len(linkSplit) > 5:
-    #             filteredLinks.append(link)
-    #     return filteredLinks
-
 
 class HarborLightNews(Scraper):
     def __init__(self, keywords):
@@ -199,13 +174,6 @@ class HarborLightNews(Scraper):
             raise
         self.scrapeAll()
 
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         if "/articles/" in link:
-    #             filteredLinks.append(link)
-    #     return filteredLinks
-
 
 class TheDailyNews(Scraper):
     def __init__(self, keywords):
@@ -219,13 +187,6 @@ class TheDailyNews(Scraper):
             print("[-] Error crawling thedailynews.cc:", sys.exc_info()[0])
             raise
         self.scrapeAll()
-
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         if "/articles/" in link:
-    #             filteredLinks.append(link)
-    #     return filteredLinks
 
 
 # TODO: not working
@@ -256,13 +217,6 @@ class LeelanauNews(Scraper):
             raise
         self.scrapeAll()
 
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         if "/articles/" in link:
-    #             filteredLinks.append(link)
-    #     return filteredLinks
-
 
 class HoughtonLakeResorter(Scraper):
     def __init__(self, keywords):
@@ -275,14 +229,6 @@ class HoughtonLakeResorter(Scraper):
         except:
             print("[-] Error crawling houghtonlakeresorter.com:", sys.exc_info()[0])
             raise
-        self.scrapeAll()
-
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         if "/articles/" in link:
-    #             filteredLinks.append(link)
-    #     return filteredLinks
 
 
 class IronMountainDailyNews(Scraper):
@@ -298,15 +244,6 @@ class IronMountainDailyNews(Scraper):
             raise
         self.scrapeAll()
 
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         linkSplit = link.split("/")
-    #         if len(linkSplit) > 5:
-    #             if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
-    #                 filteredLinks.append(link)
-    #     return filteredLinks
-
 
 class MiningJournal(Scraper):
     def __init__(self, keywords):
@@ -321,15 +258,6 @@ class MiningJournal(Scraper):
             raise
         self.scrapeAll()
 
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         linkSplit = link.split("/")
-    #         if len(linkSplit) > 5:
-    #             if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
-    #                 filteredLinks.append(link)
-    #     return filteredLinks
-
 
 class TheAlpenaNews(Scraper):
     def __init__(self, keywords):
@@ -343,13 +271,4 @@ class TheAlpenaNews(Scraper):
             print("[-] Error crawling thealpenanews.com:", sys.exc_info()[0])
             raise
         self.scrapeAll()
-
-    # def filterLinksForArticles(self, links):
-    #     filteredLinks = []
-    #     for link in links:
-    #         linkSplit = link.split("/")
-    #         if len(linkSplit) > 5:
-    #             if linkSplit[-3].isnumeric() and linkSplit[-4].isnumeric():
-    #                 filteredLinks.append(link)
-    #     return filteredLinks
 

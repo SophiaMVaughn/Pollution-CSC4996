@@ -47,6 +47,8 @@ class Crawler:
     def filterLinksForArticles(self, urls):
         validArticleUrls = []
         for url in urls:
+            if "http" not in url:
+                url = self.baseUrl + url
             urlSplit = url.split("/")
             if len(urlSplit) < 5:
                 continue
