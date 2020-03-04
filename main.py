@@ -69,7 +69,9 @@ for article in confirmedEventArticles:
 
     # for pulling date information
     dates = dateInfo(body)
-
+    for d in dates:
+        print(d)
+        
     if len(location) == 0:
         location = ["none"]
 

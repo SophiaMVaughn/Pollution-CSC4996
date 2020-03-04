@@ -59,7 +59,6 @@ def officialComment(articleBody):
     for para in articleBody:
         temp = convertScrapedtoSent(para)
         for sent in temp:
-            print(sent)
             nER = nlp(sent)        
             matchesInSent = pPt(nER)
             lowersent = nlp(sent.lower())

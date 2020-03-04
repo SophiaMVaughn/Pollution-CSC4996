@@ -29,6 +29,11 @@ def dateInfo(articleBody):
                         continue
                     else:
                         dates.append(date)
+                elif "-" in date:
+                    day = date.split("-")
+                    if(len(day)==3):
+                        if len(day[0])<3 and len(day[1]<3) and len(day[2]<5):
+                            dates.append(date)
                 else:  #if it doesn't have a comma or is just numbers, use it      
                     dates.append(date)
     return dates
