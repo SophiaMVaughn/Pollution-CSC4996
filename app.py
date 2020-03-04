@@ -21,11 +21,12 @@ print(platform.architecture())
 app = Flask(__name__)
 client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.Pollution
-collection = db.Incidents
+collection = db.incidents
 
 app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
 GoogleMaps(app)
 Bootstrap(app)
+
 
 def populate():
 
@@ -45,7 +46,6 @@ def populate():
     gmaps = googlemaps.Client(key="AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI")#locResults= []
     locations = []
     locResults= []
-    latLong = []
     k = 0
     for crumb in cookie:
         result = gmaps.find_place(
@@ -108,7 +108,7 @@ def map():
             "infobox": "<p><b>Date: </b>" + add.get('date') + "</p>" +
                        "<p><b>Location: </b>" + add.get('location') + "</p>" +
                        "<p><b>Chemicals: </b>" + ", ".join(a) + "</p>" +
-                       "<p><b>Statement: </b>"  + ", ".join(b) + "</p>" +
+                      # Taken out temporarily because sophia no likey "<p><b>Statement: </b>"  + ", ".join(b) + "</p>" +
                        "<p><b>References: </b>" + "<a href=" + ", ".join(c) +  "> Article Link</a>" + "</p>"
                 }
         markers.append(details)

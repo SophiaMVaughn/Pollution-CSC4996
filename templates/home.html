@@ -67,13 +67,11 @@
     </ol>
     <div class="carousel-inner" role="listbox">
         <div class="item active">
-            <img src="static/img/pollution1.jpg">
-            #Picture credit to Nathan Hutt of freeyork.org
-            <div class="carousel-caption text-dark">
+            <img src="static/img/pollution2.jpg">
+            <!-- Picture credit to Nathan Hutt of freeyork.org -->
+            <div class="carousel-caption text-white">
                 <h1>P.E.A.T.</h1>
                 <h3>Pollution Events Aggregation Tool</h3>
-                <br>
-                <a href="https://github.com/SophiaMVaughn/Pollution-CSC4996" class="btn btn-default" role="button">Link To GitHub</a>
             </div>
         </div>
     </div>
@@ -85,14 +83,17 @@
         <div class="col-sm-4">
             <a href="{{ url_for('table') }}" title=""><img src="static/img/tableIcon.png" id="icon" class="img-responsive"></a>
             <h4>Table View</h4>
+            <p>View the data in a table format</p>
             </div>
             <div class="col-sm-4">
             <a href="{{ url_for('map') }}" title=""><img src="static/img/mapIcon.png" id="icon" class="img-responsive"></a>
             <h4>Map View</h4>
+            <p>Search for events marked on a map</p>
             </div>
             <div class="col-sm-4">
-            <a href="{{ url_for('front') }}" title=""><img src="static/img/newsIcon.png" id="icon" class="img-responsive"></a>
-            <h4>Recent Activity</h4>
+            <a href="https://github.com/SophiaMVaughn/Pollution-CSC4996" title=""><img src="static/img/gitIcon.png" id="icon" class="img-responsive"></a>
+                <h4>GitHub</h4>
+                <p>Take a look at our GitHub!</p>
             </div>
     </div>
 </div>
