@@ -58,10 +58,19 @@
     {% for pieces in cookie %}
         <tr>
             <td>{{pieces.date}}</a></td>
-            <td>{{pieces.chemicals}}</td>
+            <td>{% for parts in pieces.chemicals %}
+                {{parts}}</br>
+            {% endfor %}
+            </td>
             <td>{{pieces.location}}</td>
-            <td>{{pieces.officialStatement}}</td>
-            <td><a href={{pieces.articleLinks}}>{{pieces.articleLinks}}</a></td>
+            <td>{% for parts in pieces.officialStatement %}
+                {{parts}}
+            {% endfor %}
+            </td>
+            <td>{% for parts in pieces.articleLinks %}
+                <a href={{parts}}>{{parts}}</a>
+            {% endfor %}
+            </td>
     {%endfor%}
         </tr>
   </tbody>

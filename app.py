@@ -7,6 +7,7 @@ from flask_bootstrap import Bootstrap
 import platform
 import _json
 import googlemaps
+import random
 
 
 print(platform.architecture())
@@ -54,8 +55,7 @@ for crumb in cookie:
     b = locResults[k][0].get("geometry")
     c = b.get("location")
     k += 1
-    if c not in locations:
-        locations.append(c)
+    locations.append(c)
         #print(c)
         #print(crumb['location'])
 
@@ -63,9 +63,11 @@ for crumb in cookie:
 
 final = []
 d = 0
+rand = .0001
 for task in cookie:
+    rand = random.uniform(.0001, .0009)
     final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
-                       'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': locations[d].get('lat'), 'lng': locations[d].get('lng')})
+                       'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
     d +=1
 #for a in final:
     #print (a)
@@ -88,15 +90,18 @@ def table():
 def map():
     markers = []  # initialize a list to store your addresses
     for add in final:
+        a = add.get('chemicals')
+        b = add.get('officialStatement')
+        c = add.get('articleLinks')
         details = {
             'icon': 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
             "lat": add.get('lat'),
             "lng": add.get('lng'),
             "infobox": "<p><b>Date: </b>" + add.get('date') + "</p>" +
                        "<p><b>Location: </b>" + add.get('location') + "</p>" +
-                       "<p><b>Chemicals: </b>" + add.get('chemicals') + "</p>" +
-                       "<p><b>Statement: </b>" + add.get('officialStatement') + "</p>" +
-                       "<p><b>References: </b>" + "<a href=" + add.get('articleLinks') + "> Article Link</a>" + "</p>"
+                       "<p><b>Chemicals: </b>" + ", ".join(a) + "</p>" +
+                       "<p><b>Statement: </b>"  + ", ".join(b) + "</p>" +
+                       "<p><b>References: </b>" + "<a href=" + ", ".join(c) +  "> Article Link</a>" + "</p>"
                 }
         markers.append(details)
 
