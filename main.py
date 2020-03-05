@@ -25,7 +25,7 @@ articleBodies = open("articleBodies.txt","r+")
 articleBodies.truncate(0)
 articleBodies.close()
 
-keywords = ["spill"]
+keywords = ["pollution"]
 scraper = ScraperInterface(keywords)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
