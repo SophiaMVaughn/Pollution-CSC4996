@@ -8,7 +8,7 @@ def locationsInfo(articleBody):
    lakes = re.compile(r'\S*Lake\S*(?:\s([A-Z]+))\S*')
    rivers = re.compile(r'(?:\S+\s)?\S*River')
    schools = re.compile(r'(?i)\S*elementary school|intermediate school|middle school|high school')
-   highways = re.compile(r'(?i) I-(?:\S+\s)?|M-(?:\S+\s)?')
+   highways = re.compile(r'I-(?:\S+\s)?|M-(?:\S+\s)?')
 
    #store all locations in array
    local = []
