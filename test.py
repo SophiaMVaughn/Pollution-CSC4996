@@ -8,6 +8,8 @@ import time
 from colorama import Fore
 from newspaper import urls as urlChecker
 import json
-from articles import articles
 
-print(articles["https://www.northernexpress.com/"])
+with open('websites.json') as data_file:
+    websites = json.load(data_file)
+
+print(websites['ourmidland']['link'])
