@@ -9,5 +9,7 @@ from colorama import Fore
 from newspaper import urls as urlChecker
 import json
 from scraperInterface import ScraperInterface
+import sys
 
-interface = ScraperInterface(["pollution"])
+
+interface = ScraperInterface(["spill"])

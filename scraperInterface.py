@@ -23,13 +23,11 @@ class ScraperInterface:
     def crawl(self):
         for website in self.websites:
             links = []
-            for keyword in self.keywords:
-                crawler = Crawler(website, keyword)
-                self.articleCount = self.articleCount + crawler.getArticleCount()
-
-                for url in crawler.getArticleLinks():
-                    links.append(url)
-                    self.articleUrls.append(url)
+            crawler = Crawler(website, self.keywords)
+            self.articleCount = self.articleCount + crawler.getArticleCount()
+            for url in crawler.getArticleLinks():
+                links.append(url)
+                self.articleUrls.append(url)
 
             self.scrape(links)
 

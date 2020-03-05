@@ -5,7 +5,10 @@ import newspaper
 from newspaper import urls as urlChecker
 from textColors import bcolors
 from demoScript import getUrls
+from tqdm import tqdm
 import json
+import sys
+
 
 class Crawler:
     def __init__(self, url, keywords=None):
@@ -29,6 +32,10 @@ class Crawler:
             "https://www.manisteenews.com/"
         ]
 
+        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " +
+              self.baseUrl + "..." + bcolors.ENDC, end="")
+        sys.stdout.flush()
+
         self.crawl()
 
     def crawl(self):
@@ -40,6 +47,7 @@ class Crawler:
         assert self.keywords is not None
 
         for keyword in self.keywords:
+
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", "1")
 
             page = requests.get(query)
@@ -47,8 +55,9 @@ class Crawler:
             soupLinks = self.scrapeLinks(page)
 
             for link in soupLinks:
-                if link['href'] not in links:
-                    links.append(link['href'])
+                link = link['href']
+                if link not in links:
+                    links.append(link)
 
         if self.baseUrl in self.exceptions:
             self.searchPagesArticleLinks = self.exceptionFilterLinksForArticles(links)
@@ -57,7 +66,7 @@ class Crawler:
         self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
         self.storeInUrlsCollection(self.searchPagesArticleLinks)
 
-        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.baseUrl
+        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
               + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def crawlRecentArticles(self):
