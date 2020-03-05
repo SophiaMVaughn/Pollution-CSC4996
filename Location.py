@@ -17,7 +17,7 @@ def locationsInfo(articleBody):
    #store all locations in array
    local = []
    # return all locations found in body of text from file
-   
+
    for para in articleBody:
        temp= convertScrapedtoSent(para)
        for sent in temp:
@@ -40,16 +40,14 @@ def locationsInfo(articleBody):
 
   #cities calculation (ONly returns the first city found for right now)
    cities = []
-   cityFile = open("Locations.txt", "r")
+   cityFile = open("Cities.txt", "r")
    for x in cityFile:
        cities.append(x.rstrip())
    city = re.findall(r'[A-Z][a-z]*', articleBody)
    city_set = set(cities)
    for City in city:
-       print(City)
        if City in city_set:
            local.append(City)
-           print(local)
            break
    return local
 
