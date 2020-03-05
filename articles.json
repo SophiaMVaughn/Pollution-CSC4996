@@ -1,0 +1,66 @@
+[
+  {
+    "website": "https://www.ourmidland.com/",
+    "searchQuery": "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE"
+  },
+  {
+    "website": "http://www.marion-press.com/",
+    "searchQuery": "http://www.marion-press.com/page/PEATPAGE/?s=PEATKEY&x=0&y=0"
+  },
+  {
+    "website": "https://thecountypress.mihomepaper.com/",
+    "searchQuery": "https://thecountypress.mihomepaper.com/page/PEATPAGE/?s=PEATKEY"
+  },
+  {
+    "website": "https://www.lakecountystar.com/",
+    "searchQuery": "https://www.lakecountystar.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE"
+  },
+  {
+    "website": "https://www.northernexpress.com/",
+    "searchQuery": "https://www.northernexpress.com/search/?query=PEATKEY&content=news&page=PEATPAGE"
+  },
+  {
+    "website": "https://www.manisteenews.com/",
+    "searchQuery": "https://www.manisteenews.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE"
+  },
+  {
+    "website": "https://michiganchronicle.com/",
+    "searchQuery": "https://michiganchronicle.com/page/PEATPAGE/?s=PEATKEY"
+  },
+  {
+    "website": "https://clarkstonnews.com/",
+    "searchQuery": "https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY"
+  },
+  {
+    "website": "https://www.harborlightnews.com/",
+    "searchQuery": "https://www.harborlightnews.com/page/PEATPAGE/?s=PEATKEY"
+  },
+  {
+    "website": "https://thedailynews.cc/",
+    "searchQuery": "https://thedailynews.cc/page/PEATPAGE/?s=PEATKEY"
+  },
+  {
+    "website": "https://lakeorionreview.com/",
+    "searchQuery": "https://lakeorionreview.com/"
+  },
+  {
+    "website": "https://www.leelanaunews.com/",
+    "searchQuery": "https://www.leelanaunews.com/page/PEATPAGE/?s=PEATKEY"
+  },
+  {
+    "website": "https://www.houghtonlakeresorter.com/",
+    "searchQuery": "https://www.houghtonlakeresorter.com/page/PEATPAGE/?s=PEATKEY"
+  },
+  {
+    "website": "https://www.ironmountaindailynews.com/",
+    "searchQuery": "https://www.ironmountaindailynews.com/search/PEATKEY/page/PEATPAGE/"
+  },
+  {
+    "website": "https://www.miningjournal.net/",
+    "searchQuery": "https://www.miningjournal.net/search/PEATKEY/page/PEATPAGE/"
+  },
+  {
+    "website": "https://www.thealpenanews.com/",
+    "searchQuery": "https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/"
+  }
+]

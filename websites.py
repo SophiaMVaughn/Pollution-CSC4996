@@ -20,12 +20,9 @@ class Ourmidland(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.ourmidland.com/")
         self.setSearchQueryStructure("https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling marion-press.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
+
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -42,12 +39,8 @@ class MarionPress(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("http://www.marion-press.com/")
         self.setSearchQueryStructure("http://www.marion-press.com/page/PEATPAGE/?s=PEATKEY&x=0&y=0")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling marion-press.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class TheCountyPress(Scraper):
@@ -56,12 +49,8 @@ class TheCountyPress(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://thecountypress.mihomepaper.com/")
         self.setSearchQueryStructure("https://thecountypress.mihomepaper.com/page/PEATPAGE/?s=PEATKEY")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling thecountypress.mihomepaper.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class LakeCountyStar(Scraper):
@@ -70,12 +59,8 @@ class LakeCountyStar(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.lakecountystar.com/")
         self.setSearchQueryStructure("https://www.lakecountystar.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling lakecountystar.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -92,12 +77,8 @@ class NorthernExpress(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.northernexpress.com/")
         self.setSearchQueryStructure("https://www.northernexpress.com/search/?query=PEATKEY&content=news&page=PEATPAGE")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling northernexpress.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -116,12 +97,8 @@ class ManisteeNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.manisteenews.com/")
         self.setSearchQueryStructure("https://www.manisteenews.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling manisteenews.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
     def filterLinksForArticles(self, links):
         filteredLinks = []
@@ -139,12 +116,8 @@ class MichiganChronicle(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://michiganchronicle.com/")
         self.setSearchQueryStructure("https://michiganchronicle.com/page/PEATPAGE/?s=PEATKEY")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling michiganchronicle.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class ClarkstonNews(Scraper):
@@ -153,12 +126,8 @@ class ClarkstonNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://clarkstonnews.com/")
         self.setSearchQueryStructure("https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling clarkstonnews.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class HarborLightNews(Scraper):
@@ -167,12 +136,8 @@ class HarborLightNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.harborlightnews.com/")
         self.setSearchQueryStructure("https://www.harborlightnews.com/page/PEATPAGE/?s=PEATKEY")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling harborlightnews.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class TheDailyNews(Scraper):
@@ -181,12 +146,8 @@ class TheDailyNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://thedailynews.cc/")
         self.setSearchQueryStructure("https://thedailynews.cc/page/PEATPAGE/?s=PEATKEY")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling thedailynews.cc:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 # TODO: not working
@@ -195,13 +156,9 @@ class LakeOrionReview(Scraper):
         super().__init__()
         self.setKeywords(keywords)
         self.setBaseUrl("https://lakeorionreview.com/")
-        self.setSearchQueryStructure("https://lakeorionreview.com/page/PEATPAGE/?s=PEATKEY")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling lakeorionreview.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.setSearchQueryStructure("https://lakeorionreview.com/")
+        self.crawl()
+        self.scrape()
 
 
 class LeelanauNews(Scraper):
@@ -210,12 +167,8 @@ class LeelanauNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.leelanaunews.com/")
         self.setSearchQueryStructure("https://www.leelanaunews.com/page/PEATPAGE/?s=PEATKEY")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling leelanaunews.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class HoughtonLakeResorter(Scraper):
@@ -237,12 +190,8 @@ class IronMountainDailyNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.ironmountaindailynews.com/")
         self.setSearchQueryStructure("https://www.ironmountaindailynews.com/search/PEATKEY/page/PEATPAGE/")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling ironmountaindailynews.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class MiningJournal(Scraper):
@@ -251,12 +200,8 @@ class MiningJournal(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.miningjournal.net/")
         self.setSearchQueryStructure("https://www.miningjournal.net/search/PEATKEY/page/PEATPAGE/")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling miningjournal.net:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 
 
 class TheAlpenaNews(Scraper):
@@ -265,10 +210,6 @@ class TheAlpenaNews(Scraper):
         self.setKeywords(keywords)
         self.setBaseUrl("https://www.thealpenanews.com/")
         self.setSearchQueryStructure("https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/")
-        try:
-            self.crawl()
-        except:
-            print("[-] Error crawling thealpenanews.com:", sys.exc_info()[0])
-            raise
-        self.scrapeAll()
+        self.crawl()
+        self.scrape()
 

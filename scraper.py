@@ -14,7 +14,7 @@ class Scraper(Crawler):
         self.titles = []
         self.scrapedArticles = []
 
-    def scrapeAll(self):
+    def scrape(self):
 
         loop = tqdm(total=len(self.articleLinks), position=0, leave=False)
 
@@ -27,13 +27,16 @@ class Scraper(Crawler):
             # sys.stdout.flush()
 
             try:
-                self.scrape(articleUrl)
+                self.scrapePage(articleUrl)
             except:
-                print("Unexpected error:", sys.exc_info()[0])
-                raise
+                errorLog = open("errorLog.txt", "a+")
+                errorLog.write("Error scraping article: " + articleUrl + "\n")
+                errorLog.close()
+                pass
+
         loop.close()
 
-    def scrape(self, url):
+    def scrapePage(self, url):
         page = requests.get(url)
         soupPage = soup(page.content, 'html.parser')
 
