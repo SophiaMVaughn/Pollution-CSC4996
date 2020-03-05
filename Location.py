@@ -7,7 +7,7 @@ def locationsInfo(articleBody):
    #test = open("LocationTest.txt", "r")
    lakes = re.compile(r'\S*Lake\S*(?:\s([A-Z]+))\S*')
    rivers = re.compile(r'(?:\S+\s)?\S*River')
-   schools = re.compile(r'(?i)\S*elementary school|intermediate school|middle school|high school')
+   schools = re.compile(r'\S*Elementary School|Intermediate School|Middle School|High School')
    highways = re.compile(r'I-(?:\S+\s)?|M-(?:\S+\s)?')
 
    #store all locations in array
