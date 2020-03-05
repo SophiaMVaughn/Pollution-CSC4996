@@ -8,54 +8,36 @@ from tqdm import tqdm
 import re
 
 
-class Scraper(Crawler):
-    def __init__(self):
-        super().__init__()
+class Scraper():
+    def __init__(self, url):
+        self.url = url
         self.titles = []
         self.scrapedArticles = []
 
-    def scrape(self):
+        self.article = {
+            "url": self.url,
+            "title": None,
+            "publishingDate": None,
+            "body": None
+        }
 
-        loop = tqdm(total=len(self.articleLinks), position=0, leave=False)
-
-        for articleUrl in self.articleLinks:
-
-            loop.set_description("\t[+] Scraping...".format(articleUrl))
-            loop.update(1)
-
-            # print("\r\t" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Scraping " + articleUrl, end="")
-            # sys.stdout.flush()
-
-            try:
-                self.scrapePage(articleUrl)
-            except:
-                errorLog = open("errorLog.txt", "a+")
-                errorLog.write("Error scraping article: " + articleUrl + "\n")
-                errorLog.close()
-                pass
-
-        loop.close()
-
-    def scrapePage(self, url):
+    def scrape(self, url):
         page = requests.get(url)
         soupPage = soup(page.content, 'html.parser')
 
         if self.scrapeTitle(soupPage) not in self.titles:
 
-            article = {
-                "url": url,
-                "title": self.scrapeTitle(soupPage),
-                "publishingDate": self.scrapePublishingDate(soupPage),
-                "body": self.scrapeBody(soupPage)
-            }
+            self.article['title'] = self.scrapeTitle(soupPage)
+            self.article['publishingDate'] = self.scrapePublishingDate(soupPage)
+            self.article['body'] = self.scrapeBody(soupPage)
 
-            if article['publishingDate'] == "":
+            if self.article['publishingDate'] == "":
                 errorLog = open("errorLog.txt", "a+")
-                errorLog.write("could not format date for article: " + article['url'] + "\n")
+                errorLog.write("could not format date for article: " + self.article['url'] + "\n")
                 errorLog.close()
 
-            self.scrapedArticles.append(article)
-            self.titles.append(article["title"])
+            self.scrapedArticles.append(self.article)
+            self.titles.append(self.article["title"])
 
 
     def scrapeTitle(self, soupPage=None):
@@ -100,5 +82,10 @@ class Scraper(Crawler):
         d = parser.parse(date)
         return d.strftime("%m/%d/%Y")
 
-    def getScrapedArticles(self):
-        return self.scrapedArticles
+    def getScrapedArticle(self):
+        return self.article
+
+
+# errorLog = open("errorLog.txt", "a+")
+# errorLog.write("Error scraping article: " + self.url + "\n")
+# errorLog.close()

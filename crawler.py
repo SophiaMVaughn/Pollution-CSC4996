@@ -5,58 +5,63 @@ import newspaper
 from newspaper import urls as urlChecker
 from textColors import bcolors
 from demoScript import getUrls
+import json
 
 class Crawler:
-    def __init__(self):
-        self.baseUrl = ""
-        self.keywords = []
-        self.articleLinks = []
-        self.homePageArticleLinks = []
+    def __init__(self, url, keywords=None):
+        self.baseUrl = url
+        self.keywords = keywords
+        self.searchPagesArticleLinks = []
+        self.recentArticleLinks = []
         self.articleCount = 0
+
+        with open('websites.json') as data_file:
+            self.websites = json.load(data_file)
+
+        for website, attributes in self.websites.items():
+            if website in self.baseUrl:
+                self.searchQuery = website["searchQuery"]
+
 
     def demoCrawl(self):
 
         links = getUrls(self.baseUrl)
 
-        self.articleLinks = self.filterLinksForArticles(links)
-        self.articleCount = self.articleCount + len(self.articleLinks)
-        self.storeInUrlsCollection(self.articleLinks)
+        self.searchPagesArticleLinks = self.filterLinksForArticles(links)
+        self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
+        self.storeInUrlsCollection(self.searchPagesArticleLinks)
 
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.baseUrl
-              + ": " + bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
+              + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def crawl(self):
-        self.crawlSearchPage()
+        self.crawlSearchPages()
 
-    def crawlSearchPage(self):
+    def crawlSearchPages(self):
         links = []
         for keyword in self.keywords:
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", "1")
 
             page = requests.get(query)
 
-            soupLinks = self.scrapeArticleLinks(page)
+            soupLinks = self.scrapeLinks(page)
 
             for link in soupLinks:
                 if link['href'] not in links:
                     links.append(link['href'])
 
-        self.articleLinks = self.filterLinksForArticles(links)
-        self.articleCount = self.articleCount + len(self.articleLinks)
-        self.storeInUrlsCollection(self.articleLinks)
-
-        # print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.baseUrl
-        #       + " for keyword " + bcolors.WARNING + "\'%s\'" % (keyword) + bcolors.ENDC + ": " +
-        #       bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
+        self.searchPagesArticleLinks = self.filterLinksForArticles(links)
+        self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
+        self.storeInUrlsCollection(self.searchPagesArticleLinks)
 
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.baseUrl
-              + ": " + bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
+              + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
-    def crawlHomePage(self):
+    def crawlRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)
         for article in links.articles:
-            self.homePageArticleLinks.append(article.url)
-        self.storeInUrlsCollection(self.homePageArticleLinks)
+            self.recentArticleLinks.append(article.url)
+        self.storeInUrlsCollection(self.recentArticleLinks)
 
     def filterLinksForArticles(self, urls):
         validArticleUrls = []
@@ -84,14 +89,15 @@ class Crawler:
     def setSearchQueryStructure(self, query):
         self.searchQuery = query
 
-    def scrapeArticleLinks(self, page):
-        # TODO: try overriding this in the website classes and use tree structure of search pages
-        #  to get article urls
+    def scrapeLinks(self, page):
         soupPage = soup(page.content, "html.parser")
         return soupPage.find_all('a', href=True)
 
     def getArticleLinks(self):
-        return self.articleLinks
+        return self.searchPagesArticleLinks
+
+    def getRecentArticleLinks(self):
+        return self.recentArticleLinks
 
     def getArticleCount(self):
         return self.articleCount

@@ -12,4 +12,5 @@ import json
 with open('websites.json') as data_file:
     websites = json.load(data_file)
 
-print(websites['ourmidland']['link'])
+for website, attributes in websites.items():
+    print(website)
