@@ -17,24 +17,28 @@ class ScraperInterface:
 
         self.pullWebsites()
         self.crawl()
-        self.scrape()
+
 
     def crawl(self):
         for url in self.websites:
+            links = []
             for keyword in self.keywords:
                 crawler = Crawler(url, keyword)
+                links.append(crawler.getArticleLinks())
                 self.articleUrls.append(crawler.getArticleLinks())
                 self.articleCount = self.articleCount + crawler.getArticleCount()
+            self.scrape(links)
 
-    def scrape(self):
-        loop = tqdm(total=len(self.articleUrls), position=0, leave=False)
-        for url in self.articleUrls:
-            scraper = Scraper(url)
-            self.articleObjs.append(scraper)
+        print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
+
+    def scrape(self, urls):
+        loop = tqdm(total=len(urls), position=0, leave=False)
+        for url in urls:
             loop.set_description("\t[+] Scraping...".format(url))
             loop.update(1)
 
-        print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
+            scraper = Scraper(url)
+            self.articleObjs.append(scraper)
 
     def pullWebsites(self):
         with open('websites.json') as data_file:

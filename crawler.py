@@ -22,19 +22,14 @@ class Crawler:
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
 
+        self.exceptions = [
+            "https://www.ourmidland.com/",
+            "https://www.lakecountystar.com/",
+            "https://www.northernexpress.com/",
+            "https://www.manisteenews.com/"
+        ]
+
         self.crawl()
-
-
-    def demoCrawl(self):
-
-        links = getUrls(self.baseUrl)
-
-        self.searchPagesArticleLinks = self.filterLinksForArticles(links)
-        self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
-        self.storeInUrlsCollection(self.searchPagesArticleLinks)
-
-        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawling " + self.baseUrl
-              + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def crawl(self):
         self.crawlSearchPages()
@@ -55,7 +50,10 @@ class Crawler:
                 if link['href'] not in links:
                     links.append(link['href'])
 
-        self.searchPagesArticleLinks = self.filterLinksForArticles(links)
+        if self.baseUrl in self.exceptions:
+            self.searchPagesArticleLinks = self.exceptionFilterLinksForArticles(links)
+        else:
+            self.searchPagesArticleLinks = self.filterLinksForArticles(links)
         self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
         self.storeInUrlsCollection(self.searchPagesArticleLinks)
 
@@ -81,6 +79,37 @@ class Crawler:
             if urlChecker.valid_url(url):
                 validArticleUrls.append(url)
         return validArticleUrls
+
+    def exceptionFilterLinksForArticles(self, links):
+        filteredLinks = []
+
+        if self.baseUrl == "https://www.ourmidland.com/":
+            for link in links:
+                if "/article/" in link:
+                    link = "https://www.ourmidland.com" + link
+                    filteredLinks.append(link)
+
+        elif self.baseUrl == "https://www.lakecountystar.com/":
+            for link in links:
+                if "/article/" in link:
+                    link = "https://www.lakecountystar.com" + link
+                    filteredLinks.append(link)
+
+        elif self.baseUrl == "https://www.northernexpress.com/":
+            for link in links:
+                if "/news/" in link:
+                    linkSplit = link.split("/")
+                    if len(linkSplit) > 4:
+                        link = "https://www.northernexpress.com" + link
+                        filteredLinks.append(link)
+
+        elif self.baseUrl == "https://www.manisteenews.com/":
+            for link in links:
+                if "/article/" in link:
+                    link = "https://www.manisteenews.com" + link
+                    filteredLinks.append(link)
+
+        return filteredLinks
 
     def setBaseUrl(self, url):
         self.baseUrl = url
