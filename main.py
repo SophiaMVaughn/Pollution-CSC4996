@@ -55,7 +55,7 @@ print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles f
 print("\nRunning NLP analysis")
 print("-------------------------")
 i = 0
-for article in tempev:
+for article in confirmedEventArticles:
     print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
 
     body = convertScrapedtoSent(article['body'])
