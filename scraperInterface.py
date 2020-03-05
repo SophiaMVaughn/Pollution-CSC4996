@@ -43,7 +43,7 @@ class ScraperInterface:
         loop.close()
 
     def pullWebsites(self):
-        with open('websitesTesting.json') as data_file:
+        with open('websites.json') as data_file:
             data = json.load(data_file)
 
         for website, attributes in data.items():

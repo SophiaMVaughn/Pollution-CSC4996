@@ -27,10 +27,6 @@
     "url": "https://michiganchronicle.com/",
     "searchQuery": "https://michiganchronicle.com/page/PEATPAGE/?s=PEATKEY"
   },
-  "clarkstonnews": {
-    "url": "https://clarkstonnews.com/",
-    "searchQuery": "https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY"
-  },
   "harborlightnews": {
     "url": "https://www.harborlightnews.com/",
     "searchQuery": "https://www.harborlightnews.com/page/PEATPAGE/?s=PEATKEY"
