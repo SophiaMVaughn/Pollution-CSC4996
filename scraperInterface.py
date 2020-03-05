@@ -39,11 +39,11 @@ class ScraperInterface:
             loop.set_description("\t[+] Scraping...".format(url))
             loop.update(1)
             scraper = Scraper(url)
-            self.articleObjs.append(scraper)
+            self.articleObjs.append(scraper.getScrapedArticle())
         loop.close()
 
     def pullWebsites(self):
-        with open('websites.json') as data_file:
+        with open('websitesTesting.json') as data_file:
             data = json.load(data_file)
 
         for website, attributes in data.items():

@@ -35,7 +35,6 @@ articleTitles = []
 for article in scraper.getScrapedArticles():
     articleTitles.append(article['title'])
 
-
 ####################  NLP event recognition  ###########################
 
 confirmedEventArticles = []
