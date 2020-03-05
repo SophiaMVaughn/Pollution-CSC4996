@@ -40,6 +40,7 @@ confirmedEventArticles = []
 confirmedEventCount = 0
 print("\nParsing event articles")
 print("-----------------------")
+
 for article in scraper.getScrapedArticles():
     if isArticleEvent(article):
         scraper.storeInArticlesCollection(article)
@@ -54,7 +55,7 @@ print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles f
 print("\nRunning NLP analysis")
 print("-------------------------")
 i = 0
-for article in confirmedEventArticles:
+for article in tempev:
     print(bcolors.OKGREEN + "[+] " + article['title'] + bcolors.ENDC)
 
     body = convertScrapedtoSent(article['body'])
@@ -71,10 +72,12 @@ for article in confirmedEventArticles:
     dates = dateInfo(body)
     for d in dates:
         print(d)
+    
         
     if len(location) == 0:
         location = ["none"]
-
+    for l in set(location):
+        print(l)
     if len(dates) == 0:
         dates = ["none"]
 
@@ -86,7 +89,7 @@ for article in confirmedEventArticles:
     database.Incidents(
         chemicals=chems,
         date=dates[0],
-        location=location[0],
+        location=location[-1],
         officialStatement=offComm,
         articleLinks=[article['url']]
     ).save()
