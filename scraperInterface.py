@@ -5,6 +5,7 @@ from textColors import bcolors
 from crawler import  Crawler
 from scraper import Scraper
 from tqdm import tqdm
+import time
 import json
 
 class ScraperInterface:
@@ -20,13 +21,16 @@ class ScraperInterface:
 
 
     def crawl(self):
-        for url in self.websites:
+        for website in self.websites:
             links = []
             for keyword in self.keywords:
-                crawler = Crawler(url, keyword)
-                links.append(crawler.getArticleLinks())
-                self.articleUrls.append(crawler.getArticleLinks())
+                crawler = Crawler(website, keyword)
                 self.articleCount = self.articleCount + crawler.getArticleCount()
+
+                for url in crawler.getArticleLinks():
+                    links.append(url)
+                    self.articleUrls.append(url)
+
             self.scrape(links)
 
         print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
@@ -36,9 +40,9 @@ class ScraperInterface:
         for url in urls:
             loop.set_description("\t[+] Scraping...".format(url))
             loop.update(1)
-
             scraper = Scraper(url)
             self.articleObjs.append(scraper)
+        loop.close()
 
     def pullWebsites(self):
         with open('websites.json') as data_file:

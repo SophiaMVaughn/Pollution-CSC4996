@@ -10,16 +10,17 @@ import re
 
 class Scraper():
     def __init__(self, url):
-        self.url = url
         self.titles = []
         self.scrapedArticles = []
 
         self.article = {
-            "url": self.url,
+            "url": url,
             "title": None,
             "publishingDate": None,
             "body": None
         }
+
+        self.scrape(url)
 
     def scrape(self, url):
         page = requests.get(url)
@@ -38,7 +39,6 @@ class Scraper():
 
             self.scrapedArticles.append(self.article)
             self.titles.append(self.article["title"])
-
 
     def scrapeTitle(self, soupPage=None):
         if soupPage is None:
