@@ -84,8 +84,3 @@ class Scraper():
 
     def getScrapedArticle(self):
         return self.article
-
-
-# errorLog = open("errorLog.txt", "a+")
-# errorLog.write("Error scraping article: " + self.url + "\n")
-# errorLog.close()

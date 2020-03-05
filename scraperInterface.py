@@ -2,64 +2,55 @@ from websites import *
 import database
 import sys
 from textColors import bcolors
+from crawler import  Crawler
+from scraper import Scraper
+from tqdm import tqdm
+import json
 
 class ScraperInterface:
     def __init__(self, keywords):
         self.keywords = keywords
         self.websites = []
-        self.validArticles = []
+        self.articleUrls = []
+        self.articleObjs = []
         self.articleCount = 0
 
-        self.websites.append(Ourmidland(keywords))
-        self.websites.append(MarionPress(keywords))
-        self.websites.append(TheCountyPress(keywords))
-        self.websites.append(LakeCountyStar(keywords))
-        self.websites.append(NorthernExpress(keywords))
-        self.websites.append(ManisteeNews(keywords))
-        self.websites.append(HarborLightNews(keywords))
-        self.websites.append(TheDailyNews(keywords))
-        self.websites.append(LeelanauNews(keywords))
-        self.websites.append(HoughtonLakeResorter(keywords))
-        self.websites.append(IronMountainDailyNews(keywords))
-        self.websites.append(MiningJournal(keywords))
-        self.websites.append(TheAlpenaNews(keywords))
+        self.pullWebsites()
+        self.crawl()
+        self.scrape()
 
-        # TODO: not working
-        # self.websites.append(LakeOrionReview(keywords))
-        # self.websites.append(ClarkstonNews(keywords))
-        # self.websites.append(MichiganChronicle(keywords))
+    def crawl(self):
+        for url in self.websites:
+            for keyword in self.keywords:
+                crawler = Crawler(url, keyword)
+                self.articleUrls.append(crawler.getArticleLinks())
+                self.articleCount = self.articleCount + crawler.getArticleCount()
+
+    def scrape(self):
+        loop = tqdm(total=len(self.articleUrls), position=0, leave=False)
+        for url in self.articleUrls:
+            scraper = Scraper(url)
+            self.articleObjs.append(scraper)
+            loop.set_description("\t[+] Scraping...".format(url))
+            loop.update(1)
 
         print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
 
-        self.generateArticleCount()
+    def pullWebsites(self):
+        with open('websites.json') as data_file:
+            data = json.load(data_file)
 
-    def generateArticleCount(self):
-        for site in self.websites:
-            self.articleCount = self.articleCount + site.getArticleCount()
+        for website, attributes in data.items():
+            self.websites.append(attributes['url'])
 
-    def getUrls(self):
-        urls = []
-        for site in self.websites:
-            for url in site.getArticleLinks():
-                urls.append(url)
-            self.articleCount = self.articleCount + site.getArticleCount()
-        return urls
+    def getArticleCount(self):
+        return self.articleCount
+
+    def getArticleUrl(self):
+        return self.articleUrls
 
     def getScrapedArticles(self):
-        articles = []
-        for site in self.websites:
-            for article in site.getScrapedArticles():
-                articles.append(article)
-        return articles
-
-    def addValidArticles(self, article):
-        self.validArticles.append(article)
-
-    def setValidArticles(self, articles):
-        self.validArticles = articles
-
-    def getValidArticles(self):
-        return self.validArticles
+        return self.articleObjs
 
     def storeInArticlesCollection(self, article):
         try:
@@ -80,9 +71,6 @@ class ScraperInterface:
             # raise
             pass
 
-    def getArticleCount(self):
-        return self.articleCount
-
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
         try:
             database.Incidents(
@@ -93,6 +81,8 @@ class ScraperInterface:
                 articleLinks=links
             ).save()
         except:
-            raise
             pass
 
+# errorLog = open("errorLog.txt", "a+")
+# errorLog.write("Error scraping article: " + self.url + "\n")
+# errorLog.close()

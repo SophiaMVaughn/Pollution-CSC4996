@@ -20,7 +20,9 @@ class Crawler:
 
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
-                self.searchQuery = website["searchQuery"]
+                self.searchQuery = attributes["searchQuery"]
+
+        self.crawl()
 
 
     def demoCrawl(self):
@@ -38,7 +40,10 @@ class Crawler:
         self.crawlSearchPages()
 
     def crawlSearchPages(self):
+
         links = []
+        assert self.keywords is not None
+
         for keyword in self.keywords:
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", "1")
 

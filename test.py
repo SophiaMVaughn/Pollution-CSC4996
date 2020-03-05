@@ -8,9 +8,6 @@ import time
 from colorama import Fore
 from newspaper import urls as urlChecker
 import json
+from scraperInterface import ScraperInterface
 
-with open('websites.json') as data_file:
-    websites = json.load(data_file)
-
-for website, attributes in websites.items():
-    print(website)
+interface = ScraperInterface(["pollution"])

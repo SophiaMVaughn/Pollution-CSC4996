@@ -1,62 +1,62 @@
 {
   "ourmidland": {
-    "link": "https://www.ourmidland.com/",
+    "url": "https://www.ourmidland.com/",
     "searchQuery": "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE"
   },
   "marion-press": {
-    "link": "http://www.marion-press.com/",
+    "url": "http://www.marion-press.com/",
     "searchQuery": "http://www.marion-press.com/page/PEATPAGE/?s=PEATKEY&x=0&y=0"
   },
   "thecountypress.mihomepaper": {
-    "link": "https://thecountypress.mihomepaper.com/",
+    "url": "https://thecountypress.mihomepaper.com/",
     "searchQuery": "https://thecountypress.mihomepaper.com/page/PEATPAGE/?s=PEATKEY"
   },
   "lakecountystar": {
-    "link": "https://www.lakecountystar.com/",
+    "url": "https://www.lakecountystar.com/",
     "searchQuery": "https://www.lakecountystar.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE"
   },
   "northernexpress": {
-    "link": "https://www.northernexpress.com/",
+    "url": "https://www.northernexpress.com/",
     "searchQuery": "https://www.northernexpress.com/search/?query=PEATKEY&content=news&page=PEATPAGE"
   },
   "manisteenews": {
-    "link": "https://www.manisteenews.com/",
+    "url": "https://www.manisteenews.com/",
     "searchQuery": "https://www.manisteenews.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE"
   },
   "michiganchronicle": {
-    "link": "https://michiganchronicle.com/",
+    "url": "https://michiganchronicle.com/",
     "searchQuery": "https://michiganchronicle.com/page/PEATPAGE/?s=PEATKEY"
   },
   "clarkstonnews": {
-    "link": "https://clarkstonnews.com/",
+    "url": "https://clarkstonnews.com/",
     "searchQuery": "https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY"
   },
   "harborlightnews": {
-    "link": "https://www.harborlightnews.com/",
+    "url": "https://www.harborlightnews.com/",
     "searchQuery": "https://www.harborlightnews.com/page/PEATPAGE/?s=PEATKEY"
   },
   "thedailynews": {
-    "link": "https://thedailynews.cc/",
+    "url": "https://thedailynews.cc/",
     "searchQuery": "https://thedailynews.cc/page/PEATPAGE/?s=PEATKEY"
   },
   "leelanaunews": {
-    "link": "https://www.leelanaunews.com/",
+    "url": "https://www.leelanaunews.com/",
     "searchQuery": "https://www.leelanaunews.com/page/PEATPAGE/?s=PEATKEY"
   },
   "houghtonlakeresorter": {
-    "link": "https://www.houghtonlakeresorter.com/",
+    "url": "https://www.houghtonlakeresorter.com/",
     "searchQuery": "https://www.houghtonlakeresorter.com/page/PEATPAGE/?s=PEATKEY"
   },
   "ironmountaindailynews": {
-    "link": "https://www.ironmountaindailynews.com/",
+    "url": "https://www.ironmountaindailynews.com/",
     "searchQuery": "https://www.ironmountaindailynews.com/search/PEATKEY/page/PEATPAGE/"
   },
   "miningjournal": {
-    "link": "https://www.miningjournal.net/",
+    "url": "https://www.miningjournal.net/",
     "searchQuery": "https://www.miningjournal.net/search/PEATKEY/page/PEATPAGE/"
   },
   "thealpenanews": {
-    "link": "https://www.thealpenanews.com/",
+    "url": "https://www.thealpenanews.com/",
     "searchQuery": "https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/"
   }
 }
