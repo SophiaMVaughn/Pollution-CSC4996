@@ -1,6 +1,7 @@
 
 import re
 from officialComm import convertScrapedtoSent
+from tqdm import tqdm
 
 def locationsInfo(articleBody):
    # reading from a body of text to find locations
@@ -38,7 +39,7 @@ def locationsInfo(articleBody):
                local.append(Highway)
                break
 
-  #cities calculation (ONly returns the first city found for right now)
+   #cities calculation (ONly returns the first city found for right now)
    cities = []
    cityFile = open("Cities.txt", "r")
    for x in cityFile:
