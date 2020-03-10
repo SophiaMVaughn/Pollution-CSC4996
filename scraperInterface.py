@@ -1,4 +1,3 @@
-from websites import *
 import database
 import sys
 from textColors import bcolors
