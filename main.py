@@ -42,6 +42,7 @@ confirmedEventCount = 0
 count = 0
 print("\nParsing event articles")
 print("-----------------------")
+
 for article in scraper.getScrapedArticles():
     count = count + 1
     if isArticleEvent(article):
@@ -79,7 +80,6 @@ for article in confirmedEventArticles:
     # for pulling date information
     dates = dateInfo(body)
 
-
     if len(locations) == 0:
         location = ""
     else:
@@ -103,3 +103,4 @@ for article in confirmedEventArticles:
     articleLinks.append(article['url'])
 
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
+

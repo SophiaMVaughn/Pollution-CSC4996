@@ -18,7 +18,6 @@ def locationsInfo(articleBody):
    #store all locations in array
    local = []
    # return all locations found in body of text from file
-
    for para in articleBody:
        temp= convertScrapedtoSent(para)
        for sent in temp:
@@ -43,12 +42,24 @@ def locationsInfo(articleBody):
    cities = []
    cityFile = open("Cities.txt", "r")
    for x in cityFile:
-       cities.append(x.rstrip())
-   city = re.findall(r'[A-Z][a-z]*', articleBody)
+       cities.append(x.rstrip().upper())
    city_set = set(cities)
-   for City in city:
-       if City in city_set:
-           local.append(City)
-           break
+   for para in articleBody:
+      temp= convertScrapedtoSent(para)
+      for sent in temp:
+         #print(sent)
+         city = re.findall(r'[A-Z][a-z]*', sent)
+         citypair=""
+         for i in range(len(city)):
+            if(i!=len(city)-1):
+               citypair = city[i]+" "+city[i+1]
+            
+            #print("PRED "+city[i])
+            #print("PRED "+citypair)
+            if city[i].upper() in city_set:
+               local.append(city[i])
+            elif citypair.upper() in city_set:
+               local.append(citypair)
+         
    return local
 
