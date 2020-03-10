@@ -6,7 +6,6 @@
 
 #enter everything into the database
 
-import spacy
 import en_core_web_sm
 from spacy.matcher import Matcher
 

@@ -9,9 +9,6 @@ from Location import locationsInfo
 import testCollectionIncidents
 from mongoengine import connect
 from dateutil import parser
-import database
-import sys
-import os.path
 
 
 db = connect(db="Pollution")

@@ -1,10 +1,8 @@
 import database
-import sys
 from textColors import bcolors
 from crawler import  Crawler
 from scraper import Scraper
 from tqdm import tqdm
-import time
 import json
 
 class ScraperInterface:

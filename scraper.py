@@ -1,10 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as soup
 from dateutil import parser
-import sys
-from crawler import Crawler
-from textColors import bcolors
-from tqdm import tqdm
 import re
 
 

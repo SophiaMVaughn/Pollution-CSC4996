@@ -1,7 +1,6 @@
 
 import re
 from officialComm import convertScrapedtoSent
-from tqdm import tqdm
 
 def locationsInfo(articleBody):
    # reading from a body of text to find locations

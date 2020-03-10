@@ -1,14 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import argparse
-import csv
-import json
-import logging
-import os
-import random
-import sys
-
-import numpy as np
 import torch
 import torch.nn.functional as F
 from pytorch_transformers import (WEIGHTS_NAME, AdamW, BertConfig,
@@ -17,7 +8,6 @@ from pytorch_transformers import (WEIGHTS_NAME, AdamW, BertConfig,
 from torch import nn
 from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
                               TensorDataset)
-from torch.utils.data.distributed import DistributedSampler
 from tqdm import tqdm, trange
 
 class Ner(BertForTokenClassification):

@@ -4,7 +4,6 @@ import database
 import newspaper
 from newspaper import urls as urlChecker
 from textColors import bcolors
-from tqdm import tqdm
 import json
 import sys
 
