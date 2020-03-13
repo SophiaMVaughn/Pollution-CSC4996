@@ -68,10 +68,13 @@ class Crawler:
 
     def getPages(self, keyword):
         page = requests.Response()
-        for i in range(3):
+        for i in range(1):
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", str(i))
             page = page + requests.get(query)
         return page
+
+    def getNextPage(self, url):
+        print("getting next page")
 
     def getRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)

@@ -10,3 +10,6 @@ from newspaper import urls as urlChecker
 import json
 from scraperInterface import ScraperInterface
 import sys
+
+url = "www.example.com/PEAT"
+print(url.find("PEAT"))
