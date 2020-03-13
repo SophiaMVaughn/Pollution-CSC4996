@@ -47,9 +47,7 @@ class Crawler:
         for keyword in self.keywords:
 
             query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", "1")
-
             page = requests.get(query)
-
             soupLinks = self.scrapeLinks(page)
 
             for link in soupLinks:
@@ -61,13 +59,21 @@ class Crawler:
             self.searchPagesArticleLinks = self.exceptionFilterLinksForArticles(links)
         else:
             self.searchPagesArticleLinks = self.filterLinksForArticles(links)
+
         self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
         self.storeInUrlsCollection(self.searchPagesArticleLinks)
 
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
               + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
-    def crawlRecentArticles(self):
+    def getPages(self, keyword):
+        page = requests.Response()
+        for i in range(3):
+            query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", str(i))
+            page = page + requests.get(query)
+        return page
+
+    def getRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)
         for article in links.articles:
             self.recentArticleLinks.append(article.url)

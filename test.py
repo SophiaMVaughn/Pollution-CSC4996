@@ -10,6 +10,3 @@ from newspaper import urls as urlChecker
 import json
 from scraperInterface import ScraperInterface
 import sys
-
-
-interface = ScraperInterface(["spill"])
