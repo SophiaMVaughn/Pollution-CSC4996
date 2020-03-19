@@ -9,6 +9,7 @@ from Location import locationsInfo
 import testCollectionIncidents
 from mongoengine import connect
 from dateutil import parser
+import database
 
 
 db = connect(db="Pollution")
@@ -77,10 +78,7 @@ for article in confirmedEventArticles:
     # for pulling date information
     dates = dateInfo(body)
 
-    if len(locations) == 0:
-        location = ""
-    else:
-        location = locations[0]
+
 
     if len(dates) == 0:
         date = article['publishingDate']
@@ -98,6 +96,32 @@ for article in confirmedEventArticles:
 
     articleLinks = []
     articleLinks.append(article['url'])
+    error = False
+    if len(locations) == 0:
+        location = ""
+        error=True
+        database.Errors(
+                chemicals=chems,
+                date=date,
+                location=location,
+                officialStatement=offComm,
+                articleLinks=articleLinks,
+                errorMessage="No location found."
+            ).save()
+    else:
+        location = locations[0]
 
-    scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
+    if  len(chems)==0:
+        error=True
+        database.Errors(
+                chemicals=chems,
+                date=date,
+                location=location,
+                officialStatement=offComm,
+                articleLinks=articleLinks,
+                errorMessage="No chemicals found."
+            ).save()
+
+    if error==False:
+        scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 

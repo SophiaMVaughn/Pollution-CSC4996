@@ -6,9 +6,23 @@ could not format date for article: http://www.marion-press.com/category/news/pol
 could not format date for article: http://www.marion-press.com/category/news/schools/
 could not format date for article: http://www.marion-press.com/category/news/sports/
 could not format date for article: http://www.marion-press.com/category/news/top-stories/
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-18
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-15
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-11
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-08
 could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-04
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-01
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-26
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-23
-could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-02-19
-could not format date for article: https://clarkstonnews.com/get-in-touch-with-your-community-newspaper/
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-03-19
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-03-12
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-03-05
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-27
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-20
+could not format date for article: https://www.leelanaunews.com//wp-content/uploads/vg2019/index.html
+could not format date for article: https://www.houghtonlakeresorter.com/category/news/features/
+could not format date for article: https://www.houghtonlakeresorter.com/category/news/law-enforcement/
+
+could not add article: http://www.marion-press.com/2020/01/asian-rivers-riddled-with-plastic-trash/
+could not add article: http://www.marion-press.com/2020/01/asian-rivers-riddled-with-plastic-trash/#respond
+could not add article: http://www.marion-press.com/2018/06/ghosts-of-main-street-the-old-swimmin-hole/
+could not add article: http://www.marion-press.com/2018/06/ghosts-of-main-street-the-old-swimmin-hole/#respond
+could not add article: https://www.ironmountaindailynews.com/news/local-news/2020/01/wisconsin-lawmakers-pass-pfas-restrictions/
+could not add article: https://www.miningjournal.net/opinion/2019/08/heres-the-true-dope-on-clothes-pollution/
