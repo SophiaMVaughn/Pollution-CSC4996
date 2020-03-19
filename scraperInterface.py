@@ -84,6 +84,7 @@ class ScraperInterface:
                 articleLinks=links
             ).save()
         except:
+            print("did not insert")
             pass
 
 # errorLog = open("errorLog.txt", "a+")

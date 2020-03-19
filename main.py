@@ -101,26 +101,28 @@ for article in confirmedEventArticles:
         location = ""
         error=True
         database.Errors(
-                chemicals=chems,
-                date=date,
-                location=location,
-                officialStatement=offComm,
-                articleLinks=articleLinks,
+                chems=chems,
+                day=date,
+                loc=location,
+                offStmt=offComm,
+                artLinks=articleLinks,
                 errorMessage="No location found."
             ).save()
+        print("Passed-no location")
     else:
         location = locations[0]
 
     if  len(chems)==0:
         error=True
         database.Errors(
-                chemicals=chems,
-                date=date,
-                location=location,
-                officialStatement=offComm,
-                articleLinks=articleLinks,
-                errorMessage="No chemicals found."
+                chems=chems,
+                day=date,
+                loc=location,
+                offStmt=offComm,
+                artLinks=articleLinks,
+                errorMessage="No chemical found."
             ).save()
+        print("Passed-no chemical")
 
     if error==False:
         scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
