@@ -245,4 +245,4 @@ def filteredMap():
     return render_template('MapPage.html', polMap = polMap)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
