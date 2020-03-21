@@ -97,33 +97,9 @@ for article in confirmedEventArticles:
     articleLinks = []
     articleLinks.append(article['url'])
     error = False
-    if len(locations) == 0:
+    if len(locations)==0:
         location = ""
-        error=True
-        database.Errors(
-                chems=chems,
-                day=date,
-                loc=location,
-                offStmt=offComm,
-                artLinks=articleLinks,
-                errorMessage="No location found."
-            ).save()
-        print("Passed-no location")
     else:
         location = locations[0]
-
-    if  len(chems)==0:
-        error=True
-        database.Errors(
-                chems=chems,
-                day=date,
-                loc=location,
-                offStmt=offComm,
-                artLinks=articleLinks,
-                errorMessage="No chemical found."
-            ).save()
-        print("Passed-no chemical")
-
-    if error==False:
-        scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
+    scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 
