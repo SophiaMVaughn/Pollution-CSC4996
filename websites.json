@@ -50,5 +50,17 @@
   "thealpenanews": {
     "url": "https://www.thealpenanews.com/",
     "searchQuery": "https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/"
+  },
+  "detroitnews": {
+    "url": "https://www.detroitnews.com/",
+    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/"
+  },
+  "freep": {
+    "url": "https://www.freep.com/",
+    "searchQuery": "https://www.freep.com/search/PEATKEY/"
+  },
+  "thetimesherald": {
+    "url": "https://www.thetimesherald.com/",
+    "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/"
   }
 }

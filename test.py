@@ -17,9 +17,10 @@ from selenium.webdriver.chrome.options import Options
 import os
 from website import Website
 
-website = Website("https://www.thetimesherald.com/")
+website = Website("https://www.northernexpress.com/")
 website.searchForKey("pollution")
-website.scrollPage()
 page = website.getCurrentPage()
 links = page.find_all('a', href=True)
+print(website.currentUrl)
 print(len(links))
+

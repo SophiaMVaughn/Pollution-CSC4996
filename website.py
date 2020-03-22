@@ -1,13 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as soup
-import database
-import newspaper
-from newspaper import urls as urlChecker
-from textColors import bcolors
 import json
-import sys
-from scraper import Scraper
-import datetime
 from selenium import webdriver
 from sys import platform
 from selenium.webdriver.chrome.options import Options
@@ -19,9 +12,9 @@ class Website:
         self.currentPageNum = 0
         self.currentPage = soup(requests.get(self.baseUrl).content, "html.parser")
         self.currentUrl = self.baseUrl
-        self.setDriver(self.baseUrl)
+        self.currentKey = ""
 
-        with open('websitesTesting.json') as data_file:
+        with open('websites.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
@@ -31,23 +24,23 @@ class Website:
 
     def getPage(self, key):
         query = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(self.currentPageNum))
-        self.setDriver(query)
         self.currentUrl = query
         page = requests.get(query)
         return soup(page.content, "html.parser")
 
     def searchForKey(self, key):
+        self.currentKey = key
         self.currentPage = self.getPage(key)
         self.currentPageNum = 0
 
-    def nextPage(self, key):
-        self.currentPage = self.getPage(key)
+    def nextPage(self):
         self.currentPageNum = self.currentPageNum + 1
+        self.currentPage = self.getPage(self.currentKey)
 
     def getCurrentPage(self):
         return self.currentPage
 
-    def setDriver(self, url):
+    def setDriver(self):
         if platform == "darwin":
             chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_79_mac"
         else:

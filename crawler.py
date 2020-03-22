@@ -8,6 +8,7 @@ import json
 import sys
 from scraper import Scraper
 import datetime
+from website import Website
 
 class Crawler:
     def __init__(self, url, keywords=None):
@@ -16,6 +17,7 @@ class Crawler:
         self.searchPagesArticleLinks = []
         self.recentArticleLinks = []
         self.articleCount = 0
+        self.website = Website(url)
 
         with open('websites.json') as data_file:
             self.websites = json.load(data_file)
