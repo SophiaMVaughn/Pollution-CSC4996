@@ -10,6 +10,16 @@ from newspaper import urls as urlChecker
 import json
 from scraperInterface import ScraperInterface
 import sys
+import datetime
+from selenium import webdriver
+from sys import platform
+from selenium.webdriver.chrome.options import Options
+import os
+from website import Website
 
-url = "www.example.com/PEAT"
-print(url.find("PEAT"))
+website = Website("https://www.thetimesherald.com/")
+website.searchForKey("pollution")
+website.scrollPage()
+page = website.getCurrentPage()
+links = page.find_all('a', href=True)
+print(len(links))

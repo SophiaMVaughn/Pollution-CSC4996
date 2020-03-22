@@ -1,7 +1,6 @@
 Implemented:
 ------------
 https://www.ourmidland.com/
-http://www.marion-press.com/
 https://thecountypress.mihomepaper.com/
 https://www.lakecountystar.com/
 https://www.northernexpress.com/
@@ -17,6 +16,7 @@ https://www.thealpenanews.com/
 
 Not implemented:
 ----------------
+http://www.marion-press.com/        --> not scraping, gets stuck
 https://www.candgnews.com/
 https://www.mlive.com/
 https://www.leaderpub.com/
@@ -27,9 +27,9 @@ https://www.shorelinemedia.net/
 https://clarkstonnews.com/
 https://lakeorionreview.com/
 
-https://www.detroitnews.com/
-https://www.freep.com/
-https://www.thetimesherald.com/
+https://www.detroitnews.com/        --> infinite scroll
+https://www.freep.com/              --> infinite scroll
+https://www.thetimesherald.com/     --> infinite scroll
 
 
 

@@ -1,26 +1,32 @@
 https://www.candgnews.com/
 ---------------------------------------
     articleUrlStructure :
-            searchQuery : no change to query when changing page
+            searchQuery : https://www.candgnews.com/search?q=pollution
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : filter button to order by date
 
 https://www.mlive.com/
 ---------------------------------------
     articleUrlStructure :
-            searchQuery : no change to query when changing page
+            searchQuery : https://www.mlive.com/search/?q=PEATKEY
             title       : <title>
             date        :
             body        : ?
+            next page   : not in url, gotta press the next page button
+    article ordering    : ordered
 
 https://www.leaderpub.com/
 ---------------------------------------
     articleUrlStructure :
-            searchQuery : no change to query when changing page
+            searchQuery : https://www.leaderpub.com/site-search/?q=PEATKEY
             title       : <title>
             date        :
             body        : ?
+            next page   : not in url, gotta press the next page button
+    article ordering    : filter button to order by date
 
 http://www.marion-press.com/
 ---------------------------------------
@@ -29,6 +35,8 @@ http://www.marion-press.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered
 
 https://thecountypress.mihomepaper.com/
 ---------------------------------------
@@ -37,6 +45,8 @@ https://thecountypress.mihomepaper.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered
 
 https://www.lakecountystar.com/
 ---------------------------------------
@@ -45,6 +55,8 @@ https://www.lakecountystar.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : filter button to order by date
 
 https://www.record-eagle.com/
 ---------------------------------------
@@ -53,6 +65,8 @@ https://www.record-eagle.com/
             title       : <title> [title] |  | record-eagle.com</title>
             date        :
             body        : <p>
+            next page   : article count in url
+    article ordering    : ordered
 
 https://www.macombdaily.com/
 ---------------------------------------
@@ -61,6 +75,8 @@ https://www.macombdaily.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : article count in url
+    article ordering    : ordered
 
 https://www.northernexpress.com/
 ---------------------------------------
@@ -69,6 +85,8 @@ https://www.northernexpress.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered
 
 https://www.manisteenews.com/
 ---------------------------------------
@@ -77,6 +95,8 @@ https://www.manisteenews.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : filter button to order by date
 
 https://www.theoaklandpress.com/
 ---------------------------------------
@@ -85,6 +105,8 @@ https://www.theoaklandpress.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : article count in url
+    article ordering    : ordered
 
 https://www.shorelinemedia.net/
 ---------------------------------------
@@ -93,6 +115,8 @@ https://www.shorelinemedia.net/
             title       :
             date        :
             body        :
+            next page   :
+    article ordering    :
 
 https://michiganchronicle.com/
 ---------------------------------------
@@ -101,6 +125,8 @@ https://michiganchronicle.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : not ordered
 
 https://clarkstonnews.com/
 ---------------------------------------
@@ -109,6 +135,8 @@ https://clarkstonnews.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered
 
 https://www.harborlightnews.com/
 ---------------------------------------
@@ -117,6 +145,8 @@ https://www.harborlightnews.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered
 
 https://thedailynews.cc/
 ---------------------------------------
@@ -125,6 +155,8 @@ https://thedailynews.cc/
             title       : <title>
             date        :
             body        : <p> ?
+            next page   : page number in url
+    article ordering    : not ordered
 
 https://lakeorionreview.com/
 ---------------------------------------
@@ -133,6 +165,8 @@ https://lakeorionreview.com/
             title       : <title> [title] | Lake Orion Review </title>
             date        :
             body        : <p> ?
+            next page   : page number in url
+    article ordering    : ordered for the most part, there was one 2014 within the 2019 articles???
 
 https://www.leelanaunews.com/
 ---------------------------------------
@@ -141,6 +175,8 @@ https://www.leelanaunews.com/
             title       : <title> [title] | Leelanau Enterprise </title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered
 
 https://www.houghtonlakeresorter.com/
 ---------------------------------------
@@ -149,6 +185,8 @@ https://www.houghtonlakeresorter.com/
             title       : <title> [title] | Houghton Lake Resorter</title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered
 
 https://www.detroitnews.com/
 ---------------------------------------
@@ -157,6 +195,8 @@ https://www.detroitnews.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : infinite scrolling
+    article ordering    : ordered
 
 https://www.freep.com/
 ---------------------------------------
@@ -165,6 +205,8 @@ https://www.freep.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : infinite scrolling
+    article ordering    : ordered
 
 https://www.thetimesherald.com/
 ---------------------------------------
@@ -173,6 +215,8 @@ https://www.thetimesherald.com/
             title       : <title>
             date        :
             body        : <p>
+            next page   : infinite scrolling
+    article ordering    : ordered
 
 https://www.ironmountaindailynews.com/
 ---------------------------------------
@@ -181,6 +225,8 @@ https://www.ironmountaindailynews.com/
             title       : <title>  [title] | News, Sports, Jobs - The Daily news</title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : not ordered
 
 https://www.miningjournal.net/
 ---------------------------------------
@@ -189,6 +235,8 @@ https://www.miningjournal.net/
             title       : <title>  [title] | News, Sports, Jobs - The Mining Journal</title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : not ordered
 
 https://www.thealpenanews.com/
 ---------------------------------------
@@ -197,3 +245,5 @@ https://www.thealpenanews.com/
             title       : <title>  [title] | News, Sports, Jobs - The Alpena News</title>
             date        :
             body        : <p>
+            next page   : page number in url
+    article ordering    : ordered

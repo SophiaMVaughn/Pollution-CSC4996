@@ -6,7 +6,8 @@ from newspaper import urls as urlChecker
 from textColors import bcolors
 import json
 import sys
-
+from scraper import Scraper
+import datetime
 
 class Crawler:
     def __init__(self, url, keywords=None):
@@ -18,6 +19,7 @@ class Crawler:
 
         with open('websites.json') as data_file:
             self.websites = json.load(data_file)
+            data_file.close()
 
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
@@ -37,28 +39,33 @@ class Crawler:
         self.crawl()
 
     def crawl(self):
-        self.crawlSearchPages()
+        self.crawlViaSearchKeys()
 
-    def crawlSearchPages(self):
+    def crawlViaSearchKeys(self):
 
-        links = []
+        # TODO: come back to this
         assert self.keywords is not None
 
         for keyword in self.keywords:
 
-            query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", "1")
-            page = requests.get(query)
-            soupLinks = self.scrapeLinks(page)
+            withinLastYear = True
+            pageLimit = 20
+            pageNum = 1
 
-            for link in soupLinks:
-                link = link['href']
-                if link not in links:
-                    links.append(link)
+            while withinLastYear or pageNum <= pageLimit:
 
-        if self.baseUrl in self.exceptions:
-            self.searchPagesArticleLinks = self.exceptionFilterLinksForArticles(links)
-        else:
-            self.searchPagesArticleLinks = self.filterLinksForArticles(links)
+                links = self.getPageLinks(keyword, pageNum)
+
+                if self.baseUrl in self.exceptions:
+                    articleLinks = self.exceptionFilterLinksForArticles(links)
+                else:
+                    articleLinks = self.filterLinksForArticles(links)
+
+                self.searchPagesArticleLinks = self.searchPagesArticleLinks + articleLinks
+
+                withinLastYear = self.articlesAreWithinLastYear(articleLinks)
+                # withinLastYear = False
+                pageNum = pageNum + 1
 
         self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
         self.storeInUrlsCollection(self.searchPagesArticleLinks)
@@ -66,15 +73,39 @@ class Crawler:
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
               + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
-    def getPages(self, keyword):
-        page = requests.Response()
-        for i in range(1):
-            query = self.searchQuery.replace("PEATKEY", keyword).replace("PEATPAGE", str(i))
-            page = page + requests.get(query)
-        return page
+    def articlesAreWithinLastYear(self, articleLinks):
 
-    def getNextPage(self, url):
-        print("getting next page")
+        yearAgo = datetime.datetime.now() - datetime.timedelta(days=365)
+
+        for article in articleLinks:
+            scraper = Scraper(article)
+            scrapedArticle = scraper.getScrapedArticle()
+
+            # TODO: fix this implementation
+            if scrapedArticle['publishingDate'] == "":
+                continue
+
+            publishingDate = datetime.datetime.strptime(scrapedArticle['publishingDate'], "%m/%d/%Y")
+            if publishingDate < yearAgo:
+                return False
+
+        return True
+
+    def getPageLinks(self, key, pageNum):
+
+        query = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(pageNum))
+        page = requests.get(query)
+        soupPage = soup(page.content, "html.parser")
+        soupLinks = soupPage.find_all('a', href=True)
+
+        links = []
+
+        for link in soupLinks:
+            link = link['href']
+            if link not in links:
+                links.append(link)
+
+        return links
 
     def getRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)
@@ -138,10 +169,6 @@ class Crawler:
 
     def setSearchQueryStructure(self, query):
         self.searchQuery = query
-
-    def scrapeLinks(self, page):
-        soupPage = soup(page.content, "html.parser")
-        return soupPage.find_all('a', href=True)
 
     def getArticleLinks(self):
         return self.searchPagesArticleLinks

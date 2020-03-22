@@ -1,6 +1,14 @@
 {
-  "ourmidland": {
-    "url": "https://www.ourmidland.com/",
-    "searchQuery": "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE"
+  "detroitnews": {
+    "url": "https://www.detroitnews.com/",
+    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/"
+  },
+  "freep": {
+    "url": "https://www.freep.com/",
+    "searchQuery": "https://www.freep.com/search/PEATKEY/"
+  },
+  "thetimesherald": {
+    "url": "https://www.thetimesherald.com/",
+    "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/"
   }
 }
