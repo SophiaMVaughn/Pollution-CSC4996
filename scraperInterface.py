@@ -75,16 +75,35 @@ class ScraperInterface:
             pass
 
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
-        try:
-            database.Incidents(
-                chemicals=chems,
-                date=date,
-                location=location,
-                officialStatement=statement,
-                articleLinks=links
+        if len(location) == 0:
+            database.Errors(
+                chems=chems,
+                day=date,
+                loc=location,
+                offStmt=offComm,
+                artLinks=articleLinks,
+                errorMessage="No location found."
             ).save()
-        except:
-            pass
+        elif len(chems)==0:
+            database.Errors(
+                chems=chems,
+                day=date,
+                loc=location,
+                offStmt=statement,
+                artLinks=links,
+                errorMessage="No chemicals found."
+            ).save()
+        else:
+            try:
+                database.Incidents(
+                    chemicals=chems,
+                    date=date,
+                    location=location,
+                    officialStatement=statement,
+                    articleLinks=links
+                ).save()
+            except:
+                pass
 
 # errorLog = open("errorLog.txt", "a+")
 # errorLog.write("Error scraping article: " + self.url + "\n")

@@ -38,3 +38,11 @@ class Incidents(mongoengine.Document):
     location = mongoengine.StringField(required=True)
     officialStatement = mongoengine.ListField(mongoengine.StringField(required=True))
     articleLinks = mongoengine.ListField(mongoengine.StringField(required=True))
+
+class Errors(mongoengine.Document):
+    chems = mongoengine.ListField(mongoengine.StringField(required=True))
+    day = mongoengine.StringField(required=True)
+    loc = mongoengine.StringField(required=True)
+    offStmt = mongoengine.ListField(mongoengine.StringField(required=True))
+    artLinks = mongoengine.ListField(mongoengine.StringField(required=True))
+    errorMessage = mongoengine.StringField(required=True)

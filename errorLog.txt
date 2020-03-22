@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 could not format date for article: https://www.ourmidland.com/news/article/Heavy-pollution-in-Iran-hospitalizes-1-500-people-14909713.php
 could not format date for article: https://www.ourmidland.com/news/article/EPA-says-it-will-pursue-new-rule-to-cut-pollution-14953937.php
 could not format date for article: https://www.ourmidland.com/news/article/Sydney-air-pollution-is-so-bad-it-s-setting-off-14896230.php
@@ -8,3 +9,39 @@ could not format date for article: https://www.ourmidland.com/business/article/B
 could not format date for article: https://www.ourmidland.com/opinion/article/Pollution-knows-no-boundaries-13939733.php
 could not format date for article: https://www.ourmidland.com/news/article/Japan-wraps-everything-in-plastic-Now-it-wants-14014707.php
 could not format date for article: https://www.ourmidland.com/news/article/Democratic-hopeful-Jay-Inslee-to-roll-out-plan-to-13816889.php
+=======
+could not format date for article: http://www.marion-press.com/category/news/government/
+could not format date for article: http://www.marion-press.com/category/news/happening-now/
+could not format date for article: http://www.marion-press.com/category/news/
+could not format date for article: http://www.marion-press.com/category/news/obituaries/
+could not format date for article: http://www.marion-press.com/category/news/police-and-courts/
+could not format date for article: http://www.marion-press.com/category/news/schools/
+could not format date for article: http://www.marion-press.com/category/news/sports/
+could not format date for article: http://www.marion-press.com/category/news/top-stories/
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-18
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-15
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-11
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-08
+could not format date for article: https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-04
+could not format date for article: https://thecountypress.mihomepaper.com/register/promo-we-are-in-this-together-1-year-print-3-months-online/
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-03-19
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-03-12
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-03-05
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-27
+could not format date for article: https://www.leelanaunews.com/pageview/viewer/2020-02-20
+could not format date for article: https://www.leelanaunews.com//wp-content/uploads/vg2019/index.html
+could not format date for article: https://www.houghtonlakeresorter.com/category/news/features/
+could not format date for article: https://www.houghtonlakeresorter.com/category/news/law-enforcement/
+
+could not add article: http://www.marion-press.com/2020/01/asian-rivers-riddled-with-plastic-trash/
+could not add article: http://www.marion-press.com/2020/01/asian-rivers-riddled-with-plastic-trash/#respond
+could not add article: http://www.marion-press.com/2018/06/ghosts-of-main-street-the-old-swimmin-hole/
+could not add article: http://www.marion-press.com/2018/06/ghosts-of-main-street-the-old-swimmin-hole/#respond
+could not add article: https://www.ironmountaindailynews.com/news/local-news/2020/02/wisconsin-assembly-passes-bill-on-pfas-pollution/
+could not add article: https://www.ironmountaindailynews.com/news/local-news/2020/01/wisconsin-lawmakers-introduce-sweeping-pfas-pollution-bill/
+could not add article: https://www.ironmountaindailynews.com/news/local-news/2019/06/johnson-controls-accused-of-not-reporting-marinette-pollution/
+could not add article: https://www.ironmountaindailynews.com/news/local-news/2019/04/wisconsin-marks-progress-on-river-pollution-cleanup/
+could not add article: https://www.ironmountaindailynews.com/news/local-news/2018/06/evidence-of-pollution-found-in-marinette/
+could not add article: https://www.ironmountaindailynews.com/news/local-news/2020/02/michigan-oversight-panel-oks-limits-on-forever-chemicals/
+could not add article: https://www.miningjournal.net/opinion/2019/08/heres-the-true-dope-on-clothes-pollution/
+>>>>>>> 0a42fc6003e1a94234e7687eb38beb1ca6873323
