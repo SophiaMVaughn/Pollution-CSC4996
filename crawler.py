@@ -21,7 +21,7 @@ class Crawler:
         self.website = Website(url)
 
         # TODO: make sure openning websites.json
-        with open('websites.json') as data_file:
+        with open('websitesTesting.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
@@ -55,7 +55,7 @@ class Crawler:
             self.website.searchForKey(keyword)
             withinLastYear = True
 
-            while withinLastYear and self.website.getCurrentPageNum() <= self.searchPageLimit:
+            while self.website.getCurrentPageNum() <= self.searchPageLimit:
 
                 soupPage = self.website.getCurrentPage()
                 soupLinks = soupPage.find_all('a', href=True)
@@ -78,15 +78,13 @@ class Crawler:
 
                 self.searchPagesArticleLinks = self.searchPagesArticleLinks + articleLinks
 
-                # withinLastYear = self.articlesAreWithinLastYear(articleLinks)
-                withinLastYear = False
-
         self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
         self.storeInUrlsCollection(self.searchPagesArticleLinks)
 
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
               + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
+    # TODO: dead code
     def articlesAreWithinLastYear(self, articleLinks):
 
         yearAgo = datetime.datetime.now() - datetime.timedelta(days=365)

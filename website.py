@@ -15,7 +15,7 @@ class Website:
         self.currentKey = ""
 
         # TODO: make sure openning websites.json
-        with open('websites.json') as data_file:
+        with open('websitesTesting.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
@@ -23,6 +23,9 @@ class Website:
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
                 self.nextPageType = attributes["nextPage"]
+
+        if self.nextPageType == 3:
+            self.setDriver()
 
     def getPage(self, key):
         query = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(self.currentPageNum))
@@ -37,12 +40,14 @@ class Website:
 
     def nextPage(self):
         #TODO: change this
-
-        if self.nextPageType == 1:
-            self.currentPageNum = self.currentPageNum + 1
-        elif self.nextPageType == 2:
-            self.currentPageNum = self.currentPageNum + 25
-        self.currentPage = self.getPage(self.currentKey)
+        if self.nextPageType == 3:
+            print("infinite scrolling")
+        else:
+            if self.nextPageType == 1:
+                self.currentPageNum = self.currentPageNum + 1
+            elif self.nextPageType == 2:
+                self.currentPageNum = self.currentPageNum + 25
+            self.currentPage = self.getPage(self.currentKey)
 
     def setDriver(self):
         if platform == "darwin":
@@ -52,7 +57,7 @@ class Website:
             chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_win32.exe"
 
         options = Options()
-        # options.add_argument('--headless')
+        options.add_argument('--headless')
         self.driver = webdriver.Chrome(chromeDriverPath, options=options)
         self.driver.get(self.currentUrl)
 
@@ -74,7 +79,13 @@ class Website:
         return self.currentPage
 
     def getCurrentPageNum(self):
-        return self.currentPageNum
+        if self.currentPageNum == 1:
+            return self.currentPageNum
+        elif self.currentPageNum == 2:
+            if self.currentPageNum == 1:
+                return 1
+            else:
+                return self.currentPageNum/25 + 1
 
     def getCurrentUrl(self):
         return self.currentUrl

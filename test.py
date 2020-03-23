@@ -21,7 +21,8 @@ from newspaper import urls as urlChecker
 from newspaper import Article
 from dateutil import parser
 
-website = Website("https://www.record-eagle.com/")
+website = Website("https://www.freep.com/")
+website.searchForKey("pollution")
 page = website.getCurrentPage()
 links = page.find_all("a", href=True)
 
@@ -30,6 +31,9 @@ page = website.getCurrentPage()
 links = links + page.find_all("a", href=True)
 
 print(len(links))
+
+print(len(links))
 for link in links:
     print(link['href'])
+
 

@@ -1,14 +1,17 @@
 {
-  "record-eagle": {
-    "url": "https://www.record-eagle.com/",
-    "searchQuery": "https://www.record-eagle.com/search/?l=25&sd=desc&s=start_time&f=html&app%5B0%5D=editorial&q=PEATKEY&nsa=eedition&o=PEATPAGE"
+  "detroitnews": {
+    "url": "https://www.detroitnews.com/",
+    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/",
+    "nextPage": 3
   },
-  "macombdaily": {
-    "url": "https://www.macombdaily.com/",
-    "searchQuery": "https://www.macombdaily.com/search/?sd=desc&l=25&s=start_time&f=html&t=article%2Cvideo%2Cyoutube%2Ccollection&app%5B0%5D=editorial&nsa=eedition&q=PEATKEY&o=PEATPAGE"
+  "freep": {
+    "url": "https://www.freep.com/",
+    "searchQuery": "https://www.freep.com/search/PEATKEY/",
+    "nextPage": 3
   },
-  "theoaklandpress": {
-    "url": "https://www.theoaklandpress.com/",
-    "searchQuery": "https://www.theoaklandpress.com/search/?sd=desc&l=25&s=start_time&f=html&t=article%2Cvideo%2Cyoutube%2Ccollection&app%5B0%5D=editorial&nsa=eedition&q=PEATKEY&o=PEATPAGE"
+  "thetimesherald": {
+    "url": "https://www.thetimesherald.com/",
+    "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/",
+    "nextPage": 3
   }
 }

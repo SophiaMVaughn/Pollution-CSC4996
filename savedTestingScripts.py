@@ -13,6 +13,7 @@ import sys
 import datetime
 from newspaper import Article
 from dateutil import parser
+from website import Website
 
 websites = [
     "https://www.ourmidland.com/",
@@ -85,4 +86,18 @@ for url in urls:
     if article.publish_date is not None:
         d = parser.parse(str(article.publish_date))
         print(d.strftime("%m/%d/%Y"))
+
+#########################################################################
+
+website = Website("https://www.record-eagle.com/")
+page = website.getCurrentPage()
+links = page.find_all("a", href=True)
+
+website.nextPage()
+page = website.getCurrentPage()
+links = links + page.find_all("a", href=True)
+
+print(len(links))
+for link in links:
+    print(link['href'])
 
