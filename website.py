@@ -41,7 +41,7 @@ class Website:
     def nextPage(self):
         #TODO: change this
         if self.nextPageType == 3:
-            print("infinite scrolling")
+            self.scrollPage()
         else:
             if self.nextPageType == 1:
                 self.currentPageNum = self.currentPageNum + 1

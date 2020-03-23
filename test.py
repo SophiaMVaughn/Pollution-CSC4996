@@ -31,8 +31,6 @@ page = website.getCurrentPage()
 links = links + page.find_all("a", href=True)
 
 print(len(links))
-
-print(len(links))
 for link in links:
     print(link['href'])
 
