@@ -14,6 +14,7 @@ class Website:
         self.currentUrl = self.baseUrl
         self.currentKey = ""
 
+        # TODO: make sure openning websites.json
         with open('websites.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
@@ -21,6 +22,7 @@ class Website:
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
+                self.nextPageType = attributes["nextPage"]
 
     def getPage(self, key):
         query = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(self.currentPageNum))
@@ -34,11 +36,13 @@ class Website:
         self.currentPageNum = 0
 
     def nextPage(self):
-        self.currentPageNum = self.currentPageNum + 1
-        self.currentPage = self.getPage(self.currentKey)
+        #TODO: change this
 
-    def getCurrentPage(self):
-        return self.currentPage
+        if self.nextPageType == 1:
+            self.currentPageNum = self.currentPageNum + 1
+        elif self.nextPageType == 2:
+            self.currentPageNum = self.currentPageNum + 25
+        self.currentPage = self.getPage(self.currentKey)
 
     def setDriver(self):
         if platform == "darwin":
@@ -55,3 +59,25 @@ class Website:
     def scrollPage(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         self.currentPage = soup(self.driver.page_source, 'html.parser')
+
+    def resetPageToBaseUrl(self):
+        self.currentUrl = self.baseUrl
+        self.currentPage = soup(requests.get(self.baseUrl).content, "html.parser")
+        self.currentPageNum = 0
+
+    def resetPageToFirstSearchPage(self):
+        self.currentUrl = self.searchQuery.replace("PEATPAGE", "1")
+        self.currentPage = soup(requests.get(self.currentUrl).content, "html.parser")
+        self.currentPageNum = 1
+
+    def getCurrentPage(self):
+        return self.currentPage
+
+    def getCurrentPageNum(self):
+        return self.currentPageNum
+
+    def getCurrentUrl(self):
+        return self.currentUrl
+
+    def getCurrentKey(self):
+        return self.currentKey

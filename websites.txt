@@ -13,16 +13,16 @@ https://www.houghtonlakeresorter.com/
 https://www.ironmountaindailynews.com/
 https://www.miningjournal.net/
 https://www.thealpenanews.com/
+https://www.record-eagle.com/
+https://www.macombdaily.com/
+https://www.theoaklandpress.com/
 
 Not implemented:
 ----------------
 http://www.marion-press.com/        --> not scraping, gets stuck
-https://www.candgnews.com/
-https://www.mlive.com/
-https://www.leaderpub.com/
-https://www.record-eagle.com/
-https://www.macombdaily.com/
-https://www.theoaklandpress.com/
+https://www.candgnews.com/          --> article links don't show in search page
+https://www.mlive.com/              --> article links don't show in search page
+https://www.leaderpub.com/          --> article links don't show in search page
 https://www.shorelinemedia.net/
 https://clarkstonnews.com/
 https://lakeorionreview.com/

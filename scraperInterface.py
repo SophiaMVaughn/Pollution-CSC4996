@@ -70,7 +70,7 @@ class ScraperInterface:
             articleBodies.close()
         except:
             errorLog = open("errorLog.txt", "a+")
-            errorLog.write("\ncould not add article: " + article['url'])
+            errorLog.write("\ncould not add article:   " + article['url'])
             # raise
             pass
 
@@ -80,8 +80,8 @@ class ScraperInterface:
                 chems=chems,
                 day=date,
                 loc=location,
-                offStmt=offComm,
-                artLinks=articleLinks,
+                offStmt=statement,
+                artLinks=links,
                 errorMessage="No location found."
             ).save()
         elif len(chems)==0:

@@ -11,14 +11,16 @@ import datetime
 from website import Website
 
 class Crawler:
-    def __init__(self, url, keywords=None):
+    def __init__(self, url, keywords=None, searchPageLimit=2):
         self.baseUrl = url
         self.keywords = keywords
         self.searchPagesArticleLinks = []
         self.recentArticleLinks = []
         self.articleCount = 0
+        self.searchPageLimit = searchPageLimit
         self.website = Website(url)
 
+        # TODO: make sure openning websites.json
         with open('websites.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
@@ -50,24 +52,34 @@ class Crawler:
 
         for keyword in self.keywords:
 
+            self.website.searchForKey(keyword)
             withinLastYear = True
-            pageLimit = 20
-            pageNum = 1
 
-            while withinLastYear or pageNum <= pageLimit:
+            while withinLastYear and self.website.getCurrentPageNum() <= self.searchPageLimit:
 
-                links = self.getPageLinks(keyword, pageNum)
+                soupPage = self.website.getCurrentPage()
+                soupLinks = soupPage.find_all('a', href=True)
+
+                links = []
+                for link in soupLinks:
+                    link = link['href']
+                    if link not in links:
+                        links.append(link)
 
                 if self.baseUrl in self.exceptions:
                     articleLinks = self.exceptionFilterLinksForArticles(links)
                 else:
                     articleLinks = self.filterLinksForArticles(links)
 
+                try:
+                    self.website.nextPage()
+                except:
+                    break
+
                 self.searchPagesArticleLinks = self.searchPagesArticleLinks + articleLinks
 
-                withinLastYear = self.articlesAreWithinLastYear(articleLinks)
-                # withinLastYear = False
-                pageNum = pageNum + 1
+                # withinLastYear = self.articlesAreWithinLastYear(articleLinks)
+                withinLastYear = False
 
         self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
         self.storeInUrlsCollection(self.searchPagesArticleLinks)
@@ -92,22 +104,6 @@ class Crawler:
                 return False
 
         return True
-
-    def getPageLinks(self, key, pageNum):
-
-        query = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(pageNum))
-        page = requests.get(query)
-        soupPage = soup(page.content, "html.parser")
-        soupLinks = soupPage.find_all('a', href=True)
-
-        links = []
-
-        for link in soupLinks:
-            link = link['href']
-            if link not in links:
-                links.append(link)
-
-        return links
 
     def getRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)
