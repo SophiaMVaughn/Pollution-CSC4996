@@ -9,6 +9,8 @@ def locationsInfo(articleBody):
     rivers = re.compile(r'(?:\S+\s)?\S*River')
     countys = re.compile(r'(?:\S+\s)?\S*County')
     creeks = re.compile(r'(?:\S+\s)?\S*Creek')
+    townships = re.compile(r'(?:\S+\s)?\S*Townships')
+    parks = re.compile(r'(?:\S+\s)?\S*Parks')
     schools = re.compile(r'\S*Elementary School|Intermediate School|Middle School|High School')
     highways = re.compile(r'I-(?:\S+\s)?|M-(?:\S+\s)?')
     cityLoc = re.compile(r'^[A-Z]\w*')
@@ -37,6 +39,14 @@ def locationsInfo(articleBody):
             county = countys.findall(sent)
             for County in county:
                 local.append(County)
+                break
+            township = townships.findall(sent)
+            for Township in township:
+                local.append(Township)
+                break
+            park = parks.findall(sent)
+            for Park in park:
+                local.append(Park)
                 break
             school = schools.findall(sent)
             for School in school:
