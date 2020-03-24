@@ -21,7 +21,7 @@ class Crawler:
         self.website = Website(url)
 
         # TODO: make sure openning websites.json
-        with open('websites.json') as data_file:
+        with open('websitesTesting.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
