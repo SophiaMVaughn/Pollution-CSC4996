@@ -1,0 +1,13 @@
+could not format date for article:   http://www.marion-press.com/category/news/government/
+could not format date for article:   http://www.marion-press.com/category/news/happening-now/
+could not format date for article:   http://www.marion-press.com/category/news/
+could not format date for article:   http://www.marion-press.com/category/news/obituaries/
+could not format date for article:   http://www.marion-press.com/category/news/police-and-courts/
+could not format date for article:   http://www.marion-press.com/category/news/schools/
+could not format date for article:   http://www.marion-press.com/category/news/sports/
+could not format date for article:   http://www.marion-press.com/category/news/top-stories/
+Could not download article:   http://www.marion-press.com/2020/01/asian-rivers-riddled-with-plastic-trash/#respond
+could not format date for article:   http://www.marion-press.com/2020/01/asian-rivers-riddled-with-plastic-trash/#respond
+could not format date for article:   https://clarkstonnews.com/category/news/
+could not format date for article:   https://clarkstonnews.com/get-in-touch-with-your-community-newspaper/
+Could not download article:   https://clarkstonnews.com/schools-closed-food-offered-to-all-kids/

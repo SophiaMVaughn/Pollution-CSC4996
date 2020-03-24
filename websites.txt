@@ -16,20 +16,19 @@ https://www.thealpenanews.com/
 https://www.record-eagle.com/
 https://www.macombdaily.com/
 https://www.theoaklandpress.com/
-
-Not implemented:
-----------------
-http://www.marion-press.com/        --> not scraping, gets stuck
-https://www.candgnews.com/          --> article links don't show in search page
-https://www.mlive.com/              --> article links don't show in search page
-https://www.leaderpub.com/          --> article links don't show in search page
-https://www.shorelinemedia.net/
-https://clarkstonnews.com/
-https://lakeorionreview.com/
-
 https://www.detroitnews.com/        --> infinite scroll
 https://www.freep.com/              --> infinite scroll
 https://www.thetimesherald.com/     --> infinite scroll
+http://www.marion-press.com/        --> not scraping, gets stuck
+
+Not implemented:
+----------------
+https://www.candgnews.com/          --> article links don't show in search page
+https://www.mlive.com/              --> article links don't show in search page
+https://www.leaderpub.com/          --> article links don't show in search page
+https://www.shorelinemedia.net/     --> need to sign into website
+https://clarkstonnews.com/
+https://lakeorionreview.com/
 
 
 

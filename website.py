@@ -79,9 +79,9 @@ class Website:
         return self.currentPage
 
     def getCurrentPageNum(self):
-        if self.currentPageNum == 1:
+        if self.nextPageType == 1:
             return self.currentPageNum
-        elif self.currentPageNum == 2:
+        elif self.nextPageType == 2:
             if self.currentPageNum == 1:
                 return 1
             else:

@@ -4,11 +4,11 @@ from dateutil import parser
 import re
 from newspaper import Article
 
-
 class Scraper():
     def __init__(self, url):
         self.titles = []
         self.scrapedArticles = []
+        self.newspaperArticle = None
 
         try:
             self.newspaperArticle = Article(url)

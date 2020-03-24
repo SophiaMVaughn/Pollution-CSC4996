@@ -64,6 +64,11 @@
     "searchQuery": "https://www.thealpenanews.com/search/PEATKEY/page/PEATPAGE/",
     "nextPage": 1
   },
+  "marion-press": {
+    "url": "http://www.marion-press.com/",
+    "searchQuery": "http://www.marion-press.com/page/PEATPAGE/?s=PEATKEY&x=0&y=0",
+    "nextPage": 1
+  },
   "record-eagle": {
     "url": "https://www.record-eagle.com/",
     "searchQuery": "https://www.record-eagle.com/search/?l=25&sd=desc&s=start_time&f=html&app%5B0%5D=editorial&q=PEATKEY&nsa=eedition&o=PEATPAGE",
@@ -78,5 +83,20 @@
     "url": "https://www.theoaklandpress.com/",
     "searchQuery": "https://www.theoaklandpress.com/search/?sd=desc&l=25&s=start_time&f=html&t=article%2Cvideo%2Cyoutube%2Ccollection&app%5B0%5D=editorial&nsa=eedition&q=PEATKEY&o=PEATPAGE",
     "nextPage": 2
+  },
+    "detroitnews": {
+    "url": "https://www.detroitnews.com/",
+    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/",
+    "nextPage": 3
+  },
+  "freep": {
+    "url": "https://www.freep.com/",
+    "searchQuery": "https://www.freep.com/search/PEATKEY/",
+    "nextPage": 3
+  },
+  "thetimesherald": {
+    "url": "https://www.thetimesherald.com/",
+    "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/",
+    "nextPage": 3
   }
 }

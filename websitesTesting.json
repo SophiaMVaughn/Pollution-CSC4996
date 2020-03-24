@@ -1,17 +1,7 @@
 {
-  "detroitnews": {
-    "url": "https://www.detroitnews.com/",
-    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/",
-    "nextPage": 3
-  },
-  "freep": {
-    "url": "https://www.freep.com/",
-    "searchQuery": "https://www.freep.com/search/PEATKEY/",
-    "nextPage": 3
-  },
-  "thetimesherald": {
-    "url": "https://www.thetimesherald.com/",
-    "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/",
-    "nextPage": 3
+  "lakeorionreview": {
+    "url": "https://lakeorionreview.com/",
+    "searchQuery": "https://lakeorionreview.com/page/PEATPAGE/?s=PEATKEY",
+    "nextPage": 1
   }
 }

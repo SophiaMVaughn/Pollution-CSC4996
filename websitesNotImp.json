@@ -1,24 +1,4 @@
 {
-  "detroitnews": {
-    "url": "https://www.detroitnews.com/",
-    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/",
-    "nextPage": 3
-  },
-  "freep": {
-    "url": "https://www.freep.com/",
-    "searchQuery": "https://www.freep.com/search/PEATKEY/",
-    "nextPage": 3
-  },
-  "thetimesherald": {
-    "url": "https://www.thetimesherald.com/",
-    "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/",
-    "nextPage": 3
-  },
-  "marion-press": {
-    "url": "http://www.marion-press.com/",
-    "searchQuery": "http://www.marion-press.com/page/PEATPAGE/?s=PEATKEY&x=0&y=0",
-    "nextPage": 1
-  },
   "candgnews": {
     "url": "https://www.candgnews.com/",
     "searchQuery": "https://www.candgnews.com/search?q=pollution",

@@ -16,6 +16,8 @@ class Crawler:
         self.recentArticleLinks = []
         self.articleCount = 0
         self.searchPageLimit = searchPageLimit
+
+        # TODO: Consider adding custom exception for this
         self.website = Website(url)
 
         # TODO: make sure openning websites.json
@@ -67,10 +69,8 @@ class Crawler:
                         if link not in links:
                             links.append(link)
 
-                try:
-                    self.website.nextPage()
-                except:
-                    break
+                # TODO: Consider adding custom exception for this
+                self.website.nextPage()
 
             if self.baseUrl in self.exceptions:
                 articleLinks = self.exceptionFilterLinksForArticles(links)

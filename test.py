@@ -17,21 +17,26 @@ from selenium.webdriver.chrome.options import Options
 import os
 from website import Website
 from crawler import Crawler
+from scraper import Scraper
 from newspaper import urls as urlChecker
 from newspaper import Article
 from dateutil import parser
 
-website = Website("https://www.freep.com/")
-website.searchForKey("pollution")
-page = website.getCurrentPage()
-links = page.find_all("a", href=True)
+# keywords = ['pollution']
+# crawler = Crawler("https://lakeorionreview.com/", keywords)
+#
+# for article in crawler.getArticleLinks():
+#     print("Scraping  " + str(article))
+#     try:
+#         scraper = Scraper(article)
+#     except:
+#         print("  Could not connect to " + str(article))
 
-website.nextPage()
-page = website.getCurrentPage()
-links = links + page.find_all("a", href=True)
+def test():
+    return 1/0
 
-print(len(links))
-for link in links:
-    print(link['href'])
-
+try:
+    test = test()
+except:
+    print("Can't divide by 0")
 

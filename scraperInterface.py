@@ -35,8 +35,13 @@ class ScraperInterface:
         for url in urls:
             loop.set_description("\t[+] Scraping...".format(url))
             loop.update(1)
-            scraper = Scraper(url)
-            self.articleObjs.append(scraper.getScrapedArticle())
+            try:
+                scraper = Scraper(url)
+                self.articleObjs.append(scraper.getScrapedArticle())
+            except:
+                print("Could not scrape:  " + str(url))
+                errorLog = open("errorLog.txt", "a+")
+                errorLog.write("\nCould not scrape:  " + url)
         loop.close()
 
     def pullWebsites(self):
@@ -70,9 +75,7 @@ class ScraperInterface:
             articleBodies.close()
         except:
             errorLog = open("errorLog.txt", "a+")
-            errorLog.write("\ncould not add article:   " + article['url'])
-            # raise
-            pass
+            errorLog.write("\nCould not add article:   " + article['url'])
 
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
         if len(location) == 0:
