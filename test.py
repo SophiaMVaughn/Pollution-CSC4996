@@ -24,7 +24,7 @@ from newspaper import Article
 from dateutil import parser
 
 # firefoxDriverPath = os.path.abspath(os.getcwd())
-chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_79_mac"
+chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver"
 options = Options()
 # options.add_argument('--headless')
 driver = webdriver.Chrome(chromeDriverPath, options=options)
