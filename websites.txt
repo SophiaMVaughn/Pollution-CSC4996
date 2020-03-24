@@ -13,23 +13,22 @@ https://www.houghtonlakeresorter.com/
 https://www.ironmountaindailynews.com/
 https://www.miningjournal.net/
 https://www.thealpenanews.com/
-
-Not implemented:
-----------------
-http://www.marion-press.com/        --> not scraping, gets stuck
-https://www.candgnews.com/
-https://www.mlive.com/
-https://www.leaderpub.com/
 https://www.record-eagle.com/
 https://www.macombdaily.com/
 https://www.theoaklandpress.com/
-https://www.shorelinemedia.net/
-https://clarkstonnews.com/
-https://lakeorionreview.com/
-
 https://www.detroitnews.com/        --> infinite scroll
 https://www.freep.com/              --> infinite scroll
 https://www.thetimesherald.com/     --> infinite scroll
+http://www.marion-press.com/        --> not scraping, gets stuck
+
+Not implemented:
+----------------
+https://www.candgnews.com/          --> article links don't show in search page
+https://www.mlive.com/              --> article links don't show in search page
+https://www.leaderpub.com/          --> article links don't show in search page
+https://www.shorelinemedia.net/     --> need to sign into website
+https://clarkstonnews.com/
+https://lakeorionreview.com/
 
 
 

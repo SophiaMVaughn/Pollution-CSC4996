@@ -1,14 +1,7 @@
 {
-  "detroitnews": {
-    "url": "https://www.detroitnews.com/",
-    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/"
-  },
-  "freep": {
-    "url": "https://www.freep.com/",
-    "searchQuery": "https://www.freep.com/search/PEATKEY/"
-  },
-  "thetimesherald": {
-    "url": "https://www.thetimesherald.com/",
-    "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/"
+  "record-eagle": {
+    "url": "https://www.record-eagle.com/",
+    "searchQuery": "https://www.record-eagle.com/search/?l=25&sd=desc&s=start_time&f=html&app%5B0%5D=editorial&q=PEATKEY&nsa=eedition&o=PEATPAGE",
+    "nextPage": 2
   }
 }

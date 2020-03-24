@@ -16,11 +16,22 @@ from sys import platform
 from selenium.webdriver.chrome.options import Options
 import os
 from website import Website
+from crawler import Crawler
+from scraper import Scraper
+from newspaper import urls as urlChecker
+from newspaper import Article
+from dateutil import parser
 
-website = Website("https://www.northernexpress.com/")
+website = Website("https://www.record-eagle.com/")
 website.searchForKey("pollution")
-page = website.getCurrentPage()
-links = page.find_all('a', href=True)
-print(website.currentUrl)
-print(len(links))
 
+driver = website.getDriver()
+
+articles = driver.find_elements_by_class_name("gs-title")
+for article in articles:
+    print(article)
+    try:
+        link = article.find_element_by_css_selector('a').get_attribute('href')
+        print(link)
+    except:
+        pass
