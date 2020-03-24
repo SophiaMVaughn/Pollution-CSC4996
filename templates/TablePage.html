@@ -44,16 +44,17 @@
   </div>
 </nav>
 
-<table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">Date</th>
-        <th scope="col">Chemical</th>
-        <th scope="col">Location</th>
-      <th scope="col">Official Statement</th>
-      <th scope="col">URL</th>
-    </tr>
-  </thead>
+
+  <table style="width: 100%" class="table table-bordered table-striped table-hover table-responsive-lg">
+    <thead class="thead-dark">
+      <tr>
+        <th>Date</th>
+        <th>Chemical</th>
+        <th>Location</th>
+        <th>Official Statement</th>
+        <th>URL</th>
+      </tr>
+    </thead>
   <tbody>
     {% for pieces in cookie %}
         <tr>
@@ -63,7 +64,7 @@
             {% endfor %}
             </td>
             <td>{{pieces.location}}</td>
-            <td nowrap>{% for parts in pieces.officialStatement %}
+            <td>{% for parts in pieces.officialStatement %}
                 {{parts}}
             {% endfor %}
             </td>
@@ -74,6 +75,6 @@
     {%endfor%}
         </tr>
   </tbody>
-</table>
+  </table>
 </body>
 </html>
