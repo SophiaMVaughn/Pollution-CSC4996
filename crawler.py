@@ -1,5 +1,3 @@
-import requests
-from bs4 import BeautifulSoup as soup
 import database
 import newspaper
 from newspaper import urls as urlChecker
@@ -8,15 +6,21 @@ import json
 import sys
 from scraper import Scraper
 import datetime
+from website import Website
 
 class Crawler:
-    def __init__(self, url, keywords=None):
+    def __init__(self, url, keywords=None, searchPageLimit=2):
         self.baseUrl = url
         self.keywords = keywords
         self.searchPagesArticleLinks = []
         self.recentArticleLinks = []
         self.articleCount = 0
+        self.searchPageLimit = searchPageLimit
 
+        # TODO: Consider adding custom exception for this
+        self.website = Website(url)
+
+        # TODO: make sure openning websites.json
         with open('websites.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
@@ -24,6 +28,7 @@ class Crawler:
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
+                self.nextPageType = attributes["nextPage"]
 
         self.exceptions = [
             "https://www.ourmidland.com/",
@@ -48,24 +53,22 @@ class Crawler:
 
         for keyword in self.keywords:
 
-            withinLastYear = True
-            pageLimit = 20
-            pageNum = 1
+            self.website.searchForKey(keyword)
 
-            while withinLastYear or pageNum <= pageLimit:
+            links = []
+            while self.website.getCurrentPageNum() <= self.searchPageLimit:
 
-                links = self.getPageLinks(keyword, pageNum)
+                links = self.getPageLinks()
 
-                if self.baseUrl in self.exceptions:
-                    articleLinks = self.exceptionFilterLinksForArticles(links)
-                else:
-                    articleLinks = self.filterLinksForArticles(links)
+                # TODO: Consider adding custom exception for this
+                self.website.nextPage()
 
-                self.searchPagesArticleLinks = self.searchPagesArticleLinks + articleLinks
+            if self.baseUrl in self.exceptions:
+                articleLinks = self.exceptionFilterLinksForArticles(links)
+            else:
+                articleLinks = self.filterLinksForArticles(links)
 
-                withinLastYear = self.articlesAreWithinLastYear(articleLinks)
-                # withinLastYear = False
-                pageNum = pageNum + 1
+            self.searchPagesArticleLinks = self.searchPagesArticleLinks + articleLinks
 
         self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
         self.storeInUrlsCollection(self.searchPagesArticleLinks)
@@ -73,6 +76,23 @@ class Crawler:
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
               + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
+    def getPageLinks(self):
+        page = self.website.getCurrentPage()
+        pageLinks = page.find_all('a', href=True)
+
+        links = []
+
+        # TODO: make sure this if statement does what it should to.  If the site uses infinite
+        #  scrolling, it will not add links to links list until it's at the last scroll
+        if self.nextPageType != 3 or self.website.getCurrentPage() == self.searchPageLimit:
+            for link in pageLinks:
+                link = link['href']
+                if link not in links:
+                    links.append(link)
+
+        return links
+
+    # TODO: dead code
     def articlesAreWithinLastYear(self, articleLinks):
 
         yearAgo = datetime.datetime.now() - datetime.timedelta(days=365)
@@ -90,22 +110,6 @@ class Crawler:
                 return False
 
         return True
-
-    def getPageLinks(self, key, pageNum):
-
-        query = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(pageNum))
-        page = requests.get(query)
-        soupPage = soup(page.content, "html.parser")
-        soupLinks = soupPage.find_all('a', href=True)
-
-        links = []
-
-        for link in soupLinks:
-            link = link['href']
-            if link not in links:
-                links.append(link)
-
-        return links
 
     def getRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)

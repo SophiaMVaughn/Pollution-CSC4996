@@ -5,7 +5,7 @@ https://www.candgnews.com/
             title       : <title>
             date        :
             body        : <p>
-            next page   : page number in url
+            next page   : not in url, gotta press the next page button
     article ordering    : filter button to order by date
 
 https://www.mlive.com/
@@ -61,7 +61,7 @@ https://www.lakecountystar.com/
 https://www.record-eagle.com/
 ---------------------------------------
     articleUrlStructure :
-            searchQuery : This site doesn't use page numbers, it uses number of articles
+            searchQuery : https://www.record-eagle.com/search/?l=25&sd=desc&s=start_time&f=html&app%5B0%5D=editorial&q=PEATKEY&nsa=eedition&o=PEATPAGE
             title       : <title> [title] |  | record-eagle.com</title>
             date        :
             body        : <p>
@@ -71,7 +71,7 @@ https://www.record-eagle.com/
 https://www.macombdaily.com/
 ---------------------------------------
     articleUrlStructure :
-            searchQuery : This site doesn't use page numbers, it uses number of articles
+            searchQuery : https://www.macombdaily.com/search/?sd=desc&l=25&s=start_time&f=html&t=article%2Cvideo%2Cyoutube%2Ccollection&app%5B0%5D=editorial&nsa=eedition&q=PEATKEY&o=PEATPAGE
             title       : <title>
             date        :
             body        : <p>
@@ -101,7 +101,7 @@ https://www.manisteenews.com/
 https://www.theoaklandpress.com/
 ---------------------------------------
     articleUrlStructure :
-            searchQuery : This site doesn't use page numbers, it uses number of articles
+            searchQuery : https://www.theoaklandpress.com/search/?sd=desc&l=25&s=start_time&f=html&t=article%2Cvideo%2Cyoutube%2Ccollection&app%5B0%5D=editorial&nsa=eedition&q=PEATKEY&o=PEATPAGE
             title       : <title>
             date        :
             body        : <p>

@@ -1,0 +1,32 @@
+{
+  "candgnews": {
+    "url": "https://www.candgnews.com/",
+    "searchQuery": "https://www.candgnews.com/search?q=pollution",
+    "nextPage": 4
+  },
+  "mlive": {
+    "url": "https://www.mlive.com/",
+    "searchQuery": "https://www.mlive.com/search/?q=PEATKEY",
+    "nextPage": 4
+  },
+  "leaderpub": {
+    "url": "https://www.leaderpub.com/",
+    "searchQuery": "https://www.leaderpub.com/site-search/?q=PEATKEY",
+    "nextPage": 4
+  },
+  "shorelinemedia": {
+    "url": "N/A",
+    "searchQuery": "N/A",
+    "nextPage": -1
+  },
+  "clarkstonnews": {
+    "url": "https://clarkstonnews.com/",
+    "searchQuery": "https://clarkstonnews.com/page/PEATPAGE/?s=PEATKEY",
+    "nextPage": 1
+  },
+  "lakeorionreview": {
+    "url": "https://lakeorionreview.com/",
+    "searchQuery": "https://lakeorionreview.com/page/PEATPAGE/?s=PEATKEY",
+    "nextPage": 1
+  }
+}
