@@ -6,13 +6,19 @@ def locationsInfo(articleBody):
     # reading from a body of text to find locations
     # test = open("LocationTest.txt", "r")
     lakes = re.compile(r'\S*Lake\S*(?:\s([A-Z]+))\S*')
-    rivers = re.compile(r'(?:\S+\s)?\S*River')
-    countys = re.compile(r'(?:\S+\s)?\S*County')
-    creeks = re.compile(r'(?:\S+\s)?\S*Creek')
-    townships = re.compile(r'(?:\S+\s)?\S*Townships')
-    parks = re.compile(r'(?:\S+\s)?\S*Parks')
+    rivers = re.compile(r'(?:(([A-Z]))\S+\s)?\S*River')
+    countys = re.compile(r'(?:(([A-Z]))\S+\s)?\S*County')
+    creeks = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Creek')
+    townships = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Townships')
+    parks = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Parks')
     schools = re.compile(r'\S*Elementary School|Intermediate School|Middle School|High School')
     highways = re.compile(r'I-(?:\S+\s)?|M-(?:\S+\s)?')
+    powerplants = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Power Plant')
+    powerstations = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Power Station')
+    bays = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Bay')
+    ponds = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Pond')
+    dams = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Dam')
+    deltas = re.compile(r'(?:(([A-Z]))\S+\s)?\S*Delta')
     cityLoc = re.compile(r'^[A-Z]\w*')
     cities = []
     cityFile = open("cities.txt", "r")
@@ -24,6 +30,30 @@ def locationsInfo(articleBody):
     for para in articleBody:
         temp = convertScrapedtoSent(para)
         for sent in temp:
+            delta = deltas.findall(sent)
+            for Delta in delta:
+                local.append(Delta)
+                break
+            pond = ponds.findall(sent)
+            for Pond in pond:
+                local.append(Pond)
+                break
+            dam = dams.findall(sent)
+            for Dam in dam:
+                local.append(Dam)
+                break
+            bay = bays.findall(sent)
+            for Bay in bay:
+                local.append(Bay)
+                break
+            powerplant = powerplants.findall(sent)
+            for PowerPlant in powerplant:
+                local.append(PowerPlant)
+                break
+            powerstation = powerstations.findall(sent)
+            for PowerStation in powerstation:
+                local.append(PowerStation)
+                break
             lake = lakes.findall(sent)
             for Lake in lake:
                 local.append(Lake)
