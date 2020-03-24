@@ -5,7 +5,7 @@ https://www.candgnews.com/
             title       : <title>
             date        :
             body        : <p>
-            next page   : page number in url
+            next page   : not in url, gotta press the next page button
     article ordering    : filter button to order by date
 
 https://www.mlive.com/

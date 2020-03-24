@@ -58,16 +58,7 @@ class Crawler:
             links = []
             while self.website.getCurrentPageNum() <= self.searchPageLimit:
 
-                page = self.website.getCurrentPage()
-                pageLinks = page.find_all('a', href=True)
-
-                # TODO: make sure this if statement does what it should to.  If the site uses infinite
-                #  scrolling, it will not add links to links list until it's at the last scroll
-                if self.nextPageType != 3 or self.website.getCurrentPage() == self.searchPageLimit:
-                    for link in pageLinks:
-                        link = link['href']
-                        if link not in links:
-                            links.append(link)
+                links = self.getPageLinks()
 
                 # TODO: Consider adding custom exception for this
                 self.website.nextPage()
@@ -84,6 +75,22 @@ class Crawler:
 
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
               + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
+
+    def getPageLinks(self):
+        page = self.website.getCurrentPage()
+        pageLinks = page.find_all('a', href=True)
+
+        links = []
+
+        # TODO: make sure this if statement does what it should to.  If the site uses infinite
+        #  scrolling, it will not add links to links list until it's at the last scroll
+        if self.nextPageType != 3 or self.website.getCurrentPage() == self.searchPageLimit:
+            for link in pageLinks:
+                link = link['href']
+                if link not in links:
+                    links.append(link)
+
+        return links
 
     # TODO: dead code
     def articlesAreWithinLastYear(self, articleLinks):

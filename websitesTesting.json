@@ -1,7 +1,7 @@
 {
-  "lakeorionreview": {
-    "url": "https://lakeorionreview.com/",
-    "searchQuery": "https://lakeorionreview.com/page/PEATPAGE/?s=PEATKEY",
-    "nextPage": 1
+  "record-eagle": {
+    "url": "https://www.record-eagle.com/",
+    "searchQuery": "https://www.record-eagle.com/search/?l=25&sd=desc&s=start_time&f=html&app%5B0%5D=editorial&q=PEATKEY&nsa=eedition&o=PEATPAGE",
+    "nextPage": 2
   }
 }

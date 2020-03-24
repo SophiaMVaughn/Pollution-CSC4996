@@ -2,7 +2,7 @@
   "candgnews": {
     "url": "https://www.candgnews.com/",
     "searchQuery": "https://www.candgnews.com/search?q=pollution",
-    "nextPage": 1
+    "nextPage": 4
   },
   "mlive": {
     "url": "https://www.mlive.com/",

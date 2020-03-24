@@ -20,7 +20,7 @@ class ScraperInterface:
     def crawl(self):
         for website in self.websites:
             links = []
-            crawler = Crawler(website, self.keywords)
+            crawler = Crawler(website, self.keywords, 2)
             self.articleCount = self.articleCount + crawler.getArticleCount()
             for url in crawler.getArticleLinks():
                 links.append(url)

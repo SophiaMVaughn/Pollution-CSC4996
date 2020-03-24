@@ -22,21 +22,16 @@ from newspaper import urls as urlChecker
 from newspaper import Article
 from dateutil import parser
 
-# keywords = ['pollution']
-# crawler = Crawler("https://lakeorionreview.com/", keywords)
-#
-# for article in crawler.getArticleLinks():
-#     print("Scraping  " + str(article))
-#     try:
-#         scraper = Scraper(article)
-#     except:
-#         print("  Could not connect to " + str(article))
+website = Website("https://www.record-eagle.com/")
+website.searchForKey("pollution")
 
-def test():
-    return 1/0
+driver = website.getDriver()
 
-try:
-    test = test()
-except:
-    print("Can't divide by 0")
-
+articles = driver.find_elements_by_class_name("gs-title")
+for article in articles:
+    print(article)
+    try:
+        link = article.find_element_by_css_selector('a').get_attribute('href')
+        print(link)
+    except:
+        pass

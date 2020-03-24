@@ -14,6 +14,12 @@ import datetime
 from newspaper import Article
 from dateutil import parser
 from website import Website
+from crawler import Crawler
+from scraper import Scraper
+import platform
+import os
+from selenium.webdriver.chrome.options import Options
+from selenium import webdriver
 
 websites = [
     "https://www.ourmidland.com/",
@@ -100,4 +106,40 @@ links = links + page.find_all("a", href=True)
 print(len(links))
 for link in links:
     print(link['href'])
+
+#########################################################################
+
+keywords = ['pollution']
+crawler = Crawler("https://lakeorionreview.com/", keywords)
+
+for article in crawler.getArticleLinks():
+    print("Scraping  " + str(article))
+    try:
+        scraper = Scraper(article)
+    except:
+        print("  Could not connect to " + str(article))
+
+#########################################################################
+
+if platform == "darwin":
+    chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_79_mac"
+else:
+    # TODO: download chrome driver for windows
+    chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_win32.exe"
+
+options = Options()
+# options.add_argument('--headless')
+driver = webdriver.Chrome(chromeDriverPath, options=options)
+driver.get("https://www.candgnews.com/search?q=pollution")
+
+for i in range(1,4):
+    driver.find_element_by_xpath("""//*[@id="___gcse_0"]/div/div/div/div[5]/div[2]/div/div/div[2]/div/div["""+str(i)+"""]""").click()
+    articles = driver.find_elements_by_class_name("gs-title")
+    for article in articles:
+        try:
+            link = article.find_element_by_css_selector('a').get_attribute('href')
+            print(link)
+        except:
+            pass
+
 
