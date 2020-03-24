@@ -9,7 +9,7 @@ def locationsInfo(articleBody):
     rivers = re.compile(r'(?:(([A-Z]))\S+\s)?\S*River')
     schools = re.compile(r'\S*Elementary School|Intermediate School|Middle School|High School')
     highways = re.compile(r'I-(?:\S+\s)?|M-(?:\S+\s)?')
-    wordBefore = re.compile(r'(?:(([A-Z]))\S+\s)?\S*(Power Plant|Power Station|Bay|Pond|Dam|Delta|Parks|Townships|Creek|County|River)')
+    wordBefore = re.compile(r'(?:\S+\s)?\S*(River|County|Townships|Park|Bay|Pond|Dam|Delta|Creek|Power Plant|Power Station)')
     cityLoc = re.compile(r'^[A-Z]\w*')
     cities = []
     cityFile = open("cities.txt", "r")
