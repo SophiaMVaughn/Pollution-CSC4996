@@ -63,6 +63,5 @@ def locationsInfo(articleBody):
                     local.append(city[i])
                 elif citypair.upper() in city_set:
                     local.append(citypair)
-
     return local
 
