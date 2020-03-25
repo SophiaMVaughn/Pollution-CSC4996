@@ -22,7 +22,6 @@ class Crawler:
         # TODO: Consider adding custom exception for this
         self.website = Website(url)
 
-
         # TODO: make sure openning websites.json
         with open('websitesTesting.json') as data_file:
             self.websites = json.load(data_file)
