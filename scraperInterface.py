@@ -97,6 +97,7 @@ class ScraperInterface:
                 artLinks=links,
                 errorMessage="No location found."
             ).save()
+            print("Passed - no loc")
         elif len(chems)==0:
             database.Errors(
                 chems=chems,
@@ -106,6 +107,7 @@ class ScraperInterface:
                 artLinks=links,
                 errorMessage="No chemicals found."
             ).save()
+            print("Passed - no chem")
         else:
             try:
                 database.Incidents(
@@ -115,6 +117,7 @@ class ScraperInterface:
                     officialStatement=statement,
                     articleLinks=links
                 ).save()
+                print("SAVED")
             except:
                 pass
 

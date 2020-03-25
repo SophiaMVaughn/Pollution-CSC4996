@@ -70,7 +70,7 @@ for article in confirmedEventArticles:
     chems, quants = readBinary(body)
 
     # For getting location information
-    locations = locationsInfo(article['body'])
+    locations = locationsInfo(body)
 
     # for getting official statement
     offComm, people = officialComment(body)
