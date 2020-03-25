@@ -5,12 +5,19 @@ from selenium import webdriver
 from sys import platform
 from selenium.webdriver.chrome.options import Options
 import os
+from exceptions import WebsiteFailedToInitialize, NextPageException
+
 
 class Website:
     def __init__(self, url):
         self.baseUrl = url
         self.currentPageNum = 0
-        self.currentPage = soup(requests.get(self.baseUrl).content, "html.parser")
+
+        try:
+            self.currentPage = soup(requests.get(self.baseUrl).content, "html.parser")
+        except:
+            raise WebsiteFailedToInitialize(self.baseUrl)
+
         self.currentUrl = self.baseUrl
         self.currentKey = ""
 
@@ -40,24 +47,27 @@ class Website:
         self.currentPageNum = 1
 
     def nextPage(self):
-        if self.nextPageType == 1:
-            self.currentPageNum = self.currentPageNum + 1
-            self.currentPage = self.getPage(self.currentKey)
-
-        # TODO: make sure this is working properly
-        elif self.nextPageType == 2:
-            if self.currentPageNum == 1:
-                self.currentPageNum = 25
-            else:
-                self.currentPageNum = self.currentPageNum + 25
+        try:
+            if self.nextPageType == 1:
+                self.currentPageNum = self.currentPageNum + 1
                 self.currentPage = self.getPage(self.currentKey)
 
-        elif self.nextPageType == 3:
-            self.scrollPage()
+            # TODO: make sure this is working properly
+            elif self.nextPageType == 2:
+                if self.currentPageNum == 1:
+                    self.currentPageNum = 25
+                else:
+                    self.currentPageNum = self.currentPageNum + 25
+                    self.currentPage = self.getPage(self.currentKey)
 
-        else:
-            self.currentPageNum = self.currentPageNum + 1
-            self.nextPageSelenium()
+            elif self.nextPageType == 3:
+                self.scrollPage()
+
+            else:
+                self.currentPageNum = self.currentPageNum + 1
+                self.nextPageSelenium()
+        except:
+            raise NextPageException(self.currentUrl)
 
     def nextPageSelenium(self):
 

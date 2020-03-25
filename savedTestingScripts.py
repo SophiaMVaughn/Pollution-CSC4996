@@ -142,4 +142,18 @@ for i in range(1,4):
         except:
             pass
 
+#########################################################################
+
+# firefoxDriverPath = os.path.abspath(os.getcwd())
+chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver"
+options = Options()
+# options.add_argument('--headless')
+driver = webdriver.Chrome(chromeDriverPath, options=options)
+# driver = webdriver.Firefox(firefoxDriverPath, options=options)
+driver.get("https://www.mlive.com/search/?q=pollution")
+
+#########################################################################
+
+
+
 

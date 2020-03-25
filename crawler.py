@@ -7,6 +7,8 @@ import sys
 from scraper import Scraper
 import datetime
 from website import Website
+from exceptions import WebsiteFailedToInitialize, NextPageException
+
 
 class Crawler:
     def __init__(self, url, keywords=None, searchPageLimit=2):
@@ -19,6 +21,7 @@ class Crawler:
 
         # TODO: Consider adding custom exception for this
         self.website = Website(url)
+
 
         # TODO: make sure openning websites.json
         with open('websitesTesting.json') as data_file:
@@ -61,7 +64,12 @@ class Crawler:
                 links = self.getPageLinks()
 
                 # TODO: Consider adding custom exception for this
-                self.website.nextPage()
+                try:
+                    self.website.nextPage()
+                except NextPageException:
+                    errorLog = open("errorLog.txt", "a+")
+                    errorLog.write("Failed to query next page for:   " + self.baseUrl + "\n")
+                    errorLog.close()
 
             if self.baseUrl in self.exceptions:
                 articleLinks = self.exceptionFilterLinksForArticles(links)

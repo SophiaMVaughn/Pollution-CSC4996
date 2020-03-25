@@ -4,6 +4,7 @@ from crawler import  Crawler
 from scraper import Scraper
 from tqdm import tqdm
 import json
+from exceptions import WebsiteFailedToInitialize
 
 class ScraperInterface:
     def __init__(self, keywords):
@@ -20,11 +21,15 @@ class ScraperInterface:
     def crawl(self):
         for website in self.websites:
             links = []
-            crawler = Crawler(website, self.keywords, 2)
-            self.articleCount = self.articleCount + crawler.getArticleCount()
-            for url in crawler.getArticleLinks():
-                links.append(url)
-                self.articleUrls.append(url)
+            try:
+                crawler = Crawler(website, self.keywords, 2)
+                self.articleCount = self.articleCount + crawler.getArticleCount()
+                for url in crawler.getArticleLinks():
+                    links.append(url)
+                    self.articleUrls.append(url)
+            # TODO: handle the exception
+            except WebsiteFailedToInitialize:
+                pass
 
             self.scrape(links)
 
