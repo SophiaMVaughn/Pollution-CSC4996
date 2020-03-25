@@ -23,7 +23,7 @@ class Crawler:
         self.websitesJsonFile = websitesJsonFile
 
         # TODO: Consider adding custom exception for this
-        self.website = Website(url)
+        self.website = Website(url, websitesJsonFile=self.websitesJsonFile)
 
         # TODO: make sure openning websites.json
         with open(self.websitesJsonFile) as data_file:

@@ -23,7 +23,8 @@ class ScraperInterface:
         for website in self.websites:
             links = []
             try:
-                crawler = Crawler(website, self.keywords, 2)
+                crawler = Crawler(url=website, keywords=self.keywords,
+                                  searchPageLimit=2, websitesJsonFile=self.websitesJsonFile)
                 self.articleCount = self.articleCount + crawler.getArticleCount()
                 for url in crawler.getArticleLinks():
                     links.append(url)

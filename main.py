@@ -24,7 +24,7 @@ articleBodies.truncate(0)
 articleBodies.close()
 
 keywords = ["pollution"]
-scraper = ScraperInterface(keywords, "websitesTesting.json")
+scraper = ScraperInterface(keywords, websitesJsonFile="websitesTesting.json")
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
 
@@ -77,7 +77,6 @@ for article in confirmedEventArticles:
 
     # for pulling date information
     dates = dateInfo(body)
-
 
 
     if len(dates) == 0:
