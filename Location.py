@@ -12,7 +12,7 @@ def locationsInfo(articleBody):
     wordBefore = re.compile(r'(?:\S+\s)?\S*(County|Townships|Park|Bay|Pond|Dam|Delta|Creek|Power Plant|Power Station)')
     cityLoc = re.compile(r'^[A-Z]\w*')
     cities = []
-    cityFile = open("cities.txt", "r")
+    cityFile = open("Cities.txt", "r")
     for x in cityFile:
         cities.append(x.rstrip())
     # store all locations in array

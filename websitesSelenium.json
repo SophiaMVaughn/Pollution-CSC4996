@@ -1,19 +1,4 @@
 {
-  "candgnews": {
-    "url": "https://www.candgnews.com/",
-    "searchQuery": "https://www.candgnews.com/search?q=pollution",
-    "nextPage": 4
-  },
-  "mlive": {
-    "url": "https://www.mlive.com/",
-    "searchQuery": "https://www.mlive.com/search/?q=PEATKEY",
-    "nextPage": 4
-  },
-  "leaderpub": {
-    "url": "https://www.leaderpub.com/",
-    "searchQuery": "https://www.leaderpub.com/site-search/?q=PEATKEY",
-    "nextPage": 4
-  },
   "detroitnews": {
     "url": "https://www.detroitnews.com/",
     "searchQuery": "https://www.detroitnews.com/search/PEATKEY/",
@@ -28,5 +13,20 @@
     "url": "https://www.thetimesherald.com/",
     "searchQuery": "https://www.thetimesherald.com/search/PEATKEY/",
     "nextPage": 3
+  },
+  "candgnews": {
+    "url": "https://www.candgnews.com/",
+    "searchQuery": "https://www.candgnews.com/search?q=pollution",
+    "nextPage": 4
+  },
+  "mlive": {
+    "url": "https://www.mlive.com/",
+    "searchQuery": "https://www.mlive.com/search/?q=PEATKEY",
+    "nextPage": 4
+  },
+  "leaderpub": {
+    "url": "https://www.leaderpub.com/",
+    "searchQuery": "https://www.leaderpub.com/site-search/?q=PEATKEY",
+    "nextPage": 4
   }
 }

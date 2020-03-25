@@ -14,8 +14,10 @@ class Crawler:
     def __init__(self, url, keywords=None, searchPageLimit=2):
         self.baseUrl = url
         self.keywords = keywords
-        self.searchPagesArticleLinks = []
-        self.recentArticleLinks = []
+        self.articleLinks = []
+        # TODO: dead variables
+        # self.searchPagesArticleLinks = []
+        # self.recentArticleLinks = []
         self.articleCount = 0
         self.searchPageLimit = searchPageLimit
 
@@ -23,7 +25,7 @@ class Crawler:
         self.website = Website(url)
 
         # TODO: make sure openning websites.json
-        with open('websitesTesting.json') as data_file:
+        with open('websitesSelenium.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
@@ -47,6 +49,7 @@ class Crawler:
 
     def crawl(self):
         self.crawlViaSearchKeys()
+        # self.getRecentArticles()
 
     def crawlViaSearchKeys(self):
 
@@ -75,13 +78,13 @@ class Crawler:
             else:
                 articleLinks = self.filterLinksForArticles(links)
 
-            self.searchPagesArticleLinks = self.searchPagesArticleLinks + articleLinks
+            self.articleLinks = self.articleLinks + articleLinks
 
-        self.articleCount = self.articleCount + len(self.searchPagesArticleLinks)
-        self.storeInUrlsCollection(self.searchPagesArticleLinks)
+        self.articleCount = self.articleCount + len(self.articleLinks)
+        self.storeInUrlsCollection(self.articleLinks)
 
         print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
-              + ": " + bcolors.OKGREEN + str(len(self.searchPagesArticleLinks)) + " URLs retrieved" + bcolors.ENDC)
+              + ": " + bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def getPageLinks(self):
         page = self.website.getCurrentPage()
@@ -121,8 +124,8 @@ class Crawler:
     def getRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)
         for article in links.articles:
-            self.recentArticleLinks.append(article.url)
-        self.storeInUrlsCollection(self.recentArticleLinks)
+            self.articleLinks.append(article.url)
+        self.storeInUrlsCollection(self.articleLinks)
 
     def filterLinksForArticles(self, urls):
         validArticleUrls = []
@@ -182,10 +185,7 @@ class Crawler:
         self.searchQuery = query
 
     def getArticleLinks(self):
-        return self.searchPagesArticleLinks
-
-    def getRecentArticleLinks(self):
-        return self.recentArticleLinks
+        return self.articleLinks
 
     def getArticleCount(self):
         return self.articleCount

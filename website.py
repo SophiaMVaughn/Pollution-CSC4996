@@ -30,7 +30,7 @@ class Website:
         self.currentKey = ""
 
         # TODO: make sure openning websites.json
-        with open('websitesTesting.json') as data_file:
+        with open('websitesSelenium.json') as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
@@ -112,6 +112,7 @@ class Website:
 
         if self.driverType == "chrome":
             self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+            # self.driver = webdriver.Chrome(executable_path=chromeDriverPath, options=options)
         else:
             self.driver = webdriver.Firefox(GeckoDriverManager().install(), options=options)
 
