@@ -67,6 +67,7 @@ class Website:
                     self.currentPage = self.getPage(self.currentKey)
 
             elif self.nextPageType == 3:
+                self.currentPageNum = self.currentPageNum + 1
                 self.scrollPage()
 
             else:
@@ -76,11 +77,11 @@ class Website:
             raise NextPageException(self.currentUrl)
 
     def nextPageSelenium(self):
-
         self.driver.find_element_by_xpath(
             """//*[@id="___gcse_0"]/div/div/div/div[5]/div[2]/div/div/div[2]/div/div
             ["""+str(self.currentPageNum)+"""]"""
         ).click()
+        self.currentPage = soup(self.driver.page_source, 'html.parser')
 
     def setDriver(self):
 
@@ -116,7 +117,6 @@ class Website:
     def scrollPage(self):
         self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         self.currentPage = soup(self.driver.page_source, 'html.parser')
-        self.currentPageNum = self.currentPageNum + 1
 
     def resetPageToBaseUrl(self):
         self.currentUrl = self.baseUrl
