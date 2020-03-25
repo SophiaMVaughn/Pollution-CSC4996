@@ -5,12 +5,18 @@ from selenium import webdriver
 from sys import platform
 from selenium.webdriver.chrome.options import Options
 import os
-from exceptions import WebsiteFailedToInitialize, NextPageException
+from exceptions import WebsiteFailedToInitialize, NextPageException, DriverException
 
 
 class Website:
-    def __init__(self, url):
+    def __init__(self, url, driver="chrome"):
         self.baseUrl = url
+
+        if driver != "chrome" and driver != "firefox":
+            raise DriverException(driver)
+        else:
+            self.driverType = driver
+
         self.currentPageNum = 0
 
         try:
@@ -77,15 +83,34 @@ class Website:
         ).click()
 
     def setDriver(self):
-        if platform == "darwin":
-            chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_79_mac"
+
+        chromeDriverPath = ""
+        firefoxDriverPath = ""
+
+        if platform == "win32":
+            if self.driverType == "chrome":
+                chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Chrome/chromedriver.exe"
+            else:
+                firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Firefox"
+        elif platform == "darwin":
+            if self.driverType == "chrome":
+                chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Chrome/chromedriver"
+            else:
+                firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Firefox"
         else:
-            # TODO: download chrome driver for windows
-            chromeDriverPath = os.path.abspath(os.getcwd()) + "/chromedriver_win32.exe"
+            if self.driverType == "chrome":
+                chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Chrome/chromedriver"
+            else:
+                firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Firefox"
 
         options = Options()
-        # options.add_argument('--headless')
-        self.driver = webdriver.Chrome(chromeDriverPath, options=options)
+        options.add_argument('--headless')
+
+        if self.driverType == "chrome":
+            self.driver = webdriver.Chrome(chromeDriverPath, options=options)
+        else:
+            self.driver = webdriver.Firefox(firefoxDriverPath, options=options)
+
         self.driver.get(self.currentUrl)
 
     def scrollPage(self):
@@ -105,6 +130,15 @@ class Website:
 
     def getCurrentPage(self):
         return self.currentPage
+
+    def setDriverType(self, driver):
+        if driver != "chrome" and driver != "firefox":
+            raise DriverException(driver)
+        else:
+            self.driverType = driver
+
+    def getDriverType(self):
+        return self.driverType
 
     def getDriver(self):
         return self.driver

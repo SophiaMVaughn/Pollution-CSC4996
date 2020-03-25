@@ -24,11 +24,33 @@ from newspaper import Article
 from dateutil import parser
 import traceback
 
-class myException(Exception):
-    def __init__(self, string):
-        self.string = string
-    def __str__(self):
-        return "This is my exception: " + self.string
+driverType = "chrome"
 
-raise myException("hello")
+chromeDriverPath = ""
+firefoxDriverPath = ""
 
+if platform == "win32":
+    if driverType == "chrome":
+        chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Chrome/chromedriver.exe"
+    else:
+        firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Firefox"
+elif platform == "darwin":
+    if driverType == "chrome":
+        chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Chrome/chromedriver"
+    else:
+        firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Firefox"
+else:
+    if driverType == "chrome":
+        chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Chrome/chromedriver"
+    else:
+        firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Firefox"
+
+options = Options()
+options.add_argument('--headless')
+
+if driverType == "chrome":
+    driver = webdriver.Chrome(chromeDriverPath, options=options)
+else:
+    driver = webdriver.Firefox(firefoxDriverPath, options=options)
+
+driver.get("https://www.freep.com/search/pollution/")
