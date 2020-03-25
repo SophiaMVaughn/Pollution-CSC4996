@@ -21,10 +21,6 @@ def locationsInfo(articleBody):
     for para in articleBody:
         temp = convertScrapedtoSent(para)
         for sent in temp:
-            wordsBefore = wordBefore.findall(sent)
-            for wordbefore in wordsBefore:
-                local.append(wordbefore)
-                break
             lake = lakes.findall(sent)
             for Lake in lake:
                 local.append(Lake)
@@ -40,6 +36,10 @@ def locationsInfo(articleBody):
             highway = highways.findall(sent)
             for Highway in highway:
                 local.append(Highway)
+                break
+            wordsBefore = wordBefore.findall(sent)
+            for wordbefore in wordsBefore:
+                local.append(wordbefore)
                 break
     # cities calculation (ONly returns the first city found for right now)
     cities = []
