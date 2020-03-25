@@ -23,34 +23,17 @@ from newspaper import urls as urlChecker
 from newspaper import Article
 from dateutil import parser
 import traceback
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 driverType = "chrome"
-
-chromeDriverPath = ""
-firefoxDriverPath = ""
-
-if platform == "win32":
-    if driverType == "chrome":
-        chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Chrome/chromedriver.exe"
-    else:
-        firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Firefox"
-elif platform == "darwin":
-    if driverType == "chrome":
-        chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Chrome/chromedriver"
-    else:
-        firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Firefox"
-else:
-    if driverType == "chrome":
-        chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Chrome/chromedriver"
-    else:
-        firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Firefox"
 
 options = Options()
 options.add_argument('--headless')
 
 if driverType == "chrome":
-    driver = webdriver.Chrome(chromeDriverPath, options=options)
+    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 else:
-    driver = webdriver.Firefox(firefoxDriverPath, options=options)
+    driver = webdriver.Firefox(GeckoDriverManager().install(), options=options)
 
 driver.get("https://www.freep.com/search/pollution/")

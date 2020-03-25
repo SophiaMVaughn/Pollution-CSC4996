@@ -1,3 +1,0 @@
-Could not download article:   https://www.theoaklandpress.com//news/local/
-could not format date for article:   https://www.theoaklandpress.com//news/local/
-could not format date for article:   https://www.theoaklandpress.com//news/copscourts/

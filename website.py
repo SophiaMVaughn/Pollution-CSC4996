@@ -6,6 +6,8 @@ from sys import platform
 from selenium.webdriver.chrome.options import Options
 import os
 from exceptions import WebsiteFailedToInitialize, NextPageException, DriverException
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.firefox import GeckoDriverManager
 
 
 class Website:
@@ -85,32 +87,33 @@ class Website:
 
     def setDriver(self):
 
-        chromeDriverPath = ""
-        firefoxDriverPath = ""
-
-        if platform == "win32":
-            if self.driverType == "chrome":
-                chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Chrome/chromedriver.exe"
-            else:
-                firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Firefox"
-        elif platform == "darwin":
-            if self.driverType == "chrome":
-                chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Chrome/chromedriver"
-            else:
-                firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Firefox"
-        else:
-            if self.driverType == "chrome":
-                chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Chrome/chromedriver"
-            else:
-                firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Firefox"
+        # TODO: dead code
+        # chromeDriverPath = ""
+        # firefoxDriverPath = ""
+        #
+        # if platform == "win32":
+        #     if self.driverType == "chrome":
+        #         chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Chrome/chromedriver.exe"
+        #     else:
+        #         firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Firefox"
+        # elif platform == "darwin":
+        #     if self.driverType == "chrome":
+        #         chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Chrome/chromedriver"
+        #     else:
+        #         firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Firefox"
+        # else:
+        #     if self.driverType == "chrome":
+        #         chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Chrome/chromedriver"
+        #     else:
+        #         firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Firefox"
 
         options = Options()
         options.add_argument('--headless')
 
         if self.driverType == "chrome":
-            self.driver = webdriver.Chrome(chromeDriverPath, options=options)
+            self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
         else:
-            self.driver = webdriver.Firefox(firefoxDriverPath, options=options)
+            self.driver = webdriver.Firefox(GeckoDriverManager().install(), options=options)
 
         self.driver.get(self.currentUrl)
 
