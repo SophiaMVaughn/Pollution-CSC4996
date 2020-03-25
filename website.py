@@ -11,8 +11,9 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 
 class Website:
-    def __init__(self, url, driver="chrome"):
+    def __init__(self, url, driver="chrome", websitesJsonFile="websites.json"):
         self.baseUrl = url
+        self.websitesJsonFile = websitesJsonFile
 
         if driver != "chrome" and driver != "firefox":
             raise DriverException(driver)
@@ -30,7 +31,7 @@ class Website:
         self.currentKey = ""
 
         # TODO: make sure openning websites.json
-        with open('websitesSelenium.json') as data_file:
+        with open(self.websitesJsonFile) as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
@@ -140,6 +141,9 @@ class Website:
             raise DriverException(driver)
         else:
             self.driverType = driver
+
+    def setWebsitesJsonFile(self, jsonFile):
+        self.websitesJsonFile = jsonFile
 
     def getDriverType(self):
         return self.driverType

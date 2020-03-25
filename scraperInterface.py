@@ -7,12 +7,13 @@ import json
 from exceptions import WebsiteFailedToInitialize
 
 class ScraperInterface:
-    def __init__(self, keywords):
+    def __init__(self, keywords, websitesJsonFile="websites.json"):
         self.keywords = keywords
         self.websites = []
         self.articleUrls = []
         self.articleObjs = []
         self.articleCount = 0
+        self.websitesJsonFile = websitesJsonFile
 
         self.pullWebsites()
         self.crawl()
@@ -49,9 +50,12 @@ class ScraperInterface:
                 errorLog.write("\nCould not scrape:  " + url)
         loop.close()
 
+    def setWebsitesJsonFile(self, jsonFile):
+        self.websitesJsonFile = jsonFile
+
     def pullWebsites(self):
         # TODO: make sure openning websites.json
-        with open('websitesSelenium.json') as data_file:
+        with open(self.websitesJsonFile) as data_file:
             data = json.load(data_file)
 
         for website, attributes in data.items():

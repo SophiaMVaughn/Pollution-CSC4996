@@ -11,7 +11,7 @@ from exceptions import WebsiteFailedToInitialize, NextPageException
 
 
 class Crawler:
-    def __init__(self, url, keywords=None, searchPageLimit=2):
+    def __init__(self, url, keywords=None, searchPageLimit=2, websitesJsonFile="websites.json"):
         self.baseUrl = url
         self.keywords = keywords
         self.articleLinks = []
@@ -20,12 +20,13 @@ class Crawler:
         # self.recentArticleLinks = []
         self.articleCount = 0
         self.searchPageLimit = searchPageLimit
+        self.websitesJsonFile = websitesJsonFile
 
         # TODO: Consider adding custom exception for this
         self.website = Website(url)
 
         # TODO: make sure openning websites.json
-        with open('websitesSelenium.json') as data_file:
+        with open(self.websitesJsonFile) as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
@@ -171,6 +172,9 @@ class Crawler:
                     filteredLinks.append(link)
 
         return filteredLinks
+
+    def setWebsitesJsonFile(self, jsonFile):
+        self.websitesJsonFile = jsonFile
 
     def setBaseUrl(self, url):
         self.baseUrl = url

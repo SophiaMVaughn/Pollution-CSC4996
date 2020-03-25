@@ -1,0 +1,8 @@
+could not format date for article:   https://www.theoaklandpress.com//news/local/
+could not format date for article:   https://www.theoaklandpress.com//news/copscourts/
+could not format date for article:   https://www.theoaklandpress.com//news/coronavirus/
+could not format date for article:   https://www.theoaklandpress.com//news/fact-check/
+could not format date for article:   https://www.theoaklandpress.com//news/dataworks/
+could not format date for article:   https://www.theoaklandpress.com//news/state/
+could not format date for article:   https://www.theoaklandpress.com//news/nation-world-news/
+could not format date for article:   https://www.theoaklandpress.com//news/elections/
