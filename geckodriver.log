@@ -18,3 +18,5 @@ JavaScript error: https://eus.rubiconproject.com/usync.html?&geo=na&co=us, line 
 1585089637976	Marionette	INFO	Listening on port 64583
 1585089638046	Marionette	WARN	TLS certificate errors will be ignored for this session
 JavaScript error: https://ad.crwdcntrl.net/5/c=931/pe=y/callback=JSONProvider_4565105860, line 1: ReferenceError: JSONProvider_4565105860 is not defined
+1585177539798	Marionette	INFO	Stopped listening on port 63885
+1585177541595	Marionette	INFO	Stopped listening on port 64583
