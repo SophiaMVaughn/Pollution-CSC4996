@@ -22,8 +22,8 @@ print(platform.architecture())
 app = Flask(__name__)
 client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.Pollution
-collection = db.Incidents
-errorColl = db.Errors
+collection = db.incidents
+errorColl = db.errors
 
 app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
 GoogleMaps(app)
@@ -41,6 +41,7 @@ def populate():
 
 #THIS LOOP IS FOR THE INCIDENT COLLECTION
     for task in all_events:
+        #print(task)
         cookie.append({ 'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
 
 
@@ -57,11 +58,16 @@ def populate():
             location_bias='point: 42.3314, -83.0458',
             language='en'
         )
-        locResults.append(result['candidates'])
-        b = locResults[k][0].get("geometry")
-        c = b.get("location")
-        k += 1
-        locations.append(c)
+        if result['candidates']:
+            #print(result['candidates'][0].get("geometry").get("location"))
+            locResults.append(result['candidates'])
+            b = locResults[k][0].get("geometry")
+            c = b.get("location")
+            k += 1
+            locations.append(c)
+        else:
+            print(crumb['location'])
+            
             #print(c)
             #print(crumb['location'])
 
@@ -72,13 +78,16 @@ def populate():
     rand = .0001
     for task in cookie:
         rand = random.uniform(.0001, .0009)
-        final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
+        try:
+            final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
                         'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
-        d +=1
+            d +=1
+        except:
+            continue
     #for a in final:
         #print (a)
     for item in final:
-        if ( item.get('lat') < 41.695368 or item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226 or item.get('lng') > -82.418457):
+        if (item.get('date')=="" or item.get('lat') < 41.695368 or item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226 or item.get('lng') > -82.418457):
             temp = item
             final.remove(item)
             dbTemp = {'chemicals': temp.get('chemicals'), 'date': temp.get('date'), 'location': temp.get('location'), 'officialStatement': temp.get('officialStatement'), 'articleLinks': temp.get('articleLinks')}
