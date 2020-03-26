@@ -100,13 +100,28 @@ def populate():
             collection.delete_one(dbTempDel)
             print("Error object sent to Errors collection, object ID below: ")
             print(x)
+        date = item.get('date')
+        try:
+            date = datetime.strptime(date, '%m/%d/%Y')
+        except ValueError:
+            tempDate = item
+            final.remove(item)
+            dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'), 'location': tempDate.get('location'), 'officialStatement': tempDate.get('officialStatement'), 'articleLinks': tempDate.get('articleLinks')}
+            dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'), 'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'), 'artLinks': tempDate.get('articleLinks')}
+            dbTempDate['errorMessage'] = "Invalid Date"
+            x = errorColl.insert_one(dbTempDate)
+            collection.delete_one(dbTempDateDel)
     return(final)
 
 #filtered date function complete now do a sorted date function
 def filterDate(a, b):
     #check date formatting
-    c = datetime.strptime(a, '%m/%d/%Y')
-    d = datetime.strptime(b, '%m/%d/%Y')
+    try:
+        c = datetime.strptime(a, '%m/%d/%Y')
+        d = datetime.strptime(b, '%m/%d/%Y')
+    except ValueError:
+        c = datetime.strptime('01/01/2000', '%m/%d/%Y')
+        d = datetime.strptime('12/30/2020', '%m/%d/%Y')
     print(c)
     print(d)
     dateArray = []
@@ -139,6 +154,7 @@ def home():
 
 @app.route("/home")
 def front():
+    load = populate()
     return render_template('home.html')
 
 @app.route("/TablePage", methods=['GET', 'POST'])
