@@ -197,6 +197,6 @@ class Crawler:
     def storeInUrlsCollection(self, urls):
         for url in urls:
             try:
-                database.Urls(url=url).save()
+                database.urls(url=url).save()
             except:
                 pass

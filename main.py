@@ -6,10 +6,8 @@ from officialComm import officialComment
 from dateRegex import dateInfo
 from textColors import bcolors
 from Location import locationsInfo
-import testCollectionIncidents
 from mongoengine import connect
 from dateutil import parser
-import database
 
 
 db = connect(db="Pollution")

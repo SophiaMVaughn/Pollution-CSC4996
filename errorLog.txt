@@ -31,14 +31,10 @@ could not format date for article:   https://www.ourmidland.com/news/article/Uti
 could not format date for article:   https://www.ourmidland.com/news/article/Pollution-stretches-back-years-7047346.php
 could not format date for article:   https://www.ourmidland.com/news/article/Israel-Warned-Against-Pollution-7082415.php
 could not format date for article:   https://www.ourmidland.com/news/article/Local-grocery-stores-adapt-to-new-reality-15153958.php
-could not format date for article:   https://www.ourmidland.com/news/article/Coronavirus-in-Midland-What-you-need-to-know-15152337.php
-could not format date for article:   https://www.ourmidland.com/news/medical/article/Congress-closing-in-on-nearly-2-trillion-virus-15152932.php
 could not format date for article:   https://www.ourmidland.com/news/article/MidMichigan-Health-Masks-bed-capacity-sufficient-15157141.php
-could not format date for article:   https://www.ourmidland.com/news/article/Coronavirus-in-Midland-What-you-need-to-know-15154215.php
-could not format date for article:   https://www.ourmidland.com/news/article/FAQ-What-does-Michigan-s-stay-at-home-nbsp-order-15151461.php
-could not format date for article:   https://www.ourmidland.com/news/article/MidMichigan-Health-launches-Virtual-Health-Clinic-15154491.php
+could not format date for article:   https://www.ourmidland.com/news/medical/article/Congress-closing-in-on-nearly-2-trillion-virus-15152932.php
 could not format date for article:   https://www.ourmidland.com/news/article/Five-Midland-activities-to-lower-stress-15154379.php
-could not format date for article:   https://www.ourmidland.com/news/article/Midland-County-moves-forward-with-coronavirus-15154578.php
+could not format date for article:   https://www.ourmidland.com/news/article/Coronavirus-in-Midland-What-you-need-to-know-15154215.php
 could not format date for article:   https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-25
 could not format date for article:   https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-22
 could not format date for article:   https://thecountypress.mihomepaper.com/pageview/viewer/2020-03-18

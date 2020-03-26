@@ -73,7 +73,7 @@ class ScraperInterface:
 
     def storeInArticlesCollection(self, article):
         try:
-            database.Articles(
+            database.articles(
                 url=article['url'],
                 title=article['title'],
                 publishingDate=article['publishingDate']
@@ -90,7 +90,7 @@ class ScraperInterface:
 
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
         if len(location) == 0:
-            database.Errors(
+            database.errors(
                 chems=chems,
                 day=date,
                 loc=location,
@@ -100,7 +100,7 @@ class ScraperInterface:
             ).save()
             print("Passed - no loc")
         elif len(chems)==0:
-            database.Errors(
+            database.errors(
                 chems=chems,
                 day=date,
                 loc=location,
@@ -111,7 +111,7 @@ class ScraperInterface:
             print("Passed - no chem")
         else:
             try:
-                database.Incidents(
+                database.incidents(
                     chemicals=chems,
                     date=date,
                     location=location,
