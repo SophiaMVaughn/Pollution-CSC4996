@@ -66,10 +66,13 @@ def populate():
             k += 1
             locations.append(c)
         else:
-            print(crumb['location'])
-            
-            #print(c)
-            #print(crumb['location'])
+            mapTemp = crumb
+            cookie.remove(crumb)
+            mapTempErr = {'chems': mapTemp.get('chemicals'), 'day': mapTemp.get('date'), 'loc': mapTemp.get('location'),'offStmt': mapTemp.get('officialStatement'), 'artLinks': mapTemp.get('articleLinks')}
+            mapTempErr['errorMessage'] = "The location could not be found with google"
+            x = errorColl.insert_one(mapTempErr)
+            collection.delete_one(mapTemp)
+
 
     #FIGURE OUT A WAY TO TRACK LONG AND LAT TO SPECIFIC LOCATIONS TO MAKE SURE THEY ARE BEING APPLIED TO THE CORRECT LOCATIONS AS WELL AS HANDLE DUPLICATE LOCATIONS
 
