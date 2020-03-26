@@ -90,12 +90,12 @@ def populate():
     #for a in final:
         #print (a)
     for item in final:
-        if ((item.get('date')=="") or item.get('lat') < 41.695368 or item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226 or item.get('lng') > -82.418457):
+        if (item.get('date')=="") or (item.get('lat') < 41.695368) or (item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226) or (item.get('lng') > -82.418457) or (item.get('lng') < -87.637561 and item.get('lat') < 45.318741):
             temp = item
             final.remove(item)
             dbTempDel = {'chemicals': temp.get('chemicals'), 'date': temp.get('date'), 'location': temp.get('location'), 'officialStatement': temp.get('officialStatement'), 'articleLinks': temp.get('articleLinks')}
             dbTemp = {'chems': temp.get('chemicals'), 'day': temp.get('date'), 'loc': temp.get('location'), 'offStmt': temp.get('officialStatement'), 'artLinks': temp.get('articleLinks')}
-            dbTemp['errorMessage'] = "The location fell outside of the boundaries of Michigan"
+            dbTemp['errorMessage'] = "The location fell outside of the boundaries of Michigan or there was no day"
             x = errorColl.insert_one(dbTemp)
             collection.delete_one(dbTempDel)
             print("Error object sent to Errors collection, object ID below: ")
