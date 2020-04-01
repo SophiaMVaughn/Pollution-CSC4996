@@ -7,13 +7,14 @@ import json
 from exceptions import WebsiteFailedToInitialize
 
 class ScraperInterface:
-    def __init__(self, keywords, websitesJsonFile="websites.json"):
+    def __init__(self, keywords, searchPageLimit=2, websitesJsonFile="websites.json"):
         self.keywords = keywords
         self.websites = []
         self.articleUrls = []
         self.articleObjs = []
         self.articleCount = 0
         self.websitesJsonFile = websitesJsonFile
+        self.searchPageLimit = searchPageLimit
 
         self.pullWebsites()
         self.crawl()
@@ -24,7 +25,8 @@ class ScraperInterface:
             links = []
             try:
                 crawler = Crawler(url=website, keywords=self.keywords,
-                                  searchPageLimit=2, websitesJsonFile=self.websitesJsonFile)
+                                  searchPageLimit=self.searchPageLimit,
+                                  websitesJsonFile=self.websitesJsonFile)
                 self.articleCount = self.articleCount + crawler.getArticleCount()
                 for url in crawler.getArticleLinks():
                     links.append(url)
