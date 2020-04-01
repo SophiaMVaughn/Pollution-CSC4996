@@ -38,7 +38,7 @@ class ScraperInterface:
 
             self.scrape(links)
 
-        print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
+        print("\r" + bcolors.OKGREEN + "[+] All articles retrieved" + bcolors.ENDC)
 
     def scrape(self, urls):
         loop = tqdm(total=len(urls), position=0, leave=False)

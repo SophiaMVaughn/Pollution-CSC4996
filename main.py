@@ -25,7 +25,7 @@ articleBodies.close()
 keywords = ["pollution"]
 scraper = ScraperInterface(keywords, searchPageLimit=10, websitesJsonFile="websitesTesting.json")
 
-print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
+print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles scraped" + bcolors.ENDC)
 
 articleTitles = []
 

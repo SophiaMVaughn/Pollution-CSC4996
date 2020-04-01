@@ -51,9 +51,12 @@ class Crawler:
 
         self.crawl()
 
+        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
+              + ": " + bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
+
     def crawl(self):
         self.crawlViaSearchKeys()
-        # self.getRecentArticles()
+        self.getRecentArticles()
 
     def crawlViaSearchKeys(self):
 
@@ -86,9 +89,6 @@ class Crawler:
 
         self.articleCount = self.articleCount + len(self.articleLinks)
         self.storeInUrlsCollection(self.articleLinks)
-
-        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
-              + ": " + bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def getPageLinks(self):
         page = self.website.getCurrentPage()
@@ -130,6 +130,7 @@ class Crawler:
         for article in links.articles:
             self.articleLinks.append(article.url)
         self.storeInUrlsCollection(self.articleLinks)
+        self.articleCount = self.articleCount + len(links.articles)
 
     def filterLinksForArticles(self, urls):
         validArticleUrls = []
