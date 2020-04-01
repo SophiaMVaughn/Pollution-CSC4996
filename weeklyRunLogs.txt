@@ -1,0 +1,10 @@
+*******  2020-04-01  *******
+
+Incidents retrieved: 6
+
+Event #1 - Date: ; Location: Saginaw'; Chems: ['CHLORINE-BASED PRODUCTS.', 'FURANS.', 'DIOXINS', 'DIOXIN-LIKE', 'FURANS', 'DIOXIN']; Article Links: ['https://www.ourmidland.com/news/article/Pollution-could-return-in-Saginaw-following-6983154.php']
+Event #2 - Date: 04/01/1999; Location: ; Chems: ['FUEL', 'OIL']; Article Links: ['https://www.ourmidland.com/news/article/France-Fights-Pollution-in-Mediterranean-7148033.php']
+Event #3 - Date: 04/01/1999; Location: ; Chems: ['FUEL', 'OIL']; Article Links: ['https://www.ourmidland.com/news/article/France-Fights-Pollution-in-Mediterranean-7139221.php']
+Event #4 - Date: 04/01/1990; Location: ('Tallapoos', '', '', '', '', '', '', '', '', ''); Chems: ['PCB-CONTAMINATED', 'HAZARDOUS WASTES', 'PCBS', 'HAZARDOUS WASTE']; Article Links: ['https://www.ourmidland.com/news/article/Blacks-Organize-to-Fight-Pollution-7148339.php']
+Event #5 - Date: 04/01/1999; Location: ('Gratio', '', '', '', '', '', '', '', '', ''); Chems: ['HYDROCHLORIC ACID', 'METHYL', 'PETROLEUM POLLUTANTS', 'BROMIDES,', 'BRINE', 'OIL', 'HEXABROMOBENZENE.', 'SLUDGE', 'POLYBROMINATED BIPHENYLS']; Article Links: ['https://www.ourmidland.com/news/article/Pollution-stretches-back-years-7047346.php']
+Event #6 - Date: 04/01/2000; Location: Kisho; Chems: ['WASTEWATER', 'UNTREATED WASTE']; Article Links: ['https://www.ourmidland.com/news/article/Israel-Warned-Against-Pollution-7082415.php']

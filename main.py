@@ -8,6 +8,7 @@ from textColors import bcolors
 from Location import locationsInfo
 from mongoengine import connect
 from dateutil import parser
+from datetime import date
 
 
 db = connect(db="Pollution")
@@ -55,7 +56,13 @@ print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles f
 
 print("\nRunning NLP analysis")
 print("-------------------------")
+
 count = 0
+weeklyRunLogs = open('weeklyRunLogs.txt', 'a+')
+today = date.today()
+weeklyRunLogs.write("\n************  " + str(today) + "  ************\n\n")
+weeklyRunLogs.write("Incidents retrieved: " + str(len(confirmedEventArticles)) + "\n\n")
+
 for article in confirmedEventArticles:
     count = count + 1
     print("\n" + bcolors.OKGREEN + "[+] (" + str(count) + "/" + str(len(confirmedEventArticles)) + ") "
@@ -94,9 +101,22 @@ for article in confirmedEventArticles:
     articleLinks = []
     articleLinks.append(article['url'])
     error = False
-    if len(locations)==0:
+
+    if len(locations) == 0:
         location = ""
     else:
         location = locations[0]
+
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
+
+    weeklyRunLogs.write("Event #" + str(count) + " - ")
+    weeklyRunLogs.write("Date: " + str(date) + "; ")
+    weeklyRunLogs.write("Location: " + str(location) + "; ")
+    weeklyRunLogs.write("Chems: " + str(chems) + "; ")
+    weeklyRunLogs.write("Article Links: " + str(articleLinks) + "\n")
+
+weeklyRunLogs.close()
+
+
+
 
