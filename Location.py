@@ -5,11 +5,11 @@ from officialComm import convertScrapedtoSent
 def locationsInfo(articleBody):
     # reading from a body of text to find locations
     # test = open("LocationTest.txt", "r")
-    lakes = re.compile(r'\S*Lake\S*(?:\s\S*)')
-    rivers = re.compile(r'(?:\S+\s)?\S*River')
-    schools = re.compile(r'(?:\S+\s)?\S*Elementary School|(?:\S+\s)?\S*Intermediate School|(?:\S+\s)?\S*Middle School|(?:\S+\s)?\S*High School|(?:\S+\s)?\S*Public School|(?:\S+\s)?\S*Private School|(?:\S+\s)?\S*Academy')
+    lakes = re.compile(r'\S*Lake*(?:\s\S*)([A-Z]\S*)')
+    rivers = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*River')
+    schools = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*Elementary School|([A-Z]\S*)(?:\S+\s)?\S*Intermediate School|([A-Z]\S*)(?:\S+\s)?\S*Middle School|([A-Z]\S*)(?:\S+\s)?\S*High School|([A-Z]\S*)(?:\S+\s)?\S*Public School|([A-Z]\S*)(?:\S+\s)?\S*Private School|([A-Z]\S*)(?:\S+\s)?\S*Academy')
     highways = re.compile(r'I-(?:\S+\s)\s?|M-(?:\S+\s)\s?')
-    wordBefore = re.compile(r'(?:\S+\s)?\S*County|(?:\S+\s)?\S*Townships|(?:\S+\s)?\S*Park|(?:\S+\s)?\S*Bay|(?:\S+\s)?\S*Pond|(?:\S+\s)?\S*Dam|(?:\S+\s)?\S*Delta|(?:\S+\s)?\S*Creek|(?:\S+\s)?\S*Power Plant|(?:\S+\s)?\S*Power Station')
+    wordBefore = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*County|([A-Z]\S*)(?:\S+\s)?\S*Townships|([A-Z]\S*)(?:\S+\s)?\S*Park|([A-Z]\S*)(?:\S+\s)?\S*Bay|([A-Z]\S*)(?:\S+\s)?\S*Pond|([A-Z]\S*)(?:\S+\s)?\S*Dam|([A-Z]\S*)(?:\S+\s)?\S*Delta|([A-Z]\S*)(?:\S+\s)?\S*Creek|([A-Z]\S*)(?:\S+\s)?\S*Power Plant|([A-Z]\S*)(?:\S+\s)?\S*Power Station')
     cityLoc = re.compile(r'^[A-Z]\w*')
     cities = []
     cityFile = open("Cities.txt", "r")
