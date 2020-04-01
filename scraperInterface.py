@@ -31,7 +31,8 @@ class ScraperInterface:
                     self.articleUrls.append(url)
             # TODO: handle the exception
             except WebsiteFailedToInitialize:
-                pass
+                errorLog = open("errorLog.txt", "a+")
+                errorLog.write("\nCould not crawl:  " + website)
 
             self.scrape(links)
 
@@ -46,7 +47,6 @@ class ScraperInterface:
                 scraper = Scraper(url)
                 self.articleObjs.append(scraper.getScrapedArticle())
             except:
-                print("Could not scrape:  " + str(url))
                 errorLog = open("errorLog.txt", "a+")
                 errorLog.write("\nCould not scrape:  " + url)
         loop.close()
