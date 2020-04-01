@@ -67,10 +67,15 @@ class Crawler:
 
             self.website.searchForKey(keyword)
 
-            links = []
             while self.website.getCurrentPageNum() <= self.searchPageLimit:
-
                 links = self.getPageLinks()
+
+                if self.baseUrl in self.exceptions:
+                    articleLinks = self.exceptionFilterLinksForArticles(links)
+                else:
+                    articleLinks = self.filterLinksForArticles(links)
+
+                self.articleLinks = self.articleLinks + articleLinks
 
                 # TODO: Consider adding custom exception for this
                 try:
@@ -79,13 +84,6 @@ class Crawler:
                     errorLog = open("errorLog.txt", "a+")
                     errorLog.write("Failed to query next page for:   " + self.baseUrl + "\n")
                     errorLog.close()
-
-            if self.baseUrl in self.exceptions:
-                articleLinks = self.exceptionFilterLinksForArticles(links)
-            else:
-                articleLinks = self.filterLinksForArticles(links)
-
-            self.articleLinks = self.articleLinks + articleLinks
 
         self.articleCount = self.articleCount + len(self.articleLinks)
         self.storeInUrlsCollection(self.articleLinks)
