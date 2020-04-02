@@ -91,16 +91,8 @@ class ScraperInterface:
             errorLog.write("\nCould not add article:   " + article['url'])
 
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
-        if len(location) == 0:
-            database.incidents(
-                    chemicals=chems,
-                    date=date,
-                    location="Lake Huron",
-                    officialStatement=statement,
-                    articleLinks=links
-                ).save()
-            print("Saved - no loc")
-        elif len(chems)==0:
+
+        if len(chems)==0:
             database.errors(
                 chems=chems,
                 day=date,
@@ -110,6 +102,15 @@ class ScraperInterface:
                 errorMessage="No chemicals found."
             ).save()
             print("Passed - no chem")
+        elif len(location) == 0:
+            database.incidents(
+                    chemicals=chems,
+                    date=date,
+                    location="Lake Huron",
+                    officialStatement=statement,
+                    articleLinks=links
+                ).save()
+            print("Saved - no loc")
         else:
             try:
                 database.incidents(
