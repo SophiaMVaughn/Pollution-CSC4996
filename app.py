@@ -84,8 +84,9 @@ def populate():
         lakeHuron = random.uniform(-.001, .001)
         try:
             if locations[d].get('lat')=='46.0058' and locations[d].get('lng')=='-83.8294':
-                final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
+                final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': "Could not find a specific MI location",
                         'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + lakeHuron), 'lng': (locations[d].get('lng') - lakeHuron)})
+                print("default location for item "+str(d))
             else:
                 final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
                         'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
