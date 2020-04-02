@@ -93,18 +93,18 @@ class ScraperInterface:
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
         if len(location) == 0:
             database.incidents(
-                chems=chems,
-                day=date,
-                loc="Lake Huron",
-                offStmt=statement,
-                artLinks=links
-            ).save()
+                    chemicals=chems,
+                    date=date,
+                    location="Lake Huron",
+                    officialStatement=statement,
+                    articleLinks=links
+                ).save()
             print("Saved - no loc")
         elif len(chems)==0:
             database.errors(
                 chems=chems,
                 day=date,
-                loc=location,
+                loc=str(location),
                 offStmt=statement,
                 artLinks=links,
                 errorMessage="No chemicals found."
@@ -115,7 +115,7 @@ class ScraperInterface:
                 database.incidents(
                     chemicals=chems,
                     date=date,
-                    location=location,
+                    location=str(location),
                     officialStatement=statement,
                     articleLinks=links
                 ).save()
