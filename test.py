@@ -33,7 +33,7 @@ options.add_argument('--headless')
 
 if driverType == "chrome":
     driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-else:
+elif driverType == "firefox":
     driver = webdriver.Firefox(GeckoDriverManager().install(), options=options)
 
 driver.get("https://www.freep.com/search/pollution/")
