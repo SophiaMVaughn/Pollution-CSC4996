@@ -79,7 +79,7 @@ def isArticleEvent(article):
     numPos = 0
     numNeg = 0
     for sentence in tS:
-        print(sentence)
+        #print(sentence)
         nER = nlp(sentence)
         negInSent = negP(nER)
         matchesInSent = pPt(nER)
