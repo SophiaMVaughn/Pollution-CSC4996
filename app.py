@@ -57,6 +57,8 @@ def populate():
             location_bias='point: 42.3314, -83.0458',
             language='en'
         )
+##        if crumb['location']=="Lake Huron":
+##            print(result)
         if result['candidates']:
             #print(result['candidates'][0].get("geometry").get("location"))
             locResults.append(result['candidates'])
@@ -80,8 +82,19 @@ def populate():
     rand = .0001
     for task in cookie:
         rand = random.uniform(.0001, .0009)
+        lakeHuron = random.uniform(-.05, .05)
         try:
-            final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
+            if locations[d].get('lat')==45.0521793 and locations[d].get('lng')==-82.48509399999999:
+                modif = 0
+                if d%2==1:
+                    modif = -1
+                else:
+                    modif = 1
+                final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': "Could not find a specific MI location",
+                        'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') - (modif*lakeHuron)), 'lng': (locations[d].get('lng') + (modif*lakeHuron))})
+                print("default location for item "+str(d))
+            else:
+                final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
                         'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
             d +=1
         except:
@@ -89,7 +102,7 @@ def populate():
     #for a in final:
         #print (a)
     for item in final:
-        if (item.get('date')=="") or (item.get('lat') < 41.695368) or (item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226) or (item.get('lng') > -82.418457) or (item.get('lng') < -87.637561 and item.get('lat') < 45.318741):
+        if (len(item.get('date'))==0) or (item.get('lat') < 41.695368) or (item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226) or (item.get('lng') > -82.418457) or (item.get('lng') < -87.637561 and item.get('lat') < 45.318741):
             temp = item
             final.remove(item)
             dbTempDel = {'chemicals': temp.get('chemicals'), 'date': temp.get('date'), 'location': temp.get('location'), 'officialStatement': temp.get('officialStatement'), 'articleLinks': temp.get('articleLinks')}
@@ -99,17 +112,18 @@ def populate():
             collection.delete_one(dbTempDel)
             print("Error object sent to Errors collection, object ID below: ")
             print(x)
-        date = item.get('date')
-        try:
-            date = datetime.strptime(date, '%m/%d/%Y')
-        except ValueError:
-            tempDate = item
-            final.remove(item)
-            dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'), 'location': tempDate.get('location'), 'officialStatement': tempDate.get('officialStatement'), 'articleLinks': tempDate.get('articleLinks')}
-            dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'), 'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'), 'artLinks': tempDate.get('articleLinks')}
-            dbTempDate['errorMessage'] = "Invalid Date"
-            x = errorColl.insert_one(dbTempDate)
-            collection.delete_one(dbTempDateDel)
+        else:
+            date = item.get('date')
+            try:
+                date = datetime.strptime(date, '%m/%d/%Y')
+            except:
+                tempDate = item
+                final.remove(item)
+                dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'), 'location': tempDate.get('location'), 'officialStatement': tempDate.get('officialStatement'), 'articleLinks': tempDate.get('articleLinks')}
+                dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'), 'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'), 'artLinks': tempDate.get('articleLinks')}
+                dbTempDate['errorMessage'] = "Invalid Date"
+                x = errorColl.insert_one(dbTempDate)
+                collection.delete_one(dbTempDateDel)
     return(final)
 
 #calling the initial populate function from before the user even enters the page so itll do all of the heavy lifting the second the web application runs on the server
