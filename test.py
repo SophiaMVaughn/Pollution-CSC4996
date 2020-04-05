@@ -26,14 +26,8 @@ import traceback
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-driverType = "chrome"
-
 options = Options()
 options.add_argument('--headless')
 
-if driverType == "chrome":
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-elif driverType == "firefox":
-    driver = webdriver.Firefox(GeckoDriverManager().install(), options=options)
-
-driver.get("https://www.freep.com/search/pollution/")
+#driver = webdriver.Firefox(options=options)
+driver = webdriver.Firefox()
