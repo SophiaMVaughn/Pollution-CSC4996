@@ -75,8 +75,6 @@ def populate():
             collection.delete_one(mapTemp)
 
 
-    #FIGURE OUT A WAY TO TRACK LONG AND LAT TO SPECIFIC LOCATIONS TO MAKE SURE THEY ARE BEING APPLIED TO THE CORRECT LOCATIONS AS WELL AS HANDLE DUPLICATE LOCATIONS
-
     final = []
     d = 0
     rand = .0001
@@ -102,7 +100,7 @@ def populate():
     #for a in final:
         #print (a)
     for item in final:
-        if (len(item.get('date'))==0) or (item.get('lat') < 41.695368) or (item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226) or (item.get('lng') > -82.418457) or (item.get('lng') < -87.637561 and item.get('lat') < 45.318741):
+        if (item.get('date')=="") or (item.get('lat') < 41.695368) or (item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226) or (item.get('lng') > -82.418457) or (item.get('lng') < -87.637561 and item.get('lat') < 45.318741):
             temp = item
             final.remove(item)
             dbTempDel = {'chemicals': temp.get('chemicals'), 'date': temp.get('date'), 'location': temp.get('location'), 'officialStatement': temp.get('officialStatement'), 'articleLinks': temp.get('articleLinks')}
@@ -112,18 +110,17 @@ def populate():
             collection.delete_one(dbTempDel)
             print("Error object sent to Errors collection, object ID below: ")
             print(x)
-        else:
-            date = item.get('date')
-            try:
-                date = datetime.strptime(date, '%m/%d/%Y')
-            except:
-                tempDate = item
-                final.remove(item)
-                dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'), 'location': tempDate.get('location'), 'officialStatement': tempDate.get('officialStatement'), 'articleLinks': tempDate.get('articleLinks')}
-                dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'), 'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'), 'artLinks': tempDate.get('articleLinks')}
-                dbTempDate['errorMessage'] = "Invalid Date"
-                x = errorColl.insert_one(dbTempDate)
-                collection.delete_one(dbTempDateDel)
+        date = item.get('date')
+        try:
+            date = datetime.strptime(date, '%m/%d/%Y')
+        except:
+            tempDate = item
+            final.remove(item)
+            dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'), 'officialStatement': tempDate.get('officialStatement'), 'articleLinks': tempDate.get('articleLinks')}
+            dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'), 'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'), 'artLinks': tempDate.get('articleLinks')}
+            dbTempDate['errorMessage'] = "Invalid Date"
+            x = errorColl.insert_one(dbTempDate)
+            collection.delete_one(dbTempDateDel)
     return(final)
 
 #calling the initial populate function from before the user even enters the page so itll do all of the heavy lifting the second the web application runs on the server
@@ -152,7 +149,26 @@ def filterDate(a, b):
 def sortDates():
     dateArray = []
     preArray = populate()
-    dateArray = sorted(preArray, key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y'), reverse=True)
+    try:
+        dateArray = sorted(preArray, key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y'), reverse=True)
+    except ValueError:
+        for item in dateArray:
+            try:
+                datetime.strptime(item, '%m/%d/%Y')
+            except ValueError:
+                tempDate = item
+                dateArray.remove(item)
+                dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'),
+                                 'location': tempDate.get('location'),
+                                 'officialStatement': tempDate.get('officialStatement'),
+                                 'articleLinks': tempDate.get('articleLinks')}
+                dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'),
+                              'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'),
+                              'artLinks': tempDate.get('articleLinks')}
+                dbTempDate['errorMessage'] = "Invalid Date"
+                x = errorColl.insert_one(dbTempDate)
+                collection.delete_one(dbTempDateDel)
+                sortDates()
     return(dateArray)
 
 def grabChemical(a, b):
@@ -170,7 +186,12 @@ def home():
 
 @app.route("/home")
 def front():
+    initial = populate()
     return render_template('home.html')
+
+@app.route("/AboutUs")
+def about():
+    return render_template('AboutUs.html')
 
 @app.route("/TablePage", methods=['GET', 'POST'])
 def table():

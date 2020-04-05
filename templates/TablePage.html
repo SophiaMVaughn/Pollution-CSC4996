@@ -36,6 +36,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('map') }}">Map View</a>
       </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+      </li>
     </ul>
     <form class="form-inline" action="{{ url_for('filteredTable') }}">
         <input class="form-control mr-sm-2" type="text" placeholder="Search for Chemicals" aria-label="Search" name="chemSearch">

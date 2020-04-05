@@ -58,6 +58,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ url_for('map') }}">Map View</a>
       </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -91,9 +94,9 @@
             <p>Search for events marked on a map</p>
             </div>
             <div class="col-sm-4">
-            <a href="https://github.com/SophiaMVaughn/Pollution-CSC4996" title=""><img src="static/img/gitIcon.png" id="icon" class="img-responsive"></a>
-                <h4>GitHub</h4>
-                <p>Take a look at our GitHub!</p>
+            <a href="{{ url_for('about') }}" title=""><img src="static/img/gitIcon.png" id="icon" class="img-responsive"></a>
+                <h4>About Us</h4>
+                <p>Learn more about our project!</p>
             </div>
     </div>
 </div>
@@ -101,10 +104,10 @@
   <div class="container">
     <ul class="list-unstyled list-inline text-center py-2" >
       <li class="list-inline-item text-white">
-        <h4 class="mb-1">About Us</h4>
+        <h4 class="mb-1">P.E.A.T.</h4>
           <p>
-                The goal for this project is to take unstructured data from news sources, use RNN and NLP techniques, and turn that unstructured data into a structured
-                and user friendly output to share our findings with the world.
+                Pollution Events Aggregation Tool
+          <a class="nav-link" style="color: white" href="https://github.com/SophiaMVaughn/Pollution-CSC4996">Click Me to visit our GitHub!</a>
           </p>
       </li>
     </ul>
