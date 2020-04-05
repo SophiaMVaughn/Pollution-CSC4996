@@ -24,7 +24,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-    <!-- add a date filter to the navbar -->
+
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
@@ -38,7 +38,9 @@
       </li>
     </ul>
     <form class="form-inline" action="{{ url_for('filteredMap') }}">
+        <a style="color: antiquewhite">To: &nbsp;</a>
         <input class="form-control mr-sm-2" type="text" placeholder="ex. 12/25/2019" aria-label="startDate" name="startDate">
+        <a style="color: antiquewhite">From: &nbsp;</a>
         <input class="form-control mr-sm-2" type="text" placeholder="ex. 2/20/2020" aria-label="endDate" name="endDate">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filter Dates</button>
     </form>

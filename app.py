@@ -29,7 +29,6 @@ app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
 GoogleMaps(app)
 Bootstrap(app)
 
-
 def populate():
 
     all_events = collection.find()
@@ -113,6 +112,9 @@ def populate():
             collection.delete_one(dbTempDateDel)
     return(final)
 
+#calling the initial populate function from before the user even enters the page so itll do all of the heavy lifting the second the web application runs on the server
+initial = populate()
+
 #filtered date function complete now do a sorted date function
 def filterDate(a, b):
     #check date formatting
@@ -154,7 +156,6 @@ def home():
 
 @app.route("/home")
 def front():
-    load = populate()
     return render_template('home.html')
 
 @app.route("/TablePage", methods=['GET', 'POST'])
