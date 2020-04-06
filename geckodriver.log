@@ -37,3 +37,4 @@ JavaScript error: https://ad.crwdcntrl.net/5/c=931/pe=y/callback=JSONProvider_45
 1586128573876	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
 1586128575529	Marionette	INFO	Listening on port 52100
 1586128575610	Marionette	WARN	TLS certificate errors will be ignored for this session
+1586131616991	Marionette	INFO	Stopped listening on port 52100
