@@ -102,8 +102,11 @@ def populate():
     for item in final:
         if (item.get('date')=="") or (item.get('lat') < 41.695368) or (item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226) or (item.get('lng') > -82.418457) or (item.get('lng') < -87.637561 and item.get('lat') < 45.318741):
             temp = item
-            final.remove(item)
-            dbTempDel = {'chemicals': temp.get('chemicals'), 'date': temp.get('date'), 'location': temp.get('location'), 'officialStatement': temp.get('officialStatement'), 'articleLinks': temp.get('articleLinks')}
+            try:
+                final.remove(item)
+            except ValueError:
+                continue
+            dbTempDel = {'chemicals': temp.get('chemicals'), 'date': temp.get('date'), 'officialStatement': temp.get('officialStatement'), 'articleLinks': temp.get('articleLinks')}
             dbTemp = {'chems': temp.get('chemicals'), 'day': temp.get('date'), 'loc': temp.get('location'), 'offStmt': temp.get('officialStatement'), 'artLinks': temp.get('articleLinks')}
             dbTemp['errorMessage'] = "The location fell outside of the boundaries of Michigan or there was no day"
             x = errorColl.insert_one(dbTemp)
@@ -115,12 +118,17 @@ def populate():
             date = datetime.strptime(date, '%m/%d/%Y')
         except:
             tempDate = item
-            final.remove(item)
+            try:
+                final.remove(item)
+            except ValueError:
+                continue
             dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'), 'officialStatement': tempDate.get('officialStatement'), 'articleLinks': tempDate.get('articleLinks')}
             dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'), 'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'), 'artLinks': tempDate.get('articleLinks')}
             dbTempDate['errorMessage'] = "Invalid Date"
             x = errorColl.insert_one(dbTempDate)
             collection.delete_one(dbTempDateDel)
+            print("Error object sent to Errors collection, object ID below: ")
+            print(x)
     return(final)
 
 #calling the initial populate function from before the user even enters the page so itll do all of the heavy lifting the second the web application runs on the server
@@ -152,12 +160,12 @@ def sortDates():
     try:
         dateArray = sorted(preArray, key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y'), reverse=True)
     except ValueError:
-        for item in dateArray:
+        for item in preArray:
             try:
                 datetime.strptime(item, '%m/%d/%Y')
             except ValueError:
                 tempDate = item
-                dateArray.remove(item)
+                preArray.remove(item)
                 dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'),
                                  'location': tempDate.get('location'),
                                  'officialStatement': tempDate.get('officialStatement'),
