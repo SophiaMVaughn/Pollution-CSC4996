@@ -40,16 +40,126 @@
         <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
       </li>
     </ul>
-    <form class="form-inline" action="{{ url_for('filteredTable') }}">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search for Chemicals" aria-label="Search" name="chemSearch">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
   </div>
 </nav>
-<div class="about">
-  <h1>About Us</h1>
-  <p>Blah blah blah</p>
-  <p>More blah blah blah</p>
+
+  <header class="bg-secondary py-5 mb-5">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-lg-12">
+          <h1 class="display-4 text-white mt-5 mb-2">About Us</h1>
+          <p class="lead mb-5 text-white">We are a senior capstone team from Wayne State University, our goal with this project was to create a way to scrape and aggregate unstructured data from online news sources, and translate that data through NLP techniques into a structured and legible format on the front end.</p>
+        </div>
+      </div>
+    </div>
+  </header>
+
+<div class="container">
+
+    <div class="row">
+      <div class="col-md-8 mb-5">
+        <h2>Functionality</h2>
+        <hr>
+          <p class="lead">Currently the web application allows users to search for events either on a map or table. The map makes the ability to find events by area both easy and interactive while the table grants the user ample information in an easy to read way.</p>
+      </div>
+      <div class="col-md-4 mb-5">
+        <h2>Technologies Used</h2>
+        <hr>
+            <ul>
+            <li>Flask and Bootstrap</li>
+            <li>Selenium</li>
+            <li>MongoDB</li>
+            <li>TO BE ADDED</li>
+                <li>TO BE ADDED</li>
+                <li>TO BE ADDED</li>
+                <li>TO BE ADDED</li>
+          </ul>
+      </div>
+    </div>
+</div>
+
+
+
+
+<section class="pt-3 pb-4">
+      <div class="container">
+          <div class="row mt-4">
+            <div class="col text-center">
+              <h3>
+                Our Team
+              </h3>
+            </div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-4 text-center">
+              <img class="img-fluid qualities-img p-4" src="static/img/personIcon.png">
+              <h5>
+                Team Leader
+              </h5>
+              <p>
+                <i>- Sophia Vaughn</i>
+              </p>
+
+            </div>
+            <div class="col-md-4 text-center">
+              <img class="img-fluid qualities-img p-4" src="static/img/personIcon.png">
+              <h5>
+                Frontend Lead
+              </h5>
+              <p>
+                <i>- Austin Alexander</i>
+              </p>
+
+            </div>
+            <div class="col-md-4 text-center">
+
+                <img class="img-fluid qualities-img p-4" src="static/img/personIcon.png">
+                <h5>
+                  Database Lead
+                </h5>
+                <p>
+                  <i>- Saular Raffi</i>
+                </p>
+            </div>
+          </div>
+
+          <div class="row mb-md-3">
+            <div class="col-md-4 text-center">
+                <img class="img-fluid qualities-img p-4" src="static/img/personIcon.png">
+                <h5>
+                  Documentation Lead
+                </h5>
+                <p>
+                  <i>- Isha Naik</i>
+                </p>
+            </div>
+            <div class="col-md-4 text-center">
+                <img class="img-fluid qualities-img p-4" src="static/img/personIcon.png">
+                <h5>
+                  Testing Lead
+                </h5>
+                <p>
+                  <i>- Michael Heredia</i>
+                </p>
+            </div>
+          </div>
+      </div>
+</section>
+
+<div class="container-fluid" style="min-height: 150px; height:100%;background-color: #4e555b">
+  <div class="container">
+    <ul class="list-unstyled list-inline text-center py-2" >
+      <li class="list-inline-item text-white">
+        <h4 class="mb-1">P.E.A.T.</h4>
+          <p>
+                Pollution Events Aggregation Tool
+          <a class="nav-link" style="color: white" href="https://github.com/SophiaMVaughn/Pollution-CSC4996">Click Me to visit our GitHub!</a>
+          </p>
+      </li>
+    </ul>
+  </div>
+
 </div>
 </body>
 </html>

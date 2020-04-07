@@ -14,17 +14,14 @@ from datetime import datetime
 print(platform.architecture())
 
 
-
-#app = Flask(__name__)
-#app.config["MONGO_URI"] = "mongodb://localhost:27017/root"
-#mongo = PyMongo(app)
-
+#here is where I establish the database and collection
 app = Flask(__name__)
 client = MongoClient("mongodb://127.0.0.1:27017")
 db = client.Pollution
 collection = db.incidents
 errorColl = db.errors
 
+#this is the google maps api key
 app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
 GoogleMaps(app)
 Bootstrap(app)
@@ -34,11 +31,7 @@ def populate():
     all_events = collection.find()
     cookie = []
 
-#THIS LOOP IS FOR THE ARTICLES COLLECTION
-#for task in all_events:
-    #cookie.append({'articleDate': task['articleDate'], 'articleTitle': task['articleTitle'], 'url': task['url']})
-
-#THIS LOOP IS FOR THE INCIDENT COLLECTION
+#I loop through all_events which grabbed the data from the incidents collection, and am putting them into an array
     for task in all_events:
         #print(task)
         cookie.append({ 'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
@@ -49,6 +42,7 @@ def populate():
     locations = []
     locResults= []
     k = 0
+    #we use the google places api to get the lat and long for a location so we are looping through the array and calling find_place on every location
     for crumb in cookie:
         result = gmaps.find_place(
             input=crumb['location'] + ', MI',
@@ -59,6 +53,7 @@ def populate():
         )
 ##        if crumb['location']=="Lake Huron":
 ##            print(result)
+        #the find_place returns a json response and below is me parsing through it to get the lat and long since thats all we want out of the response
         if result['candidates']:
             #print(result['candidates'][0].get("geometry").get("location"))
             locResults.append(result['candidates'])
@@ -66,6 +61,7 @@ def populate():
             c = b.get("location")
             k += 1
             locations.append(c)
+        #some locations even google can find so this will catch them and send them to the error database
         else:
             mapTemp = crumb
             cookie.remove(crumb)
@@ -78,6 +74,7 @@ def populate():
     final = []
     d = 0
     rand = .0001
+    #below we are adding each locations lat and long to the overall stored event, we also add slight variance so the pins for the same locations aren't on top of each other
     for task in cookie:
         rand = random.uniform(.0001, .0009)
         lakeHuron = random.uniform(-.05, .05)
@@ -99,6 +96,7 @@ def populate():
             continue
     #for a in final:
         #print (a)
+    #this will catch any location outside of michigan or if there is a blank date and send them to the error database
     for item in final:
         if (item.get('date')=="") or (item.get('lat') < 41.695368) or (item.get('lat') > 47.480572 ) or (item.get('lng') < -90.414226) or (item.get('lng') > -82.418457) or (item.get('lng') < -87.637561 and item.get('lat') < 45.318741):
             temp = item
@@ -114,6 +112,7 @@ def populate():
             print("Error object sent to Errors collection, object ID below: ")
             print(x)
         date = item.get('date')
+        #this will try and catch any other weird dates that aren't legit and send them to the error database
         try:
             date = datetime.strptime(date, '%m/%d/%Y')
         except:
@@ -131,10 +130,10 @@ def populate():
             print(x)
     return(final)
 
-#calling the initial populate function from before the user even enters the page so itll do all of the heavy lifting the second the web application runs on the server
+#calling the initial populate function from before the user even enters the page so it'll do all of the heavy lifting the second the web application runs on the server
 initial = populate()
 
-#filtered date function complete now do a sorted date function
+#this function is called when filtering between 2 dates on the map page, it takes the dates and formats them correctly then returns an array of every event with dates in between
 def filterDate(a, b):
     #check date formatting
     try:
@@ -153,10 +152,11 @@ def filterDate(a, b):
         if (c < date < d):
             dateArray.append(item)
     return(dateArray)
-
+#this function is called whenever you load the table page and will sort the dates from newest to oldest
 def sortDates():
     dateArray = []
     preArray = populate()
+    #there is error handling for the sorting dates
     try:
         dateArray = sorted(preArray, key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y'), reverse=True)
     except ValueError:
@@ -178,7 +178,7 @@ def sortDates():
                 collection.delete_one(dbTempDateDel)
                 sortDates()
     return(dateArray)
-
+#this function is called whenever a chemical is searched on the table page and return any event with a chemical matching the one searched
 def grabChemical(a, b):
     chemArray = []
     for item in b:
@@ -187,20 +187,20 @@ def grabChemical(a, b):
                 chemArray.append(item)
     return(chemArray)
 
-
+#this is the initial route when loading the web app and it will reroute to the home page
 @app.route("/")
 def home():
     return redirect(url_for('front'))
-
+#this will render the home page html
 @app.route("/home")
 def front():
     initial = populate()
     return render_template('home.html')
-
+#this will render the aboutus html
 @app.route("/AboutUs")
 def about():
     return render_template('AboutUs.html')
-
+#this is for the table page and before rendering the page it will sort the dates and render the html with the array so it can be displayed
 @app.route("/TablePage", methods=['GET', 'POST'])
 def table():
     cookie = sortDates()
@@ -208,7 +208,7 @@ def table():
     #if request.method == 'POST':
         #return redirect(url_for('map'))
     return render_template('TablePage.html', title = 'Table', cookie=cookie)
-
+#this is routed to when the user searches a specific chemical and will take the request arg and build a new array to render with the html that's only events returned by grabChemical
 @app.route("/FilteredTablePage", methods=['GET', 'POST'])
 def filteredTable():
     cookie = sortDates()
@@ -218,7 +218,7 @@ def filteredTable():
     print(request.method)
     return render_template('TablePage.html', title = 'Table', cookie=cookie)
 
-
+#this is the map page route and before rendering the page I mimicked html in python to dynamically generate pins for each of the events in the array so you are able to generate them in the app.py instead of the html so you don't need to carry the array over
 @app.route("/MapPage", methods=['GET', 'POST'])
 def map():
     #call a new function that grabs final array and only gets dates within specific range
@@ -245,6 +245,8 @@ def map():
     print(request.method)
     #if request.method == 'POST':
         #return redirect(url_for('table'))
+
+    #I'm also creating the map here too
     polMap = Map(
         identifier="fullmap",
         varname="fullmap",
@@ -264,7 +266,7 @@ def map():
         markers= markers
     )
     return render_template('MapPage.html', polMap = polMap)
-
+#this route is for the filtered map, so dates only within the range the user searched
 @app.route("/FilteredMapPage", methods=['GET', 'POST'])
 def filteredMap():
     #call a new function that grabs final array and only gets dates within specific range
@@ -316,6 +318,6 @@ def filteredMap():
         markers= markers
     )
     return render_template('MapPage.html', polMap = polMap)
-
+#this will run the app
 if __name__ == "__main__":
     app.run()
