@@ -113,7 +113,11 @@ for article in confirmedEventArticles:
                 location = locations[0]
                 break
     if type(location) is tuple:
-        location = ""
+        for t in location:
+            if(len(t)>0):
+                location=t
+            break
+
     print("final location: "+location)
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 
