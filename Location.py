@@ -61,8 +61,16 @@ def locationsInfo(articleBody):
                 # print("PRED "+citypair)
                 if city[i].upper() in city_set:
                     local.append(city[i])
+                    #print(city[i])
                 elif citypair.upper() in city_set:
                     local.append(citypair)
-
+                    #print(citypair)
+    cityFile.close()
+    for l in local:
+        if(type(l) is tuple):
+            for x in l:
+                if len(x)>0:
+                    local.append(x)
+            local.remove(l)
     return local
 

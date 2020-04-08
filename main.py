@@ -23,7 +23,7 @@ articleBodies.truncate(0)
 articleBodies.close()
 
 keywords = ["pollution"]
-scraper = ScraperInterface(keywords, searchPageLimit=10, websitesJsonFile="websitesTesting.json")
+scraper = ScraperInterface(keywords, searchPageLimit=10, websitesJsonFile="websites.json")
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles scraped" + bcolors.ENDC)
 
@@ -76,7 +76,7 @@ for article in confirmedEventArticles:
 
     # For getting location information
     locations = locationsInfo(body)
-
+    
     # for getting official statement
     offComm, people = officialComment(body)
 
@@ -105,8 +105,16 @@ for article in confirmedEventArticles:
     if len(locations) == 0:
         location = ""
     else:
-        location = locations[0]
-
+        for l in locations:
+            if(type(l) is tuple):
+                locations.remove(l)
+                continue
+            else:
+                location = locations[0]
+                break
+    if type(location) is tuple:
+        location = ""
+    print("final location: "+location)
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 
     weeklyRunLogs.write("Event #" + str(count) + " - ")
