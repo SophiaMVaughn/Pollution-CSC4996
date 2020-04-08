@@ -117,8 +117,10 @@ for article in confirmedEventArticles:
             if(len(t)>0):
                 location=t
             break
-
-    print("final location: "+location)
+    try:
+        print("final location: "+location)
+    except:
+        location = ""
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 
     weeklyRunLogs.write("Event #" + str(count) + " - ")
