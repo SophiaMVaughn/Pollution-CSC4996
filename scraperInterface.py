@@ -6,6 +6,10 @@ from tqdm import tqdm
 import json
 from exceptions import WebsiteFailedToInitialize
 
+from dateutil import parser
+from datetime import date
+from datetime import datetime
+
 class ScraperInterface:
     def __init__(self, keywords, searchPageLimit=2, websitesJsonFile="websites.json"):
         self.keywords = keywords
@@ -91,7 +95,31 @@ class ScraperInterface:
             errorLog.write("\nCould not add article:   " + article['url'])
 
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
-
+        if date =="":
+            database.errors(
+                chems=chems,
+                day=date,
+                loc=str(location),
+                offStmt=statement,
+                artLinks=links,
+                errorMessage="Bad date."
+            ).save()
+            print("Passed - Bad date")
+            return
+        else:
+            try:
+                datetime.strptime(date, '%m/%d/%Y')
+            except ValueError:
+                database.errors(
+                    chems=chems,
+                    day=date,
+                    loc=str(location),
+                    offStmt=statement,
+                    artLinks=links,
+                    errorMessage="Bad date."
+                ).save()
+                print("Passed - Bad date")
+                return
         if len(chems)==0:
             database.errors(
                 chems=chems,
