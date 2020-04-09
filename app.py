@@ -36,40 +36,42 @@ def populate():
         #print(task)
         cookie.append({ 'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'], 'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks']})
 
-
-
     gmaps = googlemaps.Client(key="AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI")#locResults= []
     locations = []
     locResults= []
     k = 0
     #we use the google places api to get the lat and long for a location so we are looping through the array and calling find_place on every location
     for crumb in cookie:
-        result = gmaps.find_place(
-            input=crumb['location'] + ', MI',
-            input_type='textquery',
-            fields=['geometry'],
-            location_bias='point: 42.3314, -83.0458',
-            language='en'
-        )
+        if crumb['location'] != "none":
+            result = gmaps.find_place(
+                input=crumb['location'] + ', MI',
+                input_type='textquery',
+                fields=['geometry'],
+                location_bias='point: 42.3314, -83.0458',
+                language='en'
+            )
 ##        if crumb['location']=="Lake Huron":
 ##            print(result)
         #the find_place returns a json response and below is me parsing through it to get the lat and long since thats all we want out of the response
-        if result['candidates']:
-            #print(result['candidates'][0].get("geometry").get("location"))
-            locResults.append(result['candidates'])
-            b = locResults[k][0].get("geometry")
-            c = b.get("location")
-            k += 1
-            locations.append(c)
+            if result['candidates']:
+                #print(result['candidates'][0].get("geometry").get("location"))
+                locResults.append(result['candidates'])
+                b = locResults[k][0].get("geometry")
+                c = b.get("location")
+                k += 1
+                locations.append(c)
         #some locations even google can find so this will catch them and send them to the error database
+            else:
+                mapTemp = crumb
+                cookie.remove(crumb)
+                mapTempErr = {'chems': mapTemp.get('chemicals'), 'day': mapTemp.get('date'), 'loc': mapTemp.get('location'),'offStmt': mapTemp.get('officialStatement'), 'artLinks': mapTemp.get('articleLinks')}
+                mapTempErr['errorMessage'] = "The location could not be found with google"
+                x = errorColl.insert_one(mapTempErr)
+                collection.delete_one(mapTemp)
         else:
-            mapTemp = crumb
-            cookie.remove(crumb)
-            mapTempErr = {'chems': mapTemp.get('chemicals'), 'day': mapTemp.get('date'), 'loc': mapTemp.get('location'),'offStmt': mapTemp.get('officialStatement'), 'artLinks': mapTemp.get('articleLinks')}
-            mapTempErr['errorMessage'] = "The location could not be found with google"
-            x = errorColl.insert_one(mapTempErr)
-            collection.delete_one(mapTemp)
-
+            lakeHuron = random.uniform(-.05, .05)
+            locations.append({'lat': 44.765522  - lakeHuron, 'lng': -82.817534 + lakeHuron})
+            crumb['location'] = "Could not find a specific MI location"
 
     final = []
     d = 0
@@ -77,23 +79,9 @@ def populate():
     #below we are adding each locations lat and long to the overall stored event, we also add slight variance so the pins for the same locations aren't on top of each other
     for task in cookie:
         rand = random.uniform(.0001, .0009)
-        lakeHuron = random.uniform(-.05, .05)
-        try:
-            if locations[d].get('lat')==45.0521793 and locations[d].get('lng')==-82.48509399999999:
-                modif = 0
-                if d%2==1:
-                    modif = -1
-                else:
-                    modif = 1
-                final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': "Could not find a specific MI location",
-                        'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') - (modif*lakeHuron)), 'lng': (locations[d].get('lng') + (modif*lakeHuron))})
-                print("default location for item "+str(d))
-            else:
-                final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
+        final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
                         'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
-            d +=1
-        except:
-            continue
+        d +=1
     #for a in final:
         #print (a)
     #this will catch any location outside of michigan or if there is a blank date and send them to the error database
@@ -111,23 +99,6 @@ def populate():
             collection.delete_one(dbTempDel)
             print("Error object sent to Errors collection, object ID below: ")
             print(x)
-        date = item.get('date')
-        #this will try and catch any other weird dates that aren't legit and send them to the error database
-        try:
-            date = datetime.strptime(date, '%m/%d/%Y')
-        except:
-            tempDate = item
-            try:
-                final.remove(item)
-            except ValueError:
-                continue
-            dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'), 'officialStatement': tempDate.get('officialStatement'), 'articleLinks': tempDate.get('articleLinks')}
-            dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'), 'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'), 'artLinks': tempDate.get('articleLinks')}
-            dbTempDate['errorMessage'] = "Invalid Date"
-            x = errorColl.insert_one(dbTempDate)
-            collection.delete_one(dbTempDateDel)
-            print("Error object sent to Errors collection, object ID below: ")
-            print(x)
     return(final)
 
 #calling the initial populate function from before the user even enters the page so it'll do all of the heavy lifting the second the web application runs on the server
@@ -136,12 +107,8 @@ initial = populate()
 #this function is called when filtering between 2 dates on the map page, it takes the dates and formats them correctly then returns an array of every event with dates in between
 def filterDate(a, b):
     #check date formatting
-    try:
-        c = datetime.strptime(a, '%m/%d/%Y')
-        d = datetime.strptime(b, '%m/%d/%Y')
-    except ValueError:
-        c = datetime.strptime('01/01/2000', '%m/%d/%Y')
-        d = datetime.strptime('12/30/2020', '%m/%d/%Y')
+    c = datetime.strptime(a, '%m/%d/%Y')
+    d = datetime.strptime(b, '%m/%d/%Y')
     print(c)
     print(d)
     dateArray = []
@@ -156,27 +123,7 @@ def filterDate(a, b):
 def sortDates():
     dateArray = []
     preArray = populate()
-    #there is error handling for the sorting dates
-    try:
-        dateArray = sorted(preArray, key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y'), reverse=True)
-    except ValueError:
-        for item in preArray:
-            try:
-                datetime.strptime(item, '%m/%d/%Y')
-            except ValueError:
-                tempDate = item
-                preArray.remove(item)
-                dbTempDateDel = {'chemicals': tempDate.get('chemicals'), 'date': tempDate.get('date'),
-                                 'location': tempDate.get('location'),
-                                 'officialStatement': tempDate.get('officialStatement'),
-                                 'articleLinks': tempDate.get('articleLinks')}
-                dbTempDate = {'chems': tempDate.get('chemicals'), 'day': tempDate.get('date'),
-                              'loc': tempDate.get('location'), 'offStmt': tempDate.get('officialStatement'),
-                              'artLinks': tempDate.get('articleLinks')}
-                dbTempDate['errorMessage'] = "Invalid Date"
-                x = errorColl.insert_one(dbTempDate)
-                collection.delete_one(dbTempDateDel)
-                sortDates()
+    dateArray = sorted(preArray, key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y'), reverse=True)
     return(dateArray)
 #this function is called whenever a chemical is searched on the table page and return any event with a chemical matching the one searched
 def grabChemical(a, b):
@@ -194,7 +141,6 @@ def home():
 #this will render the home page html
 @app.route("/home")
 def front():
-    initial = populate()
     return render_template('home.html')
 #this will render the aboutus html
 @app.route("/AboutUs")
