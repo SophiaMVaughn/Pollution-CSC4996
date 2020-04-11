@@ -87,33 +87,8 @@ class Website:
         self.currentPage = soup(self.driver.page_source, 'html.parser')
 
     def setDriver(self):
-
-        # TODO: dead code
-        # chromeDriverPath = ""
-        # firefoxDriverPath = ""
-        #
-        # if platform == "win32":
-        #     if self.driverType == "chrome":
-        #         chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Chrome/chromedriver.exe"
-        #     else:
-        #         firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Windows/Firefox"
-        # elif platform == "darwin":
-        #     if self.driverType == "chrome":
-        #         chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Chrome/chromedriver"
-        #     else:
-        #         firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Mac/Firefox"
-        # else:
-        #     if self.driverType == "chrome":
-        #         chromeDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Chrome/chromedriver"
-        #     else:
-        #         firefoxDriverPath = os.path.abspath(os.getcwd()) + "/Driver/Linux/Firefox"
-
         options = Options()
         options.add_argument('--headless')
-
-        # if self.driverType == "chrome":
-        #     self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-        #     # self.driver = webdriver.Chrome(executable_path=chromeDriverPath, options=options)
 
         self.driver = webdriver.Firefox(options=options)
         self.driver.get(self.currentUrl)
