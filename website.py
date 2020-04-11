@@ -111,12 +111,11 @@ class Website:
         options = Options()
         options.add_argument('--headless')
 
-        if self.driverType == "chrome":
-            self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-            # self.driver = webdriver.Chrome(executable_path=chromeDriverPath, options=options)
-        else:
-            self.driver = webdriver.Firefox(GeckoDriverManager().install(), options=options)
+        # if self.driverType == "chrome":
+        #     self.driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+        #     # self.driver = webdriver.Chrome(executable_path=chromeDriverPath, options=options)
 
+        self.driver = webdriver.Firefox(options=options)
         self.driver.get(self.currentUrl)
 
     def scrollPage(self):

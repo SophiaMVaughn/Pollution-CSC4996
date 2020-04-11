@@ -26,8 +26,10 @@ import traceback
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-options = Options()
-options.add_argument('--headless')
+# options = Options()
+# # options.add_argument('--headless')
+# driver = webdriver.Firefox(options=options)
+# driver.get("https://www.freep.com/search/pollution/")
 
-#driver = webdriver.Firefox(options=options)
-driver = webdriver.Firefox()
+website = Website("https://www.freep.com/")
+# website.searchForKey("pollution")
