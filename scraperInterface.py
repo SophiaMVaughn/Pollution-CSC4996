@@ -94,8 +94,11 @@ class ScraperInterface:
             errorLog = open("errorLog.txt", "a+")
             errorLog.write("\nCould not add article:   " + article['url'])
 
+#this function takes all of the information about an incident
+#and stores it in either the error or incidents database
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
-        if date =="":
+        if date =="": #this date will make the front end crash
+            #so we put it in the error database
             database.errors(
                 chems=chems,
                 day=date,
@@ -106,10 +109,13 @@ class ScraperInterface:
             ).save()
             print("Passed - Bad date")
             return
-        else:
+        else: 
             try:
+                #if the date is not blank test if it can be formatted,
+                #if it can't, it will also crash the front end
                 datetime.strptime(date, '%m/%d/%Y')
-            except ValueError:
+            except ValueError: #if formatting failed
+                #insert into the error database
                 database.errors(
                     chems=chems,
                     day=date,
@@ -120,6 +126,7 @@ class ScraperInterface:
                 ).save()
                 print("Passed - Bad date")
                 return
+        #if there were no chemicals
         if len(chems)==0:
             database.errors(
                 chems=chems,
@@ -134,7 +141,7 @@ class ScraperInterface:
             database.incidents(
                     chemicals=chems,
                     date=date,
-                    location="Lake Huron",
+                    location="none",
                     officialStatement=statement,
                     articleLinks=links
                 ).save()
