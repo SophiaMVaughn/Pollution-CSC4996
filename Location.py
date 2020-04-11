@@ -52,7 +52,7 @@ def locationsInfo(articleBody):
     for x in cityFile:
         cities.append(x.rstrip().upper())
     city_set = set(cities)
-    #For look which loops through the words in the article paragraphs
+    #For loop which loops through the words in the article paragraphs
     for para in articleBody:
         temp = convertScrapedtoSent(para)
         for sent in temp:
