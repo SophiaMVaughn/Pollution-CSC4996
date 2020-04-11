@@ -6,6 +6,10 @@ from tqdm import tqdm
 import json
 from exceptions import WebsiteFailedToInitialize
 
+from dateutil import parser
+from datetime import date
+from datetime import datetime
+
 class ScraperInterface:
     def __init__(self, keywords, searchPageLimit=2, websitesJsonFile="websites.json"):
         self.keywords = keywords
@@ -90,8 +94,39 @@ class ScraperInterface:
             errorLog = open("errorLog.txt", "a+")
             errorLog.write("\nCould not add article:   " + article['url'])
 
+#this function takes all of the information about an incident
+#and stores it in either the error or incidents database
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
-
+        if date =="": #this date will make the front end crash
+            #so we put it in the error database
+            database.errors(
+                chems=chems,
+                day=date,
+                loc=str(location),
+                offStmt=statement,
+                artLinks=links,
+                errorMessage="Bad date."
+            ).save()
+            print("Passed - Bad date")
+            return
+        else: 
+            try:
+                #if the date is not blank test if it can be formatted,
+                #if it can't, it will also crash the front end
+                datetime.strptime(date, '%m/%d/%Y')
+            except ValueError: #if formatting failed
+                #insert into the error database
+                database.errors(
+                    chems=chems,
+                    day=date,
+                    loc=str(location),
+                    offStmt=statement,
+                    artLinks=links,
+                    errorMessage="Bad date."
+                ).save()
+                print("Passed - Bad date")
+                return
+        #if there were no chemicals
         if len(chems)==0:
             database.errors(
                 chems=chems,
@@ -106,7 +141,7 @@ class ScraperInterface:
             database.incidents(
                     chemicals=chems,
                     date=date,
-                    location="Lake Huron",
+                    location="none",
                     officialStatement=statement,
                     articleLinks=links
                 ).save()
