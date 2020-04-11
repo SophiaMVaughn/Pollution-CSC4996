@@ -9,7 +9,7 @@ def locationsInfo(articleBody):
     rivers = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*River')
     schools = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*Elementary School|([A-Z]\S*)(?:\S+\s)?\S*Intermediate School|([A-Z]\S*)(?:\S+\s)?\S*Middle School|([A-Z]\S*)(?:\S+\s)?\S*High School|([A-Z]\S*)(?:\S+\s)?\S*Public School|([A-Z]\S*)(?:\S+\s)?\S*Private School|([A-Z]\S*)(?:\S+\s)?\S*Academy')
     highways = re.compile(r'I-(?:\S+\s)\s?|M-(?:\S+\s)\s?')
-    wordBefore = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*County|([A-Z]\S*)(?:\S+\s)?\S*Townships|([A-Z]\S*)(?:\S+\s)?\S*Park|([A-Z]\S*)(?:\S+\s)?\S*Bay|([A-Z]\S*)(?:\S+\s)?\S*Pond|([A-Z]\S*)(?:\S+\s)?\S*Dam|([A-Z]\S*)(?:\S+\s)?\S*Delta|([A-Z]\S*)(?:\S+\s)?\S*Creek|([A-Z]\S*)(?:\S+\s)?\S*Power Plant|([A-Z]\S*)(?:\S+\s)?\S*Power Station')
+    wordBefore = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*County|([A-Z]\S*)(?:\S+\s)?\S*Lake|([A-Z]\S*)(?:\S+\s)?\S*Townships|([A-Z]\S*)(?:\S+\s)?\S*Park|([A-Z]\S*)(?:\S+\s)?\S*Bay|([A-Z]\S*)(?:\S+\s)?\S*Pond|([A-Z]\S*)(?:\S+\s)?\S*Dam|([A-Z]\S*)(?:\S+\s)?\S*Delta|([A-Z]\S*)(?:\S+\s)?\S*Creek|([A-Z]\S*)(?:\S+\s)?\S*Power Plant|([A-Z]\S*)(?:\S+\s)?\S*Power Station')
     cityLoc = re.compile(r'^[A-Z]\w*')
     cities = []
     cityFile = open("Cities.txt", "r")
@@ -61,8 +61,16 @@ def locationsInfo(articleBody):
                 # print("PRED "+citypair)
                 if city[i].upper() in city_set:
                     local.append(city[i])
+                    #print(city[i])
                 elif citypair.upper() in city_set:
                     local.append(citypair)
-
+                    #print(citypair)
+    cityFile.close()
+    for l in local:
+        if(type(l) is tuple):
+            for x in l:
+                if len(x)>0:
+                    local.append(x)
+            local.remove(l)
     return local
 
