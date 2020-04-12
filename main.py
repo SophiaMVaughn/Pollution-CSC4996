@@ -78,7 +78,7 @@ for article in confirmedEventArticles:
     locations = locationsInfo(body)
     
     # for getting official statement
-    offComm, people = officialComment(body)
+    offComm= officialComment(body)
 
     # for pulling date information
     dates = dateInfo(body)
