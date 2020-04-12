@@ -39,6 +39,9 @@ class incidents(mongoengine.Document):
     officialStatement = mongoengine.ListField(mongoengine.StringField(required=True))
     articleLinks = mongoengine.ListField(mongoengine.StringField(required=True))
 
+#the implementation for the errors collection (all attributes required)
+#it holds all of the information that would go in the incidents collection
+#along with an error message to say why it was put in the error collection
 class errors(mongoengine.Document):
     chems = mongoengine.ListField(mongoengine.StringField(required=True))
     day = mongoengine.StringField(required=True)

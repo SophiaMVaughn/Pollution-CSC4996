@@ -94,6 +94,7 @@ class ScraperInterface:
             errorLog = open("errorLog.txt", "a+")
             errorLog.write("\nCould not add article:   " + article['url'])
 
+
 #this function takes all of the information about an incident
 #and stores it in either the error or incidents database
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
@@ -111,7 +112,7 @@ class ScraperInterface:
             return
         else: 
             try:
-                #if the date is not blank test if it can be formatted,
+                #if the date is not blank, test if it can be formatted,
                 #if it can't, it will also crash the front end
                 datetime.strptime(date, '%m/%d/%Y')
             except ValueError: #if formatting failed
@@ -126,9 +127,10 @@ class ScraperInterface:
                 ).save()
                 print("Passed - Bad date")
                 return
-        #if there were no chemicals
-        if len(chems)==0:
-            database.errors(
+        
+        
+        if len(chems)==0: #if there were no chemicals
+            database.errors( #insert it into the error database
                 chems=chems,
                 day=date,
                 loc=str(location),
@@ -137,18 +139,18 @@ class ScraperInterface:
                 errorMessage="No chemicals found."
             ).save()
             print("Passed - no chem")
-        elif len(location) == 0:
-            database.incidents(
+        elif len(location) == 0: #if there was no location
+            database.incidents( #insert it into the incidents database
                     chemicals=chems,
                     date=date,
-                    location="none",
+                    location="none", #but with a special location
                     officialStatement=statement,
                     articleLinks=links
                 ).save()
             print("Saved - no loc")
-        else:
+        else: #if all of these situations did not happen
             try:
-                database.incidents(
+                database.incidents( #insert as a normal incident
                     chemicals=chems,
                     date=date,
                     location=str(location),

@@ -1,10 +1,5 @@
 #given the body of the article
 #use POS tagging to find official statement
-#find any date mentioned
-
-#call the RNN binary on the body (what format should it be in?? how to call from script??)
-
-#enter everything into the database
 
 import en_core_web_sm
 from spacy.matcher import Matcher
@@ -29,18 +24,6 @@ pPt.add("pat3",None,[{"LEMMA": {"IN": ["official","Official"]}},
 
 pPt.add("pat4",None,
         [{"LEMMA": {"IN": ["According", "according"]}}])
-class locatedData:
-    def __init__(self):
-        chemicals = []
-        date = ""
-        #official stmt should be tuples (stmt, official title, name [optional])
-        officialStmts = []
-        quantities = []
-        locations = []
-        primaryLoc = ""
-        #other locations (rivers, addresses, etc)??
-        #otherLoc = []
-        
 
 
 def convertScrapedtoSent(splitContent):
