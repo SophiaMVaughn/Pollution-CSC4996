@@ -122,118 +122,62 @@
 ##
 ##unittest.main()
 
-##
-##import database
-##import unittest
-##from scraperInterface import ScraperInterface
-##from pymongo import MongoClient
-##class testErrors(unittest.TestCase):
-##    def testErrorCollect(self):
-##        keywords = [""]
-##        scraper = ScraperInterface(keywords)
-##        scraper.storeInIncidentsCollection(["Carbon Dioxide"], "12/22/2019", "", ["This is the official statement"], ["www.locationerror.com"])
-##        
-##        client = MongoClient("mongodb://127.0.0.1:27017")
-##        db = client.Pollution
-##
-##        #should come back with the test entry with the error message of "no location"
-##        collection = db.errors
-##        test_event = collection.find({'articleLinks': ['www.locationerror.com']})
-##        for t in test_event:
-##            print(t)
-##
-##        #should come back blank
-##        collection = db.incidents
-##        test_event = collection.find({'articleLinks': ['www.locationerror.com']})
-##        for t in test_event:
-##            print(t)
-##
-##
-##unittest.main()
-
-
-
-##import database
-##import unittest
-##from scraperInterface import ScraperInterface
-##from pymongo import MongoClient
-##class testErrors(unittest.TestCase):
-##    def testErrorCollect(self):
-##        keywords = [""]
-##        scraper = ScraperInterface(keywords)
-##        scraper.storeInIncidentsCollection([], "12/22/2019", "Detroit", ["This is the official statement"], ["www.chemicalerror.com"])
-##        
-##        client = MongoClient("mongodb://127.0.0.1:27017")
-##        db = client.Pollution
-##        
-##        #should come back with the test entry with the error message of "no chemical"
-##        collection = db.errors
-##        test_event = collection.find({'articleLinks': ['www.chemicalerror.com']})
-##        for t in test_event:
-##            print(t)
-##
-##        #should come back blank
-##        collection = db.incidents
-##        test_event = collection.find({'articleLinks': ['www.chemicalerror.com']})
-##        for t in test_event:
-##            print(t)
-##
-##
-##unittest.main()
-
-
-##import unittest
-##from scraper import Scraper
-##from parse import isArticleEvent
-##
-##class itegTestParsing(unittest.TestCase):
-##    def testParse(self):
-##        scraper = Scraper('https://www.ourmidland.com/news/article/Study-N-American-Pollution-Drops-5-Pct-7130064.php')
-##        article = scraper.getScrapedArticle()
-##        self.assertTrue(isArticleEvent(article))
-##
-##unittest.main()     
-
-##import unittest
-##from scraper import Scraper
-##from parse import convertScrapedtoSent
-##from RNNBinary import readBinary
-##from officialComm import officialComment
-##from dateRegex import dateInfo
-##from Location import locationsInfo
-##
-##class itegTestNLPBody(unittest.TestCase):
-##    def testNLPBody(self):
-##        scraper = Scraper('https://www.ourmidland.com/news/article/Study-N-American-Pollution-Drops-5-Pct-7130064.php')
-##        article = scraper.getScrapedArticle()
-##        body = convertScrapedtoSent(article['body'])
-##        print(body)
-##        
-##        #NLP pipeline calls
-##        chem, q = readBinary(body)
-##        self.assertCountEqual(
-##          ['CHROMIUM', 'STYRENE', 'LEAD'],
-##          chem)
-##        self.assertListEqual(locationsInfo(body), [])
-##        self.assertEqual(dateInfo(body)[1], "2000")
-##
-##unittest.main()
 
 import database
 import unittest
 from scraperInterface import ScraperInterface
-import app
 from pymongo import MongoClient
-class testDataRetrieval(unittest.TestCase):
-    def testDataRetrieval(self):
+class testErrors(unittest.TestCase):
+    def testErrorCollect(self):
         keywords = [""]
         scraper = ScraperInterface(keywords)
-        scraper.storeInIncidentsCollection(["Carbon Dioxide, Test Chemicals"],
-                                           "12/22/2019", "Detroit",
-                                           ["This is the official statement"],
-                                           ["www.testUrl.com"])
+        scraper.storeInIncidentsCollection(["Carbon Dioxide"], "12/22/2019", "", ["This is the official statement"], ["www.locationerror.com"])
         
-        app.run()
+        client = MongoClient("mongodb://127.0.0.1:27017")
+        db = client.Pollution
+
+        #should come back with the test entry with the error message of "no location"
+        collection = db.errors
+        test_event = collection.find({'articleLinks': ['www.locationerror.com']})
+        for t in test_event:
+            print(t)
+
+        #should come back blank
+        collection = db.incidents
+        test_event = collection.find({'articleLinks': ['www.locationerror.com']})
+        for t in test_event:
+            print(t)
 
 
 unittest.main()
+
+
+
+import database
+import unittest
+from scraperInterface import ScraperInterface
+from pymongo import MongoClient
+class testErrors(unittest.TestCase):
+    def testErrorCollect(self):
+        keywords = [""]
+        scraper = ScraperInterface(keywords)
+        scraper.storeInIncidentsCollection([], "12/22/2019", "Detroit", ["This is the official statement"], ["www.chemicalerror.com"])
+        
+        client = MongoClient("mongodb://127.0.0.1:27017")
+        db = client.Pollution
+        
+        #should come back with the test entry with the error message of "no chemical"
+        collection = db.errors
+        test_event = collection.find({'articleLinks': ['www.chemicalerror.com']})
+        for t in test_event:
+            print(t)
+
+        #should come back blank
+        collection = db.incidents
+        test_event = collection.find({'articleLinks': ['www.chemicalerror.com']})
+        for t in test_event:
+            print(t)
+
+
+unittest.main()
+

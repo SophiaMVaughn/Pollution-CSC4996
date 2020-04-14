@@ -11,7 +11,7 @@ mongoengine.connect(
     # port=27017
 )
 
-class articles(mongoengine.Document):
+class Articles(mongoengine.Document):
     url = mongoengine.StringField(required=True)
     title = mongoengine.StringField(required=True)
     publishingDate = mongoengine.StringField(required=True)
@@ -23,7 +23,7 @@ class articles(mongoengine.Document):
         'ordering': ['-publishingDate']
     }
 
-class urls(mongoengine.Document):
+class Urls(mongoengine.Document):
     url = mongoengine.StringField(required=True)
 
     meta = {
@@ -32,17 +32,14 @@ class urls(mongoengine.Document):
         ]
     }
 
-class incidents(mongoengine.Document):
+class Incidents(mongoengine.Document):
     chemicals = mongoengine.ListField(mongoengine.StringField(required=True))
     date = mongoengine.StringField(required=True)
     location = mongoengine.StringField(required=True)
     officialStatement = mongoengine.ListField(mongoengine.StringField(required=True))
     articleLinks = mongoengine.ListField(mongoengine.StringField(required=True))
 
-#the implementation for the errors collection (all attributes required)
-#it holds all of the information that would go in the incidents collection
-#along with an error message to say why it was put in the error collection
-class errors(mongoengine.Document):
+class Errors(mongoengine.Document):
     chems = mongoengine.ListField(mongoengine.StringField(required=True))
     day = mongoengine.StringField(required=True)
     loc = mongoengine.StringField(required=True)

@@ -6,9 +6,10 @@ from officialComm import officialComment
 from dateRegex import dateInfo
 from textColors import bcolors
 from Location import locationsInfo
+import testCollectionIncidents
 from mongoengine import connect
 from dateutil import parser
-from datetime import date
+import database
 
 
 db = connect(db="Pollution")
@@ -23,9 +24,9 @@ articleBodies.truncate(0)
 articleBodies.close()
 
 keywords = ["pollution"]
-scraper = ScraperInterface(keywords, searchPageLimit=10, websitesJsonFile="websites.json")
+scraper = ScraperInterface(keywords, websitesJsonFile="websitesTesting.json")
 
-print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles scraped" + bcolors.ENDC)
+print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles retrieved" + bcolors.ENDC)
 
 articleTitles = []
 
@@ -56,13 +57,7 @@ print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles f
 
 print("\nRunning NLP analysis")
 print("-------------------------")
-
 count = 0
-weeklyRunLogs = open('weeklyRunLogs.txt', 'a+')
-today = date.today()
-weeklyRunLogs.write("\n************  " + str(today) + "  ************\n\n")
-weeklyRunLogs.write("Incidents retrieved: " + str(len(confirmedEventArticles)) + "\n\n")
-
 for article in confirmedEventArticles:
     count = count + 1
     print("\n" + bcolors.OKGREEN + "[+] (" + str(count) + "/" + str(len(confirmedEventArticles)) + ") "
@@ -76,9 +71,9 @@ for article in confirmedEventArticles:
 
     # For getting location information
     locations = locationsInfo(body)
-    
+
     # for getting official statement
-    offComm= officialComment(body)
+    offComm, people = officialComment(body)
 
     # for pulling date information
     dates = dateInfo(body)
@@ -101,36 +96,9 @@ for article in confirmedEventArticles:
     articleLinks = []
     articleLinks.append(article['url'])
     error = False
-
-    if len(locations) == 0:
+    if len(locations)==0:
         location = ""
     else:
-        for l in locations:
-            if(type(l) is tuple):
-                locations.remove(l)
-                continue
-            else:
-                location = locations[0]
-                break
-    if type(location) is tuple:
-        for t in location:
-            if(len(t)>0):
-                location=t
-            break
-    try:
-        print("final location: "+location)
-    except:
-        location = ""
+        location = locations[0]
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
-
-    weeklyRunLogs.write("Event #" + str(count) + " - ")
-    weeklyRunLogs.write("Date: " + str(date) + "; ")
-    weeklyRunLogs.write("Location: " + str(location) + "; ")
-    weeklyRunLogs.write("Chems: " + str(chems) + "; ")
-    weeklyRunLogs.write("Article Links: " + str(articleLinks) + "\n")
-
-weeklyRunLogs.close()
-
-
-
 

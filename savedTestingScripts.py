@@ -20,9 +20,6 @@ import platform
 import os
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from webdriver_manager.firefox import GeckoDriverManager
-
 
 websites = [
     "https://www.ourmidland.com/",
@@ -157,17 +154,6 @@ driver.get("https://www.mlive.com/search/?q=pollution")
 
 #########################################################################
 
-driverType = "chrome"
-
-options = Options()
-options.add_argument('--headless')
-
-if driverType == "chrome":
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
-elif driverType == "firefox":
-    driver = webdriver.Firefox(GeckoDriverManager().install(), options=options)
-
-driver.get("https://www.freep.com/search/pollution/")
 
 
 

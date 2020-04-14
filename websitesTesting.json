@@ -1,7 +1,12 @@
 {
-  "detroitnews": {
-    "url": "https://www.detroitnews.com/",
-    "searchQuery": "https://www.detroitnews.com/search/PEATKEY/",
-    "nextPage": 3
+  "ourmidland": {
+    "url": "https://www.ourmidland.com/",
+    "searchQuery": "https://www.ourmidland.com/search/?action=search&searchindex=solr&query=PEATKEY&page=PEATPAGE",
+    "nextPage": 1
+  },
+  "thecountypress.mihomepaper": {
+    "url": "https://thecountypress.mihomepaper.com/",
+    "searchQuery": "https://thecountypress.mihomepaper.com/page/PEATPAGE/?s=PEATKEY",
+    "nextPage": 1
   }
 }
