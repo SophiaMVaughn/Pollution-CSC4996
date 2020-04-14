@@ -74,4 +74,3 @@ def locationsInfo(articleBody):
                     local.append(x)
             local.remove(l)
     return local
-
