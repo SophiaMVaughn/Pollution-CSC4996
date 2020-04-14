@@ -6,14 +6,19 @@ from tqdm import tqdm
 import json
 from exceptions import WebsiteFailedToInitialize
 
+from dateutil import parser
+from datetime import date
+from datetime import datetime
+
 class ScraperInterface:
-    def __init__(self, keywords, websitesJsonFile="websites.json"):
+    def __init__(self, keywords, searchPageLimit=2, websitesJsonFile="websites.json"):
         self.keywords = keywords
         self.websites = []
         self.articleUrls = []
         self.articleObjs = []
         self.articleCount = 0
         self.websitesJsonFile = websitesJsonFile
+        self.searchPageLimit = searchPageLimit
 
         self.pullWebsites()
         self.crawl()
@@ -24,18 +29,20 @@ class ScraperInterface:
             links = []
             try:
                 crawler = Crawler(url=website, keywords=self.keywords,
-                                  searchPageLimit=2, websitesJsonFile=self.websitesJsonFile)
+                                  searchPageLimit=self.searchPageLimit,
+                                  websitesJsonFile=self.websitesJsonFile)
                 self.articleCount = self.articleCount + crawler.getArticleCount()
                 for url in crawler.getArticleLinks():
                     links.append(url)
                     self.articleUrls.append(url)
             # TODO: handle the exception
             except WebsiteFailedToInitialize:
-                pass
+                errorLog = open("errorLog.txt", "a+")
+                errorLog.write("\nCould not crawl:  " + website)
 
             self.scrape(links)
 
-        print("\r" + bcolors.OKGREEN + "[+] All articles scraped" + bcolors.ENDC)
+        print("\r" + bcolors.OKGREEN + "[+] All articles retrieved" + bcolors.ENDC)
 
     def scrape(self, urls):
         loop = tqdm(total=len(urls), position=0, leave=False)
@@ -46,7 +53,6 @@ class ScraperInterface:
                 scraper = Scraper(url)
                 self.articleObjs.append(scraper.getScrapedArticle())
             except:
-                print("Could not scrape:  " + str(url))
                 errorLog = open("errorLog.txt", "a+")
                 errorLog.write("\nCould not scrape:  " + url)
         loop.close()
@@ -73,7 +79,7 @@ class ScraperInterface:
 
     def storeInArticlesCollection(self, article):
         try:
-            database.Articles(
+            database.articles(
                 url=article['url'],
                 title=article['title'],
                 publishingDate=article['publishingDate']
@@ -88,33 +94,66 @@ class ScraperInterface:
             errorLog = open("errorLog.txt", "a+")
             errorLog.write("\nCould not add article:   " + article['url'])
 
+
+#this function takes all of the information about an incident
+#and stores it in either the error or incidents database
     def storeInIncidentsCollection(self, chems, date, location, statement, links):
-        if len(location) == 0:
-            database.Errors(
+        if date =="": #this date will make the front end crash
+            #so we put it in the error database
+            database.errors(
                 chems=chems,
                 day=date,
-                loc=location,
+                loc=str(location),
                 offStmt=statement,
                 artLinks=links,
-                errorMessage="No location found."
+                errorMessage="Bad date."
             ).save()
-            print("Passed - no loc")
-        elif len(chems)==0:
-            database.Errors(
+            print("Passed - Bad date")
+            return
+        else: 
+            try:
+                #if the date is not blank, test if it can be formatted,
+                #if it can't, it will also crash the front end
+                datetime.strptime(date, '%m/%d/%Y')
+            except ValueError: #if formatting failed
+                #insert into the error database
+                database.errors(
+                    chems=chems,
+                    day=date,
+                    loc=str(location),
+                    offStmt=statement,
+                    artLinks=links,
+                    errorMessage="Bad date."
+                ).save()
+                print("Passed - Bad date")
+                return
+        
+        
+        if len(chems)==0: #if there were no chemicals
+            database.errors( #insert it into the error database
                 chems=chems,
                 day=date,
-                loc=location,
+                loc=str(location),
                 offStmt=statement,
                 artLinks=links,
                 errorMessage="No chemicals found."
             ).save()
             print("Passed - no chem")
-        else:
-            try:
-                database.Incidents(
+        elif len(location) == 0: #if there was no location
+            database.incidents( #insert it into the incidents database
                     chemicals=chems,
                     date=date,
-                    location=location,
+                    location="none", #but with a special location
+                    officialStatement=statement,
+                    articleLinks=links
+                ).save()
+            print("Saved - no loc")
+        else: #if all of these situations did not happen
+            try:
+                database.incidents( #insert as a normal incident
+                    chemicals=chems,
+                    date=date,
+                    location=str(location),
                     officialStatement=statement,
                     articleLinks=links
                 ).save()

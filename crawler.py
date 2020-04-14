@@ -23,7 +23,10 @@ class Crawler:
         self.websitesJsonFile = websitesJsonFile
 
         # TODO: Consider adding custom exception for this
-        self.website = Website(url, websitesJsonFile=self.websitesJsonFile)
+        try:
+            self.website = Website(url, websitesJsonFile=self.websitesJsonFile)
+        except WebsiteFailedToInitialize:
+            raise WebsiteFailedToInitialize(url)
 
         # TODO: make sure openning websites.json
         with open(self.websitesJsonFile) as data_file:
@@ -48,9 +51,12 @@ class Crawler:
 
         self.crawl()
 
+        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
+              + ": " + bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
+
     def crawl(self):
         self.crawlViaSearchKeys()
-        # self.getRecentArticles()
+        self.getRecentArticles()
 
     def crawlViaSearchKeys(self):
 
@@ -61,10 +67,15 @@ class Crawler:
 
             self.website.searchForKey(keyword)
 
-            links = []
             while self.website.getCurrentPageNum() <= self.searchPageLimit:
-
                 links = self.getPageLinks()
+
+                if self.baseUrl in self.exceptions:
+                    articleLinks = self.exceptionFilterLinksForArticles(links)
+                else:
+                    articleLinks = self.filterLinksForArticles(links)
+
+                self.articleLinks = self.articleLinks + articleLinks
 
                 # TODO: Consider adding custom exception for this
                 try:
@@ -74,18 +85,8 @@ class Crawler:
                     errorLog.write("Failed to query next page for:   " + self.baseUrl + "\n")
                     errorLog.close()
 
-            if self.baseUrl in self.exceptions:
-                articleLinks = self.exceptionFilterLinksForArticles(links)
-            else:
-                articleLinks = self.filterLinksForArticles(links)
-
-            self.articleLinks = self.articleLinks + articleLinks
-
         self.articleCount = self.articleCount + len(self.articleLinks)
         self.storeInUrlsCollection(self.articleLinks)
-
-        print("\r" + bcolors.OKGREEN + "[+]" + bcolors.ENDC + " Crawled " + self.baseUrl
-              + ": " + bcolors.OKGREEN + str(len(self.articleLinks)) + " URLs retrieved" + bcolors.ENDC)
 
     def getPageLinks(self):
         page = self.website.getCurrentPage()
@@ -127,6 +128,7 @@ class Crawler:
         for article in links.articles:
             self.articleLinks.append(article.url)
         self.storeInUrlsCollection(self.articleLinks)
+        self.articleCount = self.articleCount + len(links.articles)
 
     def filterLinksForArticles(self, urls):
         validArticleUrls = []
@@ -197,6 +199,6 @@ class Crawler:
     def storeInUrlsCollection(self, urls):
         for url in urls:
             try:
-                database.Urls(url=url).save()
+                database.urls(url=url).save()
             except:
                 pass
