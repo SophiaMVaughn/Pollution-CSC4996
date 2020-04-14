@@ -4,8 +4,6 @@ from newspaper import urls as urlChecker
 from textColors import bcolors
 import json
 import sys
-from scraper import Scraper
-import datetime
 from website import Website
 from exceptions import WebsiteFailedToInitialize, NextPageException
 
@@ -15,20 +13,15 @@ class Crawler:
         self.baseUrl = url
         self.keywords = keywords
         self.articleLinks = []
-        # TODO: dead variables
-        # self.searchPagesArticleLinks = []
-        # self.recentArticleLinks = []
         self.articleCount = 0
         self.searchPageLimit = searchPageLimit
         self.websitesJsonFile = websitesJsonFile
 
-        # TODO: Consider adding custom exception for this
         try:
             self.website = Website(url, websitesJsonFile=self.websitesJsonFile)
         except WebsiteFailedToInitialize:
             raise WebsiteFailedToInitialize(url)
 
-        # TODO: make sure openning websites.json
         with open(self.websitesJsonFile) as data_file:
             self.websites = json.load(data_file)
             data_file.close()
@@ -36,7 +29,6 @@ class Crawler:
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
-                self.nextPageType = attributes["nextPage"]
 
         self.exceptions = [
             "https://www.ourmidland.com/",
@@ -60,7 +52,6 @@ class Crawler:
 
     def crawlViaSearchKeys(self):
 
-        # TODO: come back to this
         assert self.keywords is not None
 
         for keyword in self.keywords:
@@ -78,7 +69,6 @@ class Crawler:
 
                 self.articleLinks = self.articleLinks + articleLinks
 
-                # TODO: Consider adding custom exception for this
                 try:
                     self.website.nextPage()
                 except NextPageException:
@@ -95,9 +85,7 @@ class Crawler:
 
         links = []
 
-        # TODO: make sure this if statement does what it should to.  If the site uses infinite
-        #  scrolling, it will not add links to links list until it's at the last scroll
-        if self.nextPageType != 3 or self.website.getCurrentPage() == self.searchPageLimit:
+        if self.website.getCurrentPage() == self.searchPageLimit:
             for link in pageLinks:
                 link = link['href']
                 if link not in links:
@@ -105,47 +93,26 @@ class Crawler:
 
         return links
 
-    # TODO: dead code
-    def articlesAreWithinLastYear(self, articleLinks):
-
-        yearAgo = datetime.datetime.now() - datetime.timedelta(days=365)
-
-        for article in articleLinks:
-            scraper = Scraper(article)
-            scrapedArticle = scraper.getScrapedArticle()
-
-            # TODO: fix this implementation
-            if scrapedArticle['publishingDate'] == "":
-                continue
-
-            publishingDate = datetime.datetime.strptime(scrapedArticle['publishingDate'], "%m/%d/%Y")
-            if publishingDate < yearAgo:
-                return False
-
-        return True
-
     def getRecentArticles(self):
         links = newspaper.build(self.baseUrl, memoize_articles=False)
+
         for article in links.articles:
             self.articleLinks.append(article.url)
+
         self.storeInUrlsCollection(self.articleLinks)
         self.articleCount = self.articleCount + len(links.articles)
 
     def filterLinksForArticles(self, urls):
-        # print("filtering")
         validArticleUrls = []
         for url in urls:
             if "http" not in url:
                 url = self.baseUrl + url
             urlSplit = url.split("/")
             if len(urlSplit) < 5:
-                # print("len less than 5")
                 continue
             if urlSplit[-2:-1][0].isnumeric() and urlSplit[-3:-2][0].isnumeric():
-                # print("numbers where numbers shouldn't be")
                 continue
             if urlChecker.valid_url(url):
-                # print(url)
                 validArticleUrls.append(url)
         return validArticleUrls
 

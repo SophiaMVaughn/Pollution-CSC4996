@@ -78,17 +78,19 @@ for article in confirmedEventArticles:
     locations = locationsInfo(body)
     
     # for getting official statement
-    offComm, people = officialComment(body)
+    offComm= officialComment(body)
 
     # for pulling date information
     dates = dateInfo(body)
 
-
+    #Use the article publishing date if no contamination event date can be identified by the dateRegex function
     if len(dates) == 0:
         date = article['publishingDate']
+    #Otherwise, use what was pulled as a date using the original function
     else:
         date = dates[0]
 
+    #Try to normalize dates coming through the function before they are outputted
     try:
         d = parser.parse(date)
         date = d.strftime("%m/%d/%Y")
