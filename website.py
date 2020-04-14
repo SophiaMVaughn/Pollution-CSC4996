@@ -45,15 +45,24 @@ class Website:
             self.setDriver()
 
     def getPage(self, key):
-        query = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(self.currentPageNum))
-        self.currentUrl = query
-        page = requests.get(query)
+        self.currentUrl = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(self.currentPageNum))
+        page = requests.get(self.currentUrl)
         return soup(page.content, "html.parser")
 
     def searchForKey(self, key):
         self.currentKey = key
-        self.currentPage = self.getPage(key)
+
+        if self.nextPageType == 1 or self.nextPageType == 2:
+            self.currentPage = self.getPage(key)
+        else:
+            self.seleniumSearchForKey(key)
+
         self.currentPageNum = 1
+
+    def seleniumSearchForKey(self, key):
+        self.currentUrl = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(self.currentPageNum))
+        self.driver.get(self.currentUrl)
+        return soup(self.driver.page_source, "html.parser")
 
     def nextPage(self):
         try:
@@ -90,7 +99,8 @@ class Website:
         options = Options()
         options.add_argument('--headless')
 
-        self.driver = webdriver.Firefox(options=options)
+        # self.driver = webdriver.Firefox(options=options)
+        self.driver = webdriver.Firefox()
         self.driver.get(self.currentUrl)
 
     def scrollPage(self):

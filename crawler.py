@@ -56,7 +56,7 @@ class Crawler:
 
     def crawl(self):
         self.crawlViaSearchKeys()
-        self.getRecentArticles()
+        # self.getRecentArticles()
 
     def crawlViaSearchKeys(self):
 
@@ -68,6 +68,7 @@ class Crawler:
             self.website.searchForKey(keyword)
 
             while self.website.getCurrentPageNum() <= self.searchPageLimit:
+
                 links = self.getPageLinks()
 
                 if self.baseUrl in self.exceptions:
@@ -131,16 +132,20 @@ class Crawler:
         self.articleCount = self.articleCount + len(links.articles)
 
     def filterLinksForArticles(self, urls):
+        # print("filtering")
         validArticleUrls = []
         for url in urls:
             if "http" not in url:
                 url = self.baseUrl + url
             urlSplit = url.split("/")
             if len(urlSplit) < 5:
+                # print("len less than 5")
                 continue
             if urlSplit[-2:-1][0].isnumeric() and urlSplit[-3:-2][0].isnumeric():
+                # print("numbers where numbers shouldn't be")
                 continue
             if urlChecker.valid_url(url):
+                # print(url)
                 validArticleUrls.append(url)
         return validArticleUrls
 
