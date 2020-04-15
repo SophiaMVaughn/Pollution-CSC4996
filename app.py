@@ -26,11 +26,13 @@ app.config['GOOGLEMAPS_KEY'] = "AIzaSyAhbiUH3iU1LV0t_IxCG0ashGNEjgNoYRI"
 GoogleMaps(app)
 Bootstrap(app)
 
+totalCount = 0
 def populate():
 
     all_events = collection.find()
     cookie = []
-
+    global totalCount
+    totalCount = 0
 #I loop through all_events which grabbed the data from the incidents collection, and am putting them into an array
     for task in all_events:
         #print(task)
@@ -82,6 +84,7 @@ def populate():
         final.append({'chemicals': task['chemicals'], 'date': task['date'], 'location': task['location'],
                         'officialStatement': task['officialStatement'], 'articleLinks': task['articleLinks'], 'lat': (locations[d].get('lat') + rand), 'lng': (locations[d].get('lng') - rand)})
         d +=1
+        totalCount += 1
     #for a in final:
         #print (a)
     #this will catch any location outside of michigan or if there is a blank date and send them to the error database
@@ -107,6 +110,17 @@ def call_pop():
     global initial
     initial = populate()
 call_pop()
+
+#A jerryrigged trigger to check if the database has been updated
+def check_for_new():
+    check_events = collection.find()
+    localCount = 0
+    for task in check_events:
+        localCount += 1
+    print(totalCount)
+    print(localCount)
+    if localCount != totalCount:
+        call_pop()
 
 #this function is called when filtering between 2 dates on the map page, it takes the dates and formats them correctly then returns an array of every event with dates in between
 def filterDate(a, b):
@@ -145,6 +159,7 @@ def home():
 #this will render the home page html
 @app.route("/home")
 def front():
+    check_for_new()
     return render_template('home.html')
 #this will render the aboutus html
 @app.route("/AboutUs")
