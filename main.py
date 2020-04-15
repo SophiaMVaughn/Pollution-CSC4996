@@ -87,7 +87,7 @@ weeklyRunLogs.write("\n************  " + str(today) + "  ************\n\n")
 # write the number of incidents retrieved to the log file
 weeklyRunLogs.write("Incidents retrieved: " + str(len(confirmedEventArticles)) + "\n\n")
 
-####################### End of event recognition ########################
+####################### NLP event attributes extraction ########################
 
 # for each confirmed contamination event article
 for article in confirmedEventArticles:
@@ -174,7 +174,7 @@ for article in confirmedEventArticles:
     weeklyRunLogs.write("Chems: " + str(chems) + "; ")
     weeklyRunLogs.write("Article Links: " + str(articleLinks) + "\n")
 
-# close weekly log file 
+# close weekly log file
 weeklyRunLogs.close()
 
 
