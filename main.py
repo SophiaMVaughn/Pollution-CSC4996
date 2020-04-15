@@ -23,7 +23,7 @@ articleBodies.truncate(0)
 articleBodies.close()
 
 keywords = ["pollution"]
-scraper = ScraperInterface(keywords, searchPageLimit=10, websitesJsonFile="websites.json")
+scraper = ScraperInterface(keywords, searchPageLimit=3, websitesJsonFile="websites.json")
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles scraped" + bcolors.ENDC)
 
@@ -40,9 +40,9 @@ count = 0
 print("\nParsing event articles")
 print("-----------------------")
 
-for article in scraper.getScrapedArticles():
+for article in scraper.getScrapedArticles(): #for every article found
     count = count + 1
-    if isArticleEvent(article):
+    if isArticleEvent(article): #if it is determined to be an event
         scraper.storeInArticlesCollection(article)
         confirmedEventArticles.append(article)
         confirmedEventCount = confirmedEventCount + 1
@@ -57,22 +57,24 @@ print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles f
 print("\nRunning NLP analysis")
 print("-------------------------")
 
+#add the newly discovered articles to the weekly log
 count = 0
 weeklyRunLogs = open('weeklyRunLogs.txt', 'a+')
 today = date.today()
 weeklyRunLogs.write("\n************  " + str(today) + "  ************\n\n")
 weeklyRunLogs.write("Incidents retrieved: " + str(len(confirmedEventArticles)) + "\n\n")
 
-for article in confirmedEventArticles:
+####################### End of event recognition ########################
+
+for article in confirmedEventArticles: #for each confirmed article
     count = count + 1
     print("\n" + bcolors.OKGREEN + "[+] (" + str(count) + "/" + str(len(confirmedEventArticles)) + ") "
           + article['title'] + bcolors.ENDC)
-    print(article['url'])
 
-    body = convertScrapedtoSent(article['body'])
+    body = convertScrapedtoSent(article['body']) #parse the body into paragraphs
 
-    # NOTE: ONLY RUN THESE IF YOU HAVE THE out_base FILE WITH THE CORRECT BINARY IN THE DIRECTORY!!!_____________
-    chems, quants = readBinary(body)
+    #retrieve chemicals from the body
+    chems = readBinary(body)
 
     # For getting location information
     locations = locationsInfo(body)
@@ -83,48 +85,52 @@ for article in confirmedEventArticles:
     # for pulling date information
     dates = dateInfo(body)
 
-    #Use the article publishing date if no contamination event date can be identified by the dateRegex function
-    if len(dates) == 0:
-        date = article['publishingDate']
-    #Otherwise, use what was pulled as a date using the original function
+
+    if len(dates) == 0: #if no date was found
+        date = article['publishingDate'] #use the publicshiing date of the article
     else:
         date = dates[0]
 
-    #Try to normalize dates coming through the function before they are outputted
     try:
-        d = parser.parse(date)
+        d = parser.parse(date) #attempt to format the date
         date = d.strftime("%m/%d/%Y")
-    except:
+    except: #if it failed, use the publishing date
         date = article['publishingDate']
 
-    if len(offComm) is None:
+    if len(offComm) is None: #if there is not an official comment found
         offComm = ""
 
     articleLinks = []
     articleLinks.append(article['url'])
     error = False
 
-    if len(locations) == 0:
+    #remove bad locations
+    if len(locations) == 0: #no locations found
         location = ""
-    else:
-        for l in locations:
-            if(type(l) is tuple):
-                locations.remove(l)
+    else: #some locations found
+        for l in locations: #for each location
+            if(type(l) is tuple): #if a location is a tuple (bad)
+                locations.remove(l) #remove it
                 continue
-            else:
-                location = locations[0]
+            else: #if it is not a tuple
+                location = locations[0] #make that the location
                 break
+    #if the type is a tuple, it contains a good location somewhere in there, so find it and use it
     if type(location) is tuple:
         for t in location:
             if(len(t)>0):
                 location=t
             break
+    #final level of error handling
     try:
         print("final location: "+location)
     except:
         location = ""
+
+    #store all located information in the database
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 
+    #update weekly log
     weeklyRunLogs.write("Event #" + str(count) + " - ")
     weeklyRunLogs.write("Date: " + str(date) + "; ")
     weeklyRunLogs.write("Location: " + str(location) + "; ")
