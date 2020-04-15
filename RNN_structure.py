@@ -5,9 +5,18 @@
 #This is simply being used to take the generated binary and make it usable in the context of this project.
 ##**********************************************
 
+from __future__ import absolute_import, division, print_function
+
+import torch
+import torch.nn.functional as F
 from pytorch_transformers import (WEIGHTS_NAME, AdamW, BertConfig,
                                   BertForTokenClassification, BertTokenizer,
                                   WarmupLinearSchedule)
+from torch import nn
+from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler,
+                              TensorDataset)
+from tqdm import tqdm, trange
+
 import RNNBinary
 
 class Ner(BertForTokenClassification):

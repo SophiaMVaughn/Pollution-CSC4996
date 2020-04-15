@@ -74,7 +74,7 @@ for article in confirmedEventArticles: #for each confirmed article
     body = convertScrapedtoSent(article['body']) #parse the body into paragraphs
 
     #retrieve chemicals from the body
-    chems, quants = readBinary(body)
+    chems = readBinary(body)
 
     # For getting location information
     locations = locationsInfo(body)
@@ -86,45 +86,51 @@ for article in confirmedEventArticles: #for each confirmed article
     dates = dateInfo(body)
 
 
-    if len(dates) == 0:
-        date = article['publishingDate']
+    if len(dates) == 0: #if no date was found
+        date = article['publishingDate'] #use the publicshiing date of the article
     else:
         date = dates[0]
 
     try:
-        d = parser.parse(date)
+        d = parser.parse(date) #attempt to format the date
         date = d.strftime("%m/%d/%Y")
-    except:
+    except: #if it failed, use the publishing date
         date = article['publishingDate']
 
-    if len(offComm) is None:
+    if len(offComm) is None: #if there is not an official comment found
         offComm = ""
 
     articleLinks = []
     articleLinks.append(article['url'])
     error = False
 
-    if len(locations) == 0:
+    #remove bad locations
+    if len(locations) == 0: #no locations found
         location = ""
-    else:
-        for l in locations:
-            if(type(l) is tuple):
-                locations.remove(l)
+    else: #some locations found
+        for l in locations: #for each location
+            if(type(l) is tuple): #if a location is a tuple (bad)
+                locations.remove(l) #remove it
                 continue
-            else:
-                location = locations[0]
+            else: #if it is not a tuple
+                location = locations[0] #make that the location
                 break
+    #if the type is a tuple, it contains a good location somewhere in there, so find it and use it
     if type(location) is tuple:
         for t in location:
             if(len(t)>0):
                 location=t
             break
+    #final level of error handling
     try:
         print("final location: "+location)
     except:
         location = ""
+
+    #store all located information in the database
     scraper.storeInIncidentsCollection(chems, date, location, offComm, articleLinks)
 
+    #update weekly log
     weeklyRunLogs.write("Event #" + str(count) + " - ")
     weeklyRunLogs.write("Date: " + str(date) + "; ")
     weeklyRunLogs.write("Location: " + str(location) + "; ")
