@@ -1,0 +1,5 @@
+could not format date for article:   https://www.ourmidland.com/news/article/Coronavirus-in-Midland-What-you-need-to-know-15200375.php
+could not format date for article:   https://www.ourmidland.com/news/article/Gov-Whitmer-addresses-confusion-and-rumors-with-15200447.php
+Could not download article:   https://www.ourmidland.com/news/article/Midland-s-I-Park-tenants-work-through-crisis-15200250.php
+could not format date for article:   https://www.ourmidland.com/news/article/Midland-s-I-Park-tenants-work-through-crisis-15200250.php
+could not format date for article:   https://www.ourmidland.com/news/article/Colleague-credits-Glenn-with-helping-try-to-save-15200084.php
