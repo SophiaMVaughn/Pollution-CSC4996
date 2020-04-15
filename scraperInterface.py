@@ -7,17 +7,16 @@ import json
 from exceptions import WebsiteFailedToInitialize
 from datetime import datetime
 
-'''
-The ScraperInterface class serves to abstract the crawler, scraper, and database implementations from the 
-main script.  
-'''
+
+# The ScraperInterface class serves to abstract the crawler, scraper, and database implementations from the
+# main script.
 
 class ScraperInterface:
 
     # Constructor for the ScraperInterface class
     def __init__(self, keywords, searchPageLimit=2, websitesJsonFile="websites.json"):
 
-        # Iinitialize class attributes
+        # iinitialize class attributes
         self.keywords = keywords
         self.websites = []
         self.articleUrls = []

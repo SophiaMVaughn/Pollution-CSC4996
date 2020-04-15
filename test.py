@@ -26,22 +26,6 @@ import traceback
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
-# options = Options()
-# # options.add_argument('--headless')
-# driver = webdriver.Firefox(options=options)
 
-# def printLinks(page):
-#     links = page.find_all('a', href=True)
-#     for link in links:
-#         print(link['href'])
-#     print("\n\n")
-#
-# website = Website("https://www.freep.com/")
-# website.searchForKey("pollution")
-# while website.getCurrentPageNum() < 5:
-#     printLinks(website.getCurrentPage())
-#     website.nextPage()
-
-
-crawler = Crawler("https://www.freep.com/", "pollution")
-
+crawler = Crawler("https://www.manisteenews.com/", ["pollution"], searchPageLimit=3)
+# print(crawler.getArticleLinks())
