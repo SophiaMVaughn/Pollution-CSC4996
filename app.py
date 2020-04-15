@@ -102,7 +102,11 @@ def populate():
     return(final)
 
 #calling the initial populate function from before the user even enters the page so it'll do all of the heavy lifting the second the web application runs on the server
-initial = populate()
+initial = []
+def call_pop():
+    global initial
+    initial = populate()
+call_pop()
 
 #this function is called when filtering between 2 dates on the map page, it takes the dates and formats them correctly then returns an array of every event with dates in between
 def filterDate(a, b):
@@ -112,7 +116,7 @@ def filterDate(a, b):
     print(c)
     print(d)
     dateArray = []
-    preArray = populate()
+    preArray = initial
     for item in preArray:
         date = item.get('date')
         date = datetime.strptime(date, '%m/%d/%Y')
@@ -122,7 +126,7 @@ def filterDate(a, b):
 #this function is called whenever you load the table page and will sort the dates from newest to oldest
 def sortDates():
     dateArray = []
-    preArray = populate()
+    preArray = initial
     dateArray = sorted(preArray, key=lambda x: datetime.strptime(x['date'], '%m/%d/%Y'), reverse=True)
     return(dateArray)
 #this function is called whenever a chemical is searched on the table page and return any event with a chemical matching the one searched
@@ -168,7 +172,7 @@ def filteredTable():
 @app.route("/MapPage", methods=['GET', 'POST'])
 def map():
     #call a new function that grabs final array and only gets dates within specific range
-    final = populate()
+    final = initial
     markers = []  # initialize a list to store your addresses
     for add in final:
         a = add.get('chemicals')
@@ -216,7 +220,7 @@ def map():
 @app.route("/FilteredMapPage", methods=['GET', 'POST'])
 def filteredMap():
     #call a new function that grabs final array and only gets dates within specific range
-    final = populate()
+    final = initial
     if(request.args['startDate'] != None):
         a = request.args['startDate']
         b = request.args['endDate']
