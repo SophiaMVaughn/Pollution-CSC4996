@@ -1,7 +1,14 @@
+##**********************************************
+#ATTENTION: This file does not claim to be written by anyone in this project.
+#This is used to simply read and utilize the binary that was generated in a proprietary formatting.
+#The original code was retrieved from https://github.com/kamalkraj/BERT-NER
+#This is simply being used to take the generated binary and make it usable in the context of this project.
+##**********************************************
+
 from pytorch_transformers import (WEIGHTS_NAME, AdamW, BertConfig,
                                   BertForTokenClassification, BertTokenizer,
                                   WarmupLinearSchedule)
-from RNNBinary import readArticle
+import RNNBinary
 
 class Ner(BertForTokenClassification):
 
@@ -40,7 +47,7 @@ class NerProcessor():
     def get_examples(self, articleBody):
         """See base class."""
         return self._create_examples(
-            readArticle(articleBody), "test") #----SHORTEN calls readfile
+            RNNBinary.readArticle(articleBody), "test") #----SHORTEN calls readfile
 
     def _create_examples(self,lines,set_type):
         examples = []

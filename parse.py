@@ -76,14 +76,14 @@ negativePatterns.append(
 #The iterator ensures a unique name is given to each pattern added
 i = 0
 for pat in pollutionPatterns:
-    pPt.add("pat" + str(i), None, pat)
+    pollutionPatn.add("pat" + str(i), None, pat)
     i = i + 1
 
 #add all negative patterns from the array of patterns to the second matcher
 #The iterator ensures a unique name is given to each pattern added
 i = 0
 for pat in negativePatterns:
-    negP.add("neg" + str(i), None, pat)
+    negativePatn.add("neg" + str(i), None, pat)
     i = i + 1
 
 
@@ -114,7 +114,7 @@ def isArticleEvent(article):
             for mID, s, e in positiveInSent:
                 numPositivePatterns = numPositivePatterns + 1 #tally up all of the positive patterns found
 
-    if numPos != 0 and numPos >= numNeg:
+    if numPositivePatterns != 0 and numPositivePatterns >= numNegativePatterns:
         return True #is an event
     else:
         return False #is not an event
