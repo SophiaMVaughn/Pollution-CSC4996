@@ -69,6 +69,8 @@ class ScraperInterface:
     # to the articleObjs attributes.
     def scrape(self, urls):
 
+        articleTitles = []
+
         # for the progress bar to show how many articles out the total number in the urls list have
         # been scraped
         loop = tqdm(total=len(urls), position=0, leave=False)
@@ -81,7 +83,11 @@ class ScraperInterface:
 
             try:
                 scraper = Scraper(url)
-                self.articleObjs.append(scraper.getScrapedArticle())
+
+                # prevent duplicate articles from being appended to articleObjs batch
+                if scraper.getScrapedArticle()['title'] not in articleTitles:
+                    self.articleObjs.append(scraper.getScrapedArticle())
+                    articleTitles.append(scraper.getScrapedArticle()['title'])
 
             # catch exception if error occurs during scrape and note it in the error log
             except:

@@ -36,7 +36,7 @@ class Crawler:
             self.websites = json.load(data_file)
             data_file.close()
 
-        # set the searchQuery attribute to the approapriate search query structure in the websites json file
+        # set the searchQuery attribute to the appropriate search query structure in the websites json file
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
