@@ -93,6 +93,7 @@ def populate():
             temp = item
             try:
                 final.remove(item)
+                totalCount = totalCount - 1
             except ValueError:
                 continue
             dbTempDel = {'chemicals': temp.get('chemicals'), 'date': temp.get('date'), 'officialStatement': temp.get('officialStatement'), 'articleLinks': temp.get('articleLinks')}
