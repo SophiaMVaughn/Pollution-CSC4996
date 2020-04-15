@@ -24,6 +24,16 @@ articleBodies = open("articleBodies.txt","r+")
 articleBodies.truncate(0)
 articleBodies.close()
 
+# delete text file holding crawled websites
+crawlLog = open("crawlLog.txt","r+")
+crawlLog.truncate(0)
+crawlLog.close()
+
+# delete text file holding article urls scraped
+scrapeLog = open("scrapeLog.txt", "r+")
+scrapeLog.truncate(0)
+scrapeLog.close()
+
 ####################  Article scraping  ###########################
 
 # set the keywords to use in crawler
@@ -31,7 +41,7 @@ keywords = ["pollution"]
 
 # instantiate ScraperInterface object, passing the keywords list, setting a search page limit of 10,
 # and setting the json file to pull websites/website attributes from to website.json
-scraper = ScraperInterface(keywords, searchPageLimit=10, websitesJsonFile="websites.json")
+scraper = ScraperInterface(keywords, searchPageLimit=2, websitesJsonFile="websites.json")
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles scraped" + bcolors.ENDC)
 
