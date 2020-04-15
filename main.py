@@ -37,11 +37,11 @@ scrapeLog.close()
 ####################  Article scraping  ###########################
 
 # set the keywords to use in crawler
-keywords = ["pollution"]
+keywords = ["pollution", "contamination", "spill"]
 
 # instantiate ScraperInterface object, passing the keywords list, setting a search page limit of 10,
 # and setting the json file to pull websites/website attributes from to website.json
-scraper = ScraperInterface(keywords, searchPageLimit=2, websitesJsonFile="websites.json")
+scraper = ScraperInterface(keywords, searchPageLimit=10, websitesJsonFile="websites.json")
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles scraped" + bcolors.ENDC)
 
@@ -115,7 +115,7 @@ for article in confirmedEventArticles:
     locations = locationsInfo(body)
     
     # for getting official statement
-    offComm= officialComment(body)
+    offComm = officialComment(body)
 
     # for pulling date information
     dates = dateInfo(body)
