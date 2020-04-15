@@ -66,7 +66,7 @@ class Crawler:
     # retrieved
     def crawl(self):
         # search page crawling is not supported for selenium based websites
-        if self.nextPageType != 1 and self.nextPageType != 2:
+        if self.nextPageType == 1 or self.nextPageType == 2:
             self.crawlViaSearchKeys()
 
         self.crawlRecentArticles()
