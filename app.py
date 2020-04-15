@@ -126,8 +126,12 @@ def check_for_new():
 #this function is called when filtering between 2 dates on the map page, it takes the dates and formats them correctly then returns an array of every event with dates in between
 def filterDate(a, b):
     #check date formatting
-    c = datetime.strptime(a, '%m/%d/%Y')
-    d = datetime.strptime(b, '%m/%d/%Y')
+    try:
+        c = datetime.strptime(a, '%m/%d/%Y')
+        d = datetime.strptime(b, '%m/%d/%Y')
+    except ValueError:
+        c = datetime.strptime('01/01/2000', '%m/%d/%Y')
+        d = datetime.strptime('12/30/2020', '%m/%d/%Y')
     print(c)
     print(d)
     dateArray = []
@@ -135,7 +139,7 @@ def filterDate(a, b):
     for item in preArray:
         date = item.get('date')
         date = datetime.strptime(date, '%m/%d/%Y')
-        if (c < date < d):
+        if (c <= date <= d):
             dateArray.append(item)
     return(dateArray)
 #this function is called whenever you load the table page and will sort the dates from newest to oldest
