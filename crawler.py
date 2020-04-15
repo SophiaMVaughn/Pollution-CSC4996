@@ -141,8 +141,8 @@ class Crawler:
     def crawlRecentArticles(self):
 
         # build the newspaper website
-        # memoize_articles=False param to not use caching
-        links = newspaper.build(self.baseUrl, memoize_articles=False)
+        # memoize_articles=False argument to not use caching
+        links = newspaper.build(self.baseUrl)
 
         # append article to articleLinks
         for article in links.articles:
