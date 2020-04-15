@@ -8,7 +8,7 @@ def locationsInfo(articleBody):
     #The lakes regular expression looks for words after the word Lake which are capitalized and not numbers
     lakes = re.compile(r'\S*Lake*(?:\s\S*)([A-Z]\S*)')
     # The rivers regular expression looks for words before the word River which are capitalized and not numbers
-    rivers = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*River')
+    rivers = re.compile(r'([A-Z]\S*)(?:\S+\s)?\s*River')
     # The schools regular expression will look for one or two words before every keyword which are both capitalized and not numbers
     schools = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*Elementary School|([A-Z]\S*)(?:\S+\s)?\S*Intermediate School|([A-Z]\S*)(?:\S+\s)?\S*Middle School|([A-Z]\S*)(?:\S+\s)?\S*High School|([A-Z]\S*)(?:\S+\s)?\S*Public School|([A-Z]\S*)(?:\S+\s)?\S*Private School|([A-Z]\S*)(?:\S+\s)?\S*Academy')
     # The highways regular expression will look for numbers right after the I- and M-
