@@ -30,14 +30,20 @@ If you want this application to be self-updating consistently (seeks out recentl
 ## INSTALLATION
 
 **NOTE: if you do not have python 3.6.8, some versions may be incompatible. It is highly recommended that you attempt this application with 3.6.8 for the best results. Follow the link below to get the installer.**
+
 Download python 3.6.8 from https://www.python.org/downloads/release/python-368/
 (windows -> https://www.python.org/ftp/python/3.6.8/python-3.6.8-amd64.exe)
+
 Install and add to PATH in environment variables
 
 **Once python 3.6.8 is installed:**
+
 Download out_base from https://drive.google.com/open?id=10GeUFUaEetQvhnKR488n4Tjmho0Rljp0 (download whole file)
+
 Unzip file after download
+
 Move **out_base** folder to the git repository directory (the same level as main.py)
+
 
 **Use the following commands to install all of the needed modules for both the front end and back end to run as expected.**
 ```bash
