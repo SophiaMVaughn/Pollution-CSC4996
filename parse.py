@@ -3,79 +3,86 @@ from spacy.matcher import Matcher
 
 nlp = en_core_web_sm.load() #load in the pretrained model from spacy
 
-pPt = Matcher(nlp.vocab) #create a matcher that we can add patterns to
+pollutionPatn = Matcher(nlp.vocab) #create a matcher that we can add patterns to
 
 #---------------------------create and declare array of POSITIVE patterns------------
 #these are the patterns that chould be found in an event
 
-pollPats = []
+pollutionPatterns = []
 #ex: "... dumped into the Detroit River ..."
-pollPats.append([{"LEMMA": {
+pollutionPatterns.append([{"LEMMA": {
     "IN": ["pollute", "contaminate", "dump", "pour", "discard", "spill", "leak", "taint", "bleed", "plume"]}},
                  {"POS": "ADP", "OP": "?"}, {"POS": "DET", "OP": "?"}, {"POS": "ADP", "OP": "?"}, {"POS": "PROPN"}])
 #ex: "...leaked into the drain..."
-pollPats.append([{"LEMMA": {
+pollutionPatterns.append([{"LEMMA": {
     "IN": ["pollute", "contaminate", "dump", "pour", "discard", "spill", "leak", "taint", "bleed", "plume"]}},
                  {"POS": "ADP", "OP": "?"}, {"POS": "DET", "OP": "?"}, {"POS": "ADP", "OP": "?"}, {"POS": "NOUN"}])
-#ex: 
-pollPats.append([{"LEMMA": {"IN": ["cause", "source"]}}, {"LEMMA": {
+#ex: "...caused contamination..."
+pollutionPatterns.append([{"LEMMA": {"IN": ["cause", "source"]}}, {"LEMMA": {
     "IN": ["unknown", "pollute", "contaminate", "dump", "pour", "discard", "spill", "leak", "taint", "bleed",
            "plume"]}}])
-pollPats.append([{"POS": "NOUN", "OP": "?"}, {"LEMMA": {"IN": ["superfund"]}}, {"POS": "NOUN", "OP": "?"}])
-pollPats.append([{"POS": "NOUN"}, {"LEMMA": {"IN": ["levels", "contamination"]}}])
-pollPats.append([{"POS": "NOUN"}, {"LEMMA": {
+#ex: "... superfund site..."
+pollutionPatterns.append([{"POS": "NOUN", "OP": "?"}, {"LEMMA": {"IN": ["superfund"]}}, {"POS": "NOUN", "OP": "?"}])
+#ex: "... mercury levels..."
+pollutionPatterns.append([{"POS": "NOUN"}, {"LEMMA": {"IN": ["levels", "contamination"]}}])
+#ex: "... lead leaked..."
+pollutionPatterns.append([{"POS": "NOUN"}, {"LEMMA": {
     "IN": ["pollute", "contaminate", "dump", "pour", "discard", "spill", "leak", "taint", "bleed", "plume"]}}])
-pollPats.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}}, {"POS": "ADJ", "OP": "*"},
+#ex: "... found hazardous chemical levels..."
+pollutionPatterns.append([{"LEMMA": {"IN": ["detected", "discovered", "found"]}}, {"POS": "ADJ", "OP": "*"},
                  {"LEMMA": {"IN": ["substance", "chemical", "level"]}}, {"POS": "NOUN", "OP": "?"}])
-pollPats.append([{"POS": "ADJ"}, {"LEMMA": {"IN": ["chemical"]}}, {"POS": "NOUN", "OP": "?"}])
-pollPats.append([{"POS": "ADJ", "OP": "?"}, {"LEMMA": {"IN": ["chemical"]}}, {"POS": "NOUN"}])
-pollPats.append([{"POS": "NUM"}, {"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
+#ex: "... dangerous chemicals..."
+pollutionPatterns.append([{"POS": "ADJ"}, {"LEMMA": {"IN": ["chemical"]}}, {"POS": "NOUN", "OP": "?"}])
+#ex: "... chemical contamination..."
+pollutionPatterns.append([{"POS": "ADJ", "OP": "?"}, {"LEMMA": {"IN": ["chemical"]}}, {"POS": "NOUN"}])
+#ex: "... 50,000 gallons..."
+pollutionPatterns.append([{"POS": "NUM"}, {"LEMMA": {"IN": ["gallon", "ppt", "ppb", "ton"]}}])
 #--------------------------------------------------------------------------------
 
 
-negP = Matcher(nlp.vocab) #create a second matcher that we can add patterns to
+negativePatn = Matcher(nlp.vocab) #create a second matcher that we can add patterns to
 #---------------------------create and declare array of NEGATIVE patterns------------
 #these are patterns we noticed often led to a false positive
 
-negPats = []
+negativePatterns = []
 # identifying lawsuit/sue
-negPats.append([{"POS": "NOUN", "OP": "?"}, {"LEMMA": {"IN": ["legislation", "lawsuit", "sue", "charge"]}},
+negativePatterns.append([{"POS": "NOUN", "OP": "?"}, {"LEMMA": {"IN": ["legislation", "lawsuit", "sue", "charge"]}},
                 {"POS": "NOUN", "OP": "?"}])
 # op verb + automobile, car, vehicle, motor
-negPats.append([{"POS": "VERB", "OP": "?"}, {"LEMMA": {"IN": ["noise", "automobile", "car", "vehicle"]}}])
+negativePatterns.append([{"POS": "VERB", "OP": "?"}, {"LEMMA": {"IN": ["noise", "automobile", "car", "vehicle"]}}])
 # op noun + automobile, car, vehicle, motor + op verb
-negPats.append(
+negativePatterns.append(
     [{"POS": "NOUN", "OP": "?"}, {"LEMMA": {"IN": ["automobile", "car", "vehicle"]}}, {"POS": "VERB", "OP": "?"}])
 # op verb + championship, game, tournament, competition
-negPats.append([{"POS": "VERB", "OP": "?"},
+negativePatterns.append([{"POS": "VERB", "OP": "?"},
                 {"LEMMA": {"IN": ["sport", "basketball", "championship", "game", "tournament", "competition"]}}])
 # op verb + fruit, meal, produce, meat + op adverb
-negPats.append(
+negativePatterns.append(
     [{"POS": "VERB", "OP": "?"}, {"LEMMA": {"IN": ["recall", "fruit", "meal", "meat"]}}, {"POS": "ADV", "OP": "?"}])
 # op noun + fruit, meal, produce, meat + op adverb
-negPats.append([{"POS": "NOUN", "OP": "?"}, {"LEMMA": {"IN": ["fruit", "meal", "meat"]}}, {"POS": "ADV", "OP": "?"}])
+negativePatterns.append([{"POS": "NOUN", "OP": "?"}, {"LEMMA": {"IN": ["fruit", "meal", "meat"]}}, {"POS": "ADV", "OP": "?"}])
 # op verb + application, password, technology + op verb
-negPats.append([{"POS": "VERB", "OP": "?"}, {"LEMMA": {"IN": ["application", "password", "technology"]}},
+negativePatterns.append([{"POS": "VERB", "OP": "?"}, {"LEMMA": {"IN": ["application", "password", "technology"]}},
                 {"POS": "VERB", "OP": "?"}])
 # op verb + theater, performance, venue + op verb
-negPats.append(
+negativePatterns.append(
     [{"POS": "VERB", "OP": "?"}, {"LEMMA": {"IN": ["theater", "performance", "venue"]}}, {"POS": "VERB", "OP": "?"}])
 # op verb + theater, performance, venue + op noun
-negPats.append(
+negativePatterns.append(
     [{"POS": "VERB", "OP": "?"}, {"LEMMA": {"IN": ["theater", "performance", "venue"]}}, {"POS": "NOUN", "OP": "?"}])
 #----------------------------------------------------------------------------
 
 #add all positive patterns from the array of patterns to the first matcher
 #The iterator ensures a unique name is given to each pattern added
 i = 0
-for pat in pollPats:
+for pat in pollutionPatterns:
     pPt.add("pat" + str(i), None, pat)
     i = i + 1
 
 #add all negative patterns from the array of patterns to the second matcher
 #The iterator ensures a unique name is given to each pattern added
 i = 0
-for pat in negPats:
+for pat in negativePatterns:
     negP.add("neg" + str(i), None, pat)
     i = i + 1
 
@@ -88,30 +95,27 @@ def convertScrapedtoSent(splitContent):
     for eachSent in NLPtxt.sents: #for each full sentence
         tokenizedSent.append(eachSent.string.strip()) #strip the sentence and add it to the set of sentences
     return tokenizedSent #returns the array of full sentences
+#---------------------------------------------------------------------------------
 
+#--------function that takes article and returns if it is or is not an event------
 def isArticleEvent(article):
-    body = article['body']
-    tS = convertScrapedtoSent(body)
-    numPos = 0
-    numNeg = 0
-    for sentence in tS:
-        #print(sentence)
-        nER = nlp(sentence)
-        negInSent = negP(nER)
-        matchesInSent = pPt(nER)
-        if negInSent:
-            for mID, s, e in negInSent:
-                strID = nlp.vocab.strings[mID]  # convert from span object to string
-                startToEnd = nER[s:e]
-                numNeg = numNeg + 1
-        elif matchesInSent:
-            for mID, s, e in matchesInSent:
-                strID = nlp.vocab.strings[mID]  # convert from span object to string
-                startToEnd = nER[s:e]
-                numPos = numPos + 1
+    body = article['body'] #isolate the article body
+    tS = convertScrapedtoSent(body) #convert article body to sentences
+    numPositivePatterns = 0
+    numNegativePatterns = 0
+    for sentence in tS: #for each sentence in the article
+        nER = nlp(sentence) #convert sentence to NLP object
+        negativeInSent = negativePatn(nER) #find all negative patterns in the sentence
+        positiveInSent = pollutionPatn(nER) #find all positive patterns in the sentence
+        if negativeInSent:
+            for mID, s, e in negativeInSent:
+                numNegativePatterns = numNegativePatterns + 1 #tally up all of the negative patterns found
+        elif positiveInSent:
+            for mID, s, e in positiveInSent:
+                numPositivePatterns = numPositivePatterns + 1 #tally up all of the positive patterns found
+
     if numPos != 0 and numPos >= numNeg:
-        return True
+        return True #is an event
     else:
-        return False
-    # run at least 2 rules on it
-    # returns if it was found to be T/F
+        return False #is not an event
+#---------------------------------------------------------------------------------
