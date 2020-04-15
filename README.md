@@ -50,7 +50,6 @@ Move **out_base** folder to the git repository directory (the same level as main
 pip install mongoengine
 pip3 install newspaper3k
 pip install selenium
-pip install webdriver_manager
 pip install tqdm
 pip install -U spacy
 python -m spacy download en_core_web_sm
