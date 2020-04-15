@@ -15,17 +15,23 @@ class Website:
         self.currentPageNum = 0
 
         try:
+            # set current page to the beautiful soup representation of the base webpage
             self.currentPage = soup(requests.get(self.baseUrl).content, "html.parser")
+
+        # if there is an error with the initial connection, raise an exception
         except:
             raise WebsiteFailedToInitialize(self.baseUrl)
 
         self.currentUrl = self.baseUrl
         self.currentKey = ""
 
+        # open the json file containing websites and their attributes
         with open(self.websitesJsonFile) as data_file:
             self.websites = json.load(data_file)
             data_file.close()
 
+        # set the searchQuery attribute to the appropriate search query structure and set the nextPageType
+        # attribute to the appropriate next page type
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
@@ -33,7 +39,9 @@ class Website:
 
     # Return the beautiful soup representation of the current url
     def getPage(self, key):
+        # replace the place holder string (PEATKEY and PEATPAGE) with the specific key and page number needed
         self.currentUrl = self.searchQuery.replace("PEATKEY", key).replace("PEATPAGE", str(self.currentPageNum))
+        # GET request to url
         page = requests.get(self.currentUrl)
         return soup(page.content, "html.parser")
 
@@ -51,6 +59,9 @@ class Website:
                 self.currentPage = self.getPage(self.currentKey)
 
             elif self.nextPageType == 2:
+                # with websites of this class (nextPageType = 2), pages are tracked by article count and
+                # they increment by 25. The first page of the search result is technically represented by
+                # the value 0, but 0 is used here to denote the base url so I just set it to one
                 if self.currentPageNum == 1:
                     self.currentPageNum = 25
                 else:
@@ -90,6 +101,8 @@ class Website:
             if self.currentPageNum == 1:
                 return 1
             else:
+                # websites with nextPageType type = 2 increment page number by 25 articles, so divide by 25 and
+                # add 1 to get the intuitive page number
                 return int(self.currentPageNum/25 + 1)
 
     # Return the current url
