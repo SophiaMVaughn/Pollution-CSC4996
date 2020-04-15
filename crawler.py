@@ -40,6 +40,7 @@ class Crawler:
         for website, attributes in self.websites.items():
             if website in self.baseUrl:
                 self.searchQuery = attributes["searchQuery"]
+                self.nextPageType = attributes["nextPage"]
 
         # populate the exceptions attribute list with websites who's article urls need to be manually
         # crawled
@@ -64,8 +65,11 @@ class Crawler:
     # but for the weekly crawls, comment out the crawlViaSearchKeys method so that only recent articles are
     # retrieved
     def crawl(self):
-        self.crawlViaSearchKeys()
-        # self.crawlRecentArticles()
+        # search page crawling is not supported for selenium based websites
+        if self.nextPageType != 1 and self.nextPageType != 2:
+            self.crawlViaSearchKeys()
+
+        self.crawlRecentArticles()
 
     # Crawl the website by making search queries to the website (with the keyword(s) specified in the
     # keywords attribute) using the website's search functionality. The method will visit the first page
