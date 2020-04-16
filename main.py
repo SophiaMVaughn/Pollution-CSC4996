@@ -10,6 +10,8 @@ from mongoengine import connect
 from dateutil import parser
 from datetime import date
 
+# This is a test
+
 # delete the Pollution database (for testing only)
 db = connect(db="Pollution")
 db.drop_database("Pollution")
@@ -24,10 +26,20 @@ articleBodies = open("articleBodies.txt","r+")
 articleBodies.truncate(0)
 articleBodies.close()
 
+# delete text file holding crawled websites
+crawlLog = open("crawlLog.txt","r+")
+crawlLog.truncate(0)
+crawlLog.close()
+
+# delete text file holding article urls scraped
+scrapeLog = open("scrapeLog.txt", "r+")
+scrapeLog.truncate(0)
+scrapeLog.close()
+
 ####################  Article scraping  ###########################
 
 # set the keywords to use in crawler
-keywords = ["pollution"]
+keywords = ["pollution", "contamination", "spill"]
 
 # instantiate ScraperInterface object, passing the keywords list, setting a search page limit of 10,
 # and setting the json file to pull websites/website attributes from to website.json
@@ -105,7 +117,7 @@ for article in confirmedEventArticles:
     locations = locationsInfo(body)
     
     # for getting official statement
-    offComm= officialComment(body)
+    offComm = officialComment(body)
 
     # for pulling date information
     dates = dateInfo(body)

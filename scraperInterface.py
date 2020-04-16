@@ -53,6 +53,11 @@ class ScraperInterface:
                     links.append(url)
                     self.articleUrls.append(url)
 
+                # add website url to crawl log file
+                crawlLog = open("crawlLog.txt","a+")
+                crawlLog.write("crawled " + website + "\n")
+                crawlLog.close()
+
             # catch exception thrown by Crawler if the crawler cannot establish connection to the website
             # and note the error in the error log
             except WebsiteFailedToInitialize:
@@ -88,6 +93,11 @@ class ScraperInterface:
                 if scraper.getScrapedArticle()['title'] not in articleTitles:
                     self.articleObjs.append(scraper.getScrapedArticle())
                     articleTitles.append(scraper.getScrapedArticle()['title'])
+
+                # add url of article thar was scraped to scrape log file
+                scrapeLog = open("scrapeLog.txt", "a+")
+                scrapeLog.write("scraped " + url + "\n")
+                scrapeLog.close()
 
             # catch exception if error occurs during scrape and note it in the error log
             except:

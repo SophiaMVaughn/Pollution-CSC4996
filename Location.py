@@ -8,13 +8,13 @@ def locationsInfo(articleBody):
     #The lakes regular expression looks for words after the word Lake which are capitalized and not numbers
     lakes = re.compile(r'\S*Lake*(?:\s\S*)([A-Z]\S*)')
     # The rivers regular expression looks for words before the word River which are capitalized and not numbers
-    rivers = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*River')
+    rivers = re.compile(r'([A-Z]\S*)(?:\S+\s)?\s*River')
     # The schools regular expression will look for one or two words before every keyword which are both capitalized and not numbers
-    schools = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*Elementary School|([A-Z]\S*)(?:\S+\s)?\S*Intermediate School|([A-Z]\S*)(?:\S+\s)?\S*Middle School|([A-Z]\S*)(?:\S+\s)?\S*High School|([A-Z]\S*)(?:\S+\s)?\S*Public School|([A-Z]\S*)(?:\S+\s)?\S*Private School|([A-Z]\S*)(?:\S+\s)?\S*Academy')
+    schools = re.compile(r'([A-Z]\S*)(?:\S+\s)?\s*Elementary School|([A-Z]\S*)(?:\S+\s)?\s*Intermediate School|([A-Z]\S*)(?:\S+\s)?\s*Middle School|([A-Z]\S*)(?:\S+\s)?\s*High School|([A-Z]\S*)(?:\S+\s)?\s*Public School|([A-Z]\S*)(?:\S+\s)?\s*Private School|([A-Z]\S*)(?:\S+\s)?\s*Academy')
     # The highways regular expression will look for numbers right after the I- and M-
     highways = re.compile(r'I-(?:\S+\s)\s?|M-(?:\S+\s)\s?')
     # The word before will look for words before the keyword which are both capitalized and not numbers
-    wordBefore = re.compile(r'([A-Z]\S*)(?:\S+\s)?\S*County|([A-Z]\S*)(?:\S+\s)?\S*Lake|([A-Z]\S*)(?:\S+\s)?\S*Townships|([A-Z]\S*)(?:\S+\s)?\S*Park|([A-Z]\S*)(?:\S+\s)?\S*Bay|([A-Z]\S*)(?:\S+\s)?\S*Pond|([A-Z]\S*)(?:\S+\s)?\S*Dam|([A-Z]\S*)(?:\S+\s)?\S*Delta|([A-Z]\S*)(?:\S+\s)?\S*Creek|([A-Z]\S*)(?:\S+\s)?\S*Power Plant|([A-Z]\S*)(?:\S+\s)?\S*Power Station')
+    wordBefore = re.compile(r'([A-Z]\S*)(?:\S+\s)?\s*County|([A-Z]\S*)(?:\S+\s)?\s*Lake|([A-Z]\S*)(?:\S+\s)?\s*Townships|([A-Z]\S*)(?:\S+\s)?\s*Park|([A-Z]\S*)(?:\S+\s)?\s*Bay|([A-Z]\S*)(?:\S+\s)?\s*Pond|([A-Z]\S*)(?:\S+\s)?\s*Dam|([A-Z]\S*)(?:\S+\s)?\s*Delta|([A-Z]\S*)(?:\S+\s)?\s*Creek|([A-Z]\S*)(?:\S+\s)?\s*Power Plant|([A-Z]\S*)(?:\S+\s)?\s*Power Station')
     cities = []
     cityFile = open("Cities.txt", "r")
     for x in cityFile:
@@ -27,15 +27,15 @@ def locationsInfo(articleBody):
         for sent in temp:
             lake = lakes.findall(sent)
             for Lake in lake:
-                local.append(Lake)
+                local.append('Lake '+Lake)
                 break
             river = rivers.findall(sent)
             for River in river:
-                local.append(River)
+                local.append(River+' River')
                 break
             school = schools.findall(sent)
             for School in school:
-                local.append(School)
+                local.append(School+' Schools')
                 break
             highway = highways.findall(sent)
             for Highway in highway:
@@ -74,4 +74,3 @@ def locationsInfo(articleBody):
                     local.append(x)
             local.remove(l)
     return local
-
