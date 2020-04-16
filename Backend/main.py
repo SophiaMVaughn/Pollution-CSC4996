@@ -36,10 +36,13 @@ scrapeLog.close()
 # set the keywords to use in crawler
 keywords = ["pollution", "contamination", "spill"]
 
+# CHANGE THIS TO FALSE AFTER THE FIRST RUN OF THE PROGRAM
+isInitialCrawl = True
+
 # instantiate ScraperInterface object, passing the keywords list, setting a search page limit of 10,
 # and setting the json file to pull websites/website attributes from to website.json
 scraper = ScraperInterface(keywords=keywords, searchPageLimit=10, websitesJsonFile="websites.json",
-                           isInitialCrawl=True)
+                           isInitialCrawl=isInitialCrawl)
 
 print("\n" + bcolors.OKGREEN + "[+] " + str(scraper.getArticleCount()) + " articles scraped" + bcolors.ENDC)
 
