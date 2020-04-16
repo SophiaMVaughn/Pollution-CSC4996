@@ -133,6 +133,10 @@ class ScraperInterface:
     def getScrapedArticles(self):
         return self.articleObjs
 
+    # Deallocate the memory taken up by articleObjs list
+    def delScrapedArticlesList(self):
+        del self.articleObjs
+
     # Store the attributes (url, title, publishing date) of the article specified by the article object
     # 'article' into the Articles collection. If an error occurs during this process, it is noted in the
     # error log.
@@ -144,13 +148,6 @@ class ScraperInterface:
                 title=article['title'],
                 publishingDate=article['publishingDate']
             ).save()
-
-            # append the url and body of the article to the articleBody text file
-            articleBodies = open("articleBodies.txt", "a+")
-            articleBodies.write("url: " + article['url'] + "\n")
-            articleBodies.write(article['body'] + "\n")
-            articleBodies.write("\n" + "#"*100 + "\n")
-            articleBodies.close()
 
         # catch error while inserting into the database and note it in the error log file
         except:

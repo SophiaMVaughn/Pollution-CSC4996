@@ -21,14 +21,9 @@ errorLog = open("errorLog.txt","r+")
 errorLog.truncate(0)
 errorLog.close()
 
-# delete text file holding article bodies after scrape
-articleBodies = open("articleBodies.txt","r+")
-articleBodies.truncate(0)
-articleBodies.close()
-
 # delete text file holding crawled websites
 crawlLog = open("crawlLog.txt","r+")
-crawlLog.truncate(0)
+crawlLog.truncate(0)g
 crawlLog.close()
 
 # delete text file holding article urls scraped
@@ -84,6 +79,9 @@ for article in scraper.getScrapedArticles():
     else:
         print(bcolors.FAIL + "[-] (" + str(count) + "/" + str(len(scraper.getScrapedArticles()))
               + ") " + article['title'] + bcolors.ENDC)
+
+# deallocated memory taken up by the list of dictionaries for scraped article
+scraper.delScrapedArticlesList()
 
 print(bcolors.OKGREEN + "\n[+] " + str(confirmedEventCount) + " event articles found" + bcolors.ENDC)
 
