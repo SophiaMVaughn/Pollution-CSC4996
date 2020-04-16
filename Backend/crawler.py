@@ -146,7 +146,8 @@ class Crawler:
     def crawlRecentArticles(self):
 
         # build the newspaper website
-        # memoize_articles=False argument to not use caching
+        # memoize_articles=False argument to not use caching.  If set to True (default) then if you run
+        # the program twice, the second run will not retrieve articles already retrieved by the first run
         links = newspaper.build(self.baseUrl)
 
         # append article to articleLinks
