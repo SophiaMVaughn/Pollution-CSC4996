@@ -15,7 +15,7 @@ The motive for developing this tool was to create a resource for residents, poli
 
 ## Tech and approaches used
 
-spaCy, regular expressions, POS tagging, [BERT-NER](https://github.com/kamalkraj/BERT-NER), [newspaper](https://github.com/codelucas/newspaper), Bootstrap, CSS, Flask, Google Maps API, HTML
+spaCy, regular expressions, POS tagging, [BERT-NER](https://github.com/kamalkraj/BERT-NER), [newspaper](https://github.com/codelucas/newspaper), [Beautiful Soup](https://www.crummy.com/software/BeautifulSoup/bs4/doc/), Bootstrap, CSS, Flask, Google Maps API, HTML
 
 
 
@@ -49,7 +49,6 @@ Move **out_base** folder to the git repository directory (the same level as main
 ```bash
 pip install mongoengine
 pip3 install newspaper3k
-pip install selenium
 pip install tqdm
 pip install -U spacy
 python -m spacy download en_core_web_sm
