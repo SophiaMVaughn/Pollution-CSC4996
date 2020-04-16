@@ -44,7 +44,7 @@ def dateInfo(articleBody):
                     day = date.split("-")
                     if(len(day)==3):
                      #Condition to make sure that dashed entity really is a date by checking how many indexes are in the split porition
-                        if len(day[0])<3 and len(day[1]<3) and len(day[2]<5):
+                        if len(day[0])<3 and len(day[1])<3 and len(day[2])<5:
                             dates.append(date)
                 #If an enetity does not have a comma or is just numbers, add to the collection of dates
                 else:
