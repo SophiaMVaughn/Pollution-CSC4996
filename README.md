@@ -47,18 +47,18 @@ Move **out_base** folder to the git repository directory (the same level as main
 
 **Use the following commands to install all of the needed modules for both the front end and back end to run as expected.**
 ```bash
-pip install mongoengine
+pip3 install mongoengine
 pip3 install newspaper3k
-pip install tqdm
-pip install -U spacy
-python -m spacy download en_core_web_sm
-python -m pip install torch==1.4.0+cpu torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
-pip install pytorch_transformers
-pip install flask
-pip install flask_pymongo
-pip install flask_googlemaps
-pip install flask_bootstrap
-pip install googlemaps
+pip3 install tqdm
+pip3 install -U spacy
+python3 -m spacy download en_core_web_sm
+python3 -m pip install torch==1.4.0+cpu torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
+pip3 install pytorch_transformers
+pip3 install flask
+pip3 install flask_pymongo
+pip3 install flask_googlemaps
+pip3 install flask_bootstrap
+pip3 install googlemaps
 ```
 
 
@@ -71,7 +71,7 @@ pip install googlemaps
 ### Running the back end
 
 ```bash
-python main.py
+python3 main.py
 ```
 
 After this finishes running, run the following command to start the front end locally.
@@ -79,7 +79,7 @@ After this finishes running, run the following command to start the front end lo
 ### Running the front end after running the back end
 
 ```bash
-python app.py
+python3 app.py
 ```
 
 Connect to the PEAT site by opening a supported browser (chrome or edge) and navigating to http://127.0.0.1:5000/ while this command is still running in the command line. If the backend successfully found any articles, the map and table pages should reflect that information.
