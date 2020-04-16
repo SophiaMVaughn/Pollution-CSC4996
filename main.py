@@ -23,7 +23,7 @@ errorLog.close()
 
 # delete text file holding crawled websites
 crawlLog = open("crawlLog.txt","r+")
-crawlLog.truncate(0)g
+crawlLog.truncate(0)
 crawlLog.close()
 
 # delete text file holding article urls scraped
