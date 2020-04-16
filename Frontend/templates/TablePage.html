@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <script src="static/vendor/jquery/jquery.min.js"></script>
+    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <title>P.E.A.T.</title>
+
+    <link href="static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/vendor/bootstrap/js/bootstrap.min.js" rel="stylesheet">
+
+</head>
+<link rel="stylesheet" type="text/css" href="/static/table.css">
+<link rel="stylesheet" type="text/css" href="/static/header.css">
+<body>
+
+<nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark">
+  <a class="navbar-brand" href="{{ url_for('front') }}">P.E.A.T.</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('front') }}">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('table') }}">Table View<span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('map') }}">Map View</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('about') }}">About Us</a>
+      </li>
+    </ul>
+    <form class="form-inline" action="{{ url_for('filteredTable') }}">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search for Chemicals" aria-label="Search" name="chemSearch">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+
+  <table style="width: 100%" class="table table-bordered table-striped table-hover table-responsive-lg">
+    <thead class="thead-dark">
+      <tr>
+        <th>Date</th>
+        <th>Chemical</th>
+        <th>Location</th>
+        <th>Official Statement</th>
+        <th>URL</th>
+      </tr>
+    </thead>
+  <tbody>
+    {% for pieces in cookie %}
+        <tr>
+            <td>{{pieces.date}}</a></td>
+            <td>{% for parts in pieces.chemicals %}
+                {{parts}}</br>
+            {% endfor %}
+            </td>
+            <td>{{pieces.location}}</td>
+            <td>{% for parts in pieces.officialStatement %}
+                {{parts}}
+            {% endfor %}
+            </td>
+            <td>{% for parts in pieces.articleLinks %}
+                <a href={{parts}}>Article URL</a>
+            {% endfor %}
+            </td>
+    {%endfor%}
+        </tr>
+  </tbody>
+  </table>
+</body>
+</html>
