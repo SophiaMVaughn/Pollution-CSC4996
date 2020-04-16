@@ -10,12 +10,6 @@ from mongoengine import connect
 from dateutil import parser
 from datetime import date
 
-# This is a test
-
-# delete the Pollution database (for testing only)
-db = connect(db="Pollution")
-db.drop_database("Pollution")
-
 # delete content in error log
 errorLog = open("errorLog.txt","r+")
 errorLog.truncate(0)
