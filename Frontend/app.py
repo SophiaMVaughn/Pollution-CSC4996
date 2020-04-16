@@ -290,4 +290,4 @@ def filteredMap():
     return render_template('MapPage.html', polMap = polMap)
 #this will run the app
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")
