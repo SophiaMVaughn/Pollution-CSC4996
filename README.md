@@ -52,7 +52,7 @@ pip3 install newspaper3k
 pip3 install tqdm
 pip3 install -U spacy
 python3 -m spacy download en_core_web_sm
-python3 -m pip install torch==1.4.0+cpu torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
+python3 -m pip3 install torch==1.4.0+cpu torchvision==0.5.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
 pip3 install pytorch_transformers
 pip3 install flask
 pip3 install flask_pymongo
