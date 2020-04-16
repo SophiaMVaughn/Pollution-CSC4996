@@ -35,7 +35,7 @@ def locationsInfo(articleBody):
                 break
             school = schools.findall(sent)
             for School in school:
-                local.append(School+' School')
+                local.append(School+' Schools')
                 break
             highway = highways.findall(sent)
             for Highway in highway:
