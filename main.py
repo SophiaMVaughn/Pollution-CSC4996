@@ -185,6 +185,7 @@ for article in confirmedEventArticles:
     weeklyRunLogs.write("Article Links: " + str(articleLinks) + "\n")
 
 # close weekly log file
+weeklyRunLogs.write("\nRun complete\n")
 weeklyRunLogs.close()
 
 
