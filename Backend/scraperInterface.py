@@ -14,7 +14,7 @@ from datetime import datetime
 class ScraperInterface:
 
     # Constructor for the ScraperInterface class
-    def __init__(self, keywords, searchPageLimit=2, websitesJsonFile="websites.json"):
+    def __init__(self, keywords, searchPageLimit=2, websitesJsonFile="websites.json", isInitialCrawl=False):
 
         # iinitialize class attributes
         self.keywords = keywords
@@ -24,6 +24,7 @@ class ScraperInterface:
         self.articleCount = 0
         self.websitesJsonFile = websitesJsonFile
         self.searchPageLimit = searchPageLimit
+        self.isInitialCrawl = isInitialCrawl
 
         self.pullWebsites()
         self.crawl()
@@ -43,7 +44,8 @@ class ScraperInterface:
                 # instantiate Crawler object
                 crawler = Crawler(url=website, keywords=self.keywords,
                                   searchPageLimit=self.searchPageLimit,
-                                  websitesJsonFile=self.websitesJsonFile)
+                                  websitesJsonFile=self.websitesJsonFile,
+                                  isInitialCrawl=self.isInitialCrawl)
 
                 # increment counter holding the number of articles retrieved
                 self.articleCount = self.articleCount + crawler.getArticleCount()

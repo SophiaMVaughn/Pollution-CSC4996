@@ -13,7 +13,8 @@ from exceptions import WebsiteFailedToInitialize, NextPageException
 class Crawler:
 
     # Constructor for the Crawler class
-    def __init__(self, url, keywords=None, searchPageLimit=2, websitesJsonFile="websites.json"):
+    def __init__(self, url, keywords=None, searchPageLimit=2, websitesJsonFile="websites.json",
+                 isInitialCrawl=False):
 
         # iinitialize class attributes
         self.baseUrl = url
@@ -22,6 +23,7 @@ class Crawler:
         self.articleCount = 0
         self.searchPageLimit = searchPageLimit
         self.websitesJsonFile = websitesJsonFile
+        self.isInitialCrawl = isInitialCrawl
 
         # instantiate a Website object to interact with the website to be crawled
         try:
@@ -65,9 +67,12 @@ class Crawler:
     # but for the weekly crawls, comment out the crawlViaSearchKeys method so that only recent articles are
     # retrieved
     def crawl(self):
-        # search page crawling is not supported for selenium based websites
-        if self.nextPageType == 1 or self.nextPageType == 2:
-            self.crawlViaSearchKeys()
+        # only utilize search page crawling in conjunction with recent article crawling if it is the
+        # initial run of the program so that older articles are retrieved
+        if self.isInitialCrawl:
+            # search page crawling is not supported for selenium based websites
+            if self.nextPageType == 1 or self.nextPageType == 2:
+                self.crawlViaSearchKeys()
 
         self.crawlRecentArticles()
 
