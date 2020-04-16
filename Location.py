@@ -27,15 +27,15 @@ def locationsInfo(articleBody):
         for sent in temp:
             lake = lakes.findall(sent)
             for Lake in lake:
-                local.append('Lake '+Lake)
+                local.append(Lake)
                 break
             river = rivers.findall(sent)
             for River in river:
-                local.append(River+' River')
+                local.append(River)
                 break
             school = schools.findall(sent)
             for School in school:
-                local.append(School+' Schools')
+                local.append(School)
                 break
             highway = highways.findall(sent)
             for Highway in highway:
